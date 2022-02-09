@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#A#",
+    "AAA",
+    "#A#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stone"
+    },
+    "A": {
+      "item": "tutorialmod:amethyst"
+    }
+  },
+  "result": {
+    "item": "tutorialmod:amethyst_ore"
+  }
+}
