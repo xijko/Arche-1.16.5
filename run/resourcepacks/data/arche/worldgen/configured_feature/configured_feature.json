@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "decorator": {
+      "type": "minecraft:count_extra",
+      "config": {
+        "count": 2,
+        "extra_count": 3,
+        "extra_chance": 0.8
+      }
+    },
+    "feature": {
+      "type": "minecraft:decorated",
+      "config": {
+        "decorator": {
+          "type": "minecraft:decorated",
+          "config": {
+            "outer": {
+              "type": "minecraft:square",
+              "config": {}
+            },
+            "inner": {
+              "type": "minecraft:heightmap_world_surface",
+              "config": {}
+            }
+          }
+        },
+        "feature": {
+          "type": "minecraft:random_selector",
+          "config": {
+            "features": [],
+            "default": {
+              "type": "minecraft:random_patch",
+              "config": {
+                "can_replace": false,
+                "project": true,
+                "need_water": false,
+                "xspread": 4,
+                "yspread": 3,
+                "zspread": 4,
+                "tries": 12,
+                "state_provider": {
+                  "type": "minecraft:weighted_state_provider",
+                  "entries": [
+                    {
+                      "weight": 1,
+                      "data": {
+                        "Name": "tutorialmod:poop_deposit"
+                      }
+                    }
+                  ]
+                },
+                "block_placer": {
+                  "type": "minecraft:simple_block_placer"
+                },
+                "whitelist": [
+                  {
+                    "Name": "minecraft:dirt"
+                  },
+                  {
+                    "Name": "minecraft:grass_block"
+                  }
+                ],
+                "blacklist": []
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
