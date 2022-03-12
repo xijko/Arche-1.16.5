@@ -1,0 +1,13 @@
+{
+  "itemGroup.archeTab": "Arche",
+  "item.arche.amethyst": "Amethyst",
+  "item.arche.poop_debris": "Coprolite Debris",
+  "item.arche.dirt_debris": "Dirt Debris",
+
+
+
+  "block.arche.amethyst_ore": "Amethyst Ore",
+  "block.arche.amethyst_block": "Amethyst Block",
+  "block.arche.poop_deposit": "Coprolite Deposit",
+  "block.arche.dirt_deposit": "Earthen Deposit"
+}

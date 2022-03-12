@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "arche:block/poop_deposit"
+    },
+    "facing=south": {
+      "model": "arche:block/poop_deposit", "y": 180
+    },
+    "facing=east": {
+      "model": "arche:block/poop_deposit", "y": 270
+    },
+    "facing=west": {
+      "model": "arche:block/poop_deposit", "y": 90
+    }
+  }
+}
