@@ -32,7 +32,9 @@ public class ModBlocks {
             () -> new Block(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f))
     );
 
-
+    public static final RegistryObject<Block> SIFTING_TABLE = registerBlock("sifting_table",
+            () -> new Block(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).harvestTool(ToolType.AXE).hardnessAndResistance(2f))
+    );
 
     public static final RegistryObject<OreBlock> POOP_DEPOSIT = BLOCKS.register("poop_deposit",PoopDeposit::new);
 
