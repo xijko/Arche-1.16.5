@@ -29,9 +29,12 @@ public class ModItems {
     public static final RegistryObject<Item> POOP_DEPOSIT_ITEM = ITEMS.register("poop_deposit",
             () -> new BlockItem(POOP_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 
-
+    public static final RegistryObject<Item> DIRT_SIEVE = ITEMS.register("dirt_sieve",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
             () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1)); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
+    public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
     public static final RegistryObject<Item> DIRT_DEPOSIT_ITEM = ITEMS.register("dirt_deposit",
             () -> new BlockItem(DIRT_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 

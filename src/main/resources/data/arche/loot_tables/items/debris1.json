@@ -6,7 +6,34 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "arche:amethyst_block"
+          "weight": 80,
+          "name": "minecraft:dirt",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "name": "minecraft:dirt"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "name": "arche:dirt_shard"
+        },
+        {
+          "type": "minecraft:tag",
+          "weight": 10,
+          "name": "minecraft:buttons"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "name": "minecraft:bone"
         }
       ]
     }

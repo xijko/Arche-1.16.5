@@ -1,26 +1,20 @@
 package net.xijko.arche.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.MinecraftGame;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.*;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.items.ItemStackHandler;
-import net.xijko.arche.Arche;
+import net.xijko.arche.util.ArcheTags;
 
-import java.lang.reflect.Parameter;
+import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Objects;
 
 public class ArcheDebris extends Item {
 
@@ -36,12 +30,23 @@ public class ArcheDebris extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        
 
-        //if (playerIn.getHeldItemOffhand().getTag() != null && playerIn.getHeldItemOffhand().getTag().contains("arche_sieves")){
+        if (playerIn.getHeldItemOffhand().getTag() != null && playerIn.getHeldItemOffhand().getItem().isIn(ArcheTags.Items.ARCHE_SIEVES)){
                 playerIn.getHeldItem(handIn).shrink(1);
-                Minecraft.getInstance().player.sendChatMessage("Valid offhand detected: Debris tier: " + this.archeTier);
-                worldIn.addEntity(new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(),rollDebrisLoot(worldIn, playerIn)));
+                if(playerIn.getHeldItemOffhand().isDamageable()){
+                    playerIn.getHeldItemOffhand().damageItem(1,playerIn,playerEntity -> {
+                        playerEntity.sendBreakAnimation(Hand.OFF_HAND);
+                    });
+                }
+            assert Minecraft.getInstance().player != null;
+
+            List lootOutcome = rollDebrisLoot(worldIn, playerIn);
+            Minecraft.getInstance().player.sendChatMessage("Loot: " + lootOutcome);
+            //worldIn.addEntity(new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(), (ItemStack) lootOutcome.get(0)));
+
+
+
+
 
                 //debug
                 //String resourceName = "arche:items/debris" + String.valueOf(archeTier);
@@ -50,15 +55,17 @@ public class ArcheDebris extends Item {
 
                 return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
 
-            //}else {
+            }else {
 
-                //Minecraft.getInstance().player.sendChatMessage("Invalid offhand detected: Debris tier: " + this.archeTier);
-                //return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-            //}
+                Minecraft.getInstance().player.sendChatMessage("Invalid offhand detected- tag:"+playerIn.getHeldItemOffhand().getTag()+", Debris tier: " + this.archeTier);
+                return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+            }
+
 
 
     }
-    public ItemStack rollDebrisLoot(World worldIn, PlayerEntity playerIn){
+
+    public List<ItemStack> rollDebrisLoot(World worldIn, PlayerEntity playerIn){
         String resourceName = "arche:items/debris" + String.valueOf(archeTier);
         LootTable table = ServerLifecycleHooks.getCurrentServer().getLootTableManager().getLootTableFromLocation(new ResourceLocation(resourceName)); // resolves to /assets/mymod/loot_tables/my_table.json
         LootContext ctx = new LootContext.Builder(ServerLifecycleHooks.getCurrentServer().func_241755_D_())
@@ -84,9 +91,9 @@ public class ArcheDebris extends Item {
                 .withNullableParameter(LootParameters.BLOCK_ENTITY,null)*/
                 .withLuck(playerIn.getLuck())// adjust luck, commonly EntityPlayer.getLuck()
                 .build(LootParameterSets.EMPTY);
-        return table.generate(ctx).get(0);
-
+        return table.generate(ctx);
 
 
     }
+
 }

@@ -2,7 +2,8 @@
   "replace": false,
   "values":
   [
-    "minecraft:anvil"
+    "minecraft:anvil",
+    "arche:dirt_sieve"
   ]
 
 }

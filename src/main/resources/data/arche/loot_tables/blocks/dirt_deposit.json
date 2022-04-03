@@ -14,7 +14,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "tag": "arche.shovels",
+                    "tag": "arche:shovels",
                     "enchantments": [
                       {
                         "enchantment": "minecraft:silk_touch",
