@@ -2,10 +2,14 @@
   "itemGroup.archeTab": "Arche",
   "item.arche.amethyst": "Amethyst",
   "item.arche.poop_debris": "Coprolite Debris",
-  "item.arche.dirt_debris": "Dirt Debris",
+  "item.arche.dirt_debris": "Earthen Debris",
+  "item.arche.dirt_shard": "Stoneware Shard",
   "item.arche.dirt_sieve": "Dirt Sieve",
 
-
+  "item.arche.mattock_head_shard": "Rusty Bit",
+  "item.arche.mattock_head_template": "Rusty Mattock Head",
+  "item.arche.mattock_head_mold_raw": "Unfired Mattock Head Mold",
+  "item.arche.mattock_head_mold": "Mattock Head Mold",
 
   "block.arche.amethyst_ore": "Amethyst Ore",
   "block.arche.amethyst_block": "Amethyst Block",

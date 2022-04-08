@@ -31,28 +31,26 @@ public class ArcheDebris extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-        if (playerIn.getHeldItemOffhand().getTag() != null && playerIn.getHeldItemOffhand().getItem().isIn(ArcheTags.Items.ARCHE_SIEVES)){
+        if (
+                handIn == Hand.MAIN_HAND &&
+                playerIn.getHeldItemOffhand().getTag() != null &&
+                playerIn.getHeldItemOffhand().getItem().isIn(ArcheTags.Items.ARCHE_SIEVES)){
+
                 playerIn.getHeldItem(handIn).shrink(1);
+
                 if(playerIn.getHeldItemOffhand().isDamageable()){
                     playerIn.getHeldItemOffhand().damageItem(1,playerIn,playerEntity -> {
                         playerEntity.sendBreakAnimation(Hand.OFF_HAND);
                     });
                 }
             assert Minecraft.getInstance().player != null;
-
-            List lootOutcome = rollDebrisLoot(worldIn, playerIn);
-            Minecraft.getInstance().player.sendChatMessage("Loot: " + lootOutcome);
-            //worldIn.addEntity(new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(), (ItemStack) lootOutcome.get(0)));
-
-
-
-
-
-                //debug
-                //String resourceName = "arche:items/debris" + String.valueOf(archeTier);
-                //String resourceLocation = String.valueOf(new ResourceLocation(resourceName));
-                //Minecraft.getInstance().player.sendChatMessage(resourceName + " > " + resourceLocation);
-
+            List<ItemStack> lootOutcome = rollDebrisLoot(worldIn, playerIn);
+            //Minecraft.getInstance().player.sendChatMessage("Loot: " + lootOutcome);
+            for(ItemStack itemstack : lootOutcome)
+                {
+                ItemEntity entityitem = new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(),itemstack);
+                worldIn.addEntity(entityitem);
+                }
                 return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
 
             }else {

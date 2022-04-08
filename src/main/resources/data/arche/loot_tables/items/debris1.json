@@ -6,19 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 80,
-          "name": "minecraft:dirt",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 0
-            }
-          ]
+          "weight": 25,
+          "name": "minecraft:dirt"
         },
         {
           "type": "minecraft:item",
-          "weight": 40,
-          "name": "minecraft:dirt"
+          "weight": 60,
+          "name": "arche:dirt_debris"
         },
         {
           "type": "minecraft:item",
@@ -26,14 +20,49 @@
           "name": "arche:dirt_shard"
         },
         {
-          "type": "minecraft:tag",
-          "weight": 10,
-          "name": "minecraft:buttons"
+          "type": "minecraft:item",
+          "weight": 15,
+          "name": "minecraft:coarse_dirt"
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 15,
+          "name": "minecraft:sand"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:beetroot_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:potato"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:brown_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
           "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "arche:mattock_head_shard"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "minecraft:skeleton_skull"
         }
       ]
     }
