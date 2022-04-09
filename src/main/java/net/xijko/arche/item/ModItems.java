@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -47,18 +48,20 @@ public class ModItems {
 
     //dirt tier mats
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
+            () -> new ArcheDebris(new Item.Properties(),1));
     public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_SHARD = ITEMS.register("mattock_head_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     //dirt tier artifacts
     public static final RegistryObject<Item> MATTOCK_HEAD_TEMPLATE = ITEMS.register("mattock_head_template",
-            () -> new MattockHeadTemplate(new Item.Properties()));
+            () -> new MattockHeadTemplate(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD_RAW = ITEMS.register("mattock_head_mold_raw",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD = ITEMS.register("mattock_head_mold",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
+            () -> new MattockHeadMold(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
+    public static final RegistryObject<Item> MATTOCK_IRON = ITEMS.register("mattock_iron",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(new Integer((int) (Items.IRON_SHOVEL.getMaxDamage()*1.5))).addToolType(ToolType.SHOVEL, 2).addToolType(ToolType.PICKAXE, 2)));
 
     /*
     public static final RegistryObject<Item> GRAVELDEBRIS = ITEMS.register("gravel_debris",

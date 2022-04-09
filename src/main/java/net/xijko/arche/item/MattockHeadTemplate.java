@@ -10,6 +10,7 @@ public class MattockHeadTemplate extends Item implements IForgeItem {
     public MattockHeadTemplate(Properties properties) {
         super(properties);
         properties.containerItem(this);
+        properties.group(ModItemGroup.ARCHE_GROUP);
     }
 
     @Override

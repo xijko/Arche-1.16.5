@@ -23,6 +23,7 @@ public class ArcheDebris extends Item {
 
     public ArcheDebris(Properties properties, int archeTier) {
         super(properties);
+        properties.group(ModItemGroup.ARCHE_GROUP);
         this.archeTier = archeTier;
     }
 

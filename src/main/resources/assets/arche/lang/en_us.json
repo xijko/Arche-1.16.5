@@ -1,6 +1,10 @@
 {
   "itemGroup.archeTab": "Arche",
   "item.arche.amethyst": "Amethyst",
+
+  "item.arche.mattock_iron": "Iron Mattock",
+
+
   "item.arche.poop_debris": "Coprolite Debris",
   "item.arche.dirt_debris": "Earthen Debris",
   "item.arche.dirt_shard": "Stoneware Shard",

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "-#-",
+    "-|-",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "arche:mattock_head_mold"
+    },
+    "-": {
+      "tag": "forge:ingots/iron"
+    },
+    "|": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "arche:mattock_iron"
+  }
+}
