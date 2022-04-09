@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "arche:mattock_head_shard"
+    }
+  },
+  "result": {
+    "item": "arche:mattock_head_template"
+  }
+}

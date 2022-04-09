@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ooo",
+    "o#o",
+    "ooo"
+  ],
+  "key": {
+    "#": {
+      "item": "arche:mattock_head_template"
+    },
+    "o": {
+      "item": "minecraft:clay_ball"
+    }
+  },
+  "result": {
+    "item": "arche:mattock_head_mold_raw"
+  }
+}

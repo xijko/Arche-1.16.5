@@ -1,0 +1,21 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arche:dirt_debris"
+    },
+    {
+      "item": "arche:dirt_debris"
+    },
+    {
+      "item": "arche:dirt_debris"
+    },
+    {
+      "item": "arche:dirt_debris"
+    }
+  ],
+  "result": {
+    "item": "minecraft:dirt",
+    "count": 1
+  }
+}
