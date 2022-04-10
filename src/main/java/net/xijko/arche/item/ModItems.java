@@ -2,10 +2,7 @@ package net.xijko.arche.item;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraftforge.common.ToolType;
@@ -61,7 +58,7 @@ public class ModItems {
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD = ITEMS.register("mattock_head_mold",
             () -> new MattockHeadMold(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
     public static final RegistryObject<Item> MATTOCK_IRON = ITEMS.register("mattock_iron",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(new Integer((int) (Items.IRON_SHOVEL.getMaxDamage()*1.5))).addToolType(ToolType.SHOVEL, 2).addToolType(ToolType.PICKAXE, 2)));
+            () -> new MattockIronItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
 
     /*
     public static final RegistryObject<Item> GRAVELDEBRIS = ITEMS.register("gravel_debris",

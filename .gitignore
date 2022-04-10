@@ -1,7 +1,7 @@
 .gradle
 build/
 deps/
-run/*
+run/
 # Ignore Gradle GUI config
 gradle-app.setting
 
