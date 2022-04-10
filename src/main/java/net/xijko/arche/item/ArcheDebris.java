@@ -1,6 +1,7 @@
 package net.xijko.arche.item;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -15,13 +16,14 @@ import net.xijko.arche.util.ArcheTags;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Random;
 
 public class ArcheDebris extends Item {
 
 
     public static int archeTier = 1;
 
-    public ArcheDebris(Properties properties, int archeTier) {
+    public ArcheDebris(int archeTier, Properties properties) {
         super(properties);
         properties.group(ModItemGroup.ARCHE_GROUP);
         this.archeTier = archeTier;
@@ -34,8 +36,8 @@ public class ArcheDebris extends Item {
 
         if (
                 handIn == Hand.MAIN_HAND &&
-                playerIn.getHeldItemOffhand().getTag() != null &&
-                playerIn.getHeldItemOffhand().getItem().isIn(ArcheTags.Items.ARCHE_SIEVES)){
+                playerIn.getHeldItemOffhand().getItem().getClass() == ArcheSieves.class
+                        ){
 
                 playerIn.getHeldItem(handIn).shrink(1);
 
@@ -49,14 +51,19 @@ public class ArcheDebris extends Item {
             //Minecraft.getInstance().player.sendChatMessage("Loot: " + lootOutcome);
             for(ItemStack itemstack : lootOutcome)
                 {
-                ItemEntity entityitem = new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(),itemstack);
-                worldIn.addEntity(entityitem);
+                ItemEntity lootItem = new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(),itemstack);
+                if(random.nextInt(100) * archeTier> 75 ){
+                    int xpGrant = random.nextInt(archeTier)+1;
+                    ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+2,playerIn.getPosZ(),xpGrant);
+                    worldIn.addEntity(xpOrb);
+                }
+                worldIn.addEntity(lootItem);
                 }
                 return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
 
             }else {
 
-                Minecraft.getInstance().player.sendChatMessage("Invalid offhand detected- tag:"+playerIn.getHeldItemOffhand().getTag()+", Debris tier: " + this.archeTier);
+                Minecraft.getInstance().player.sendChatMessage("Invalid offhand detected- tag:"+playerIn.getHeldItemOffhand().getItem().getClass()+", Debris tier: " + this.archeTier);
                 return ActionResult.resultPass(playerIn.getHeldItem(handIn));
             }
 

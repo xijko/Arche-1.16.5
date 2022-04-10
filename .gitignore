@@ -2,6 +2,10 @@
 build/
 deps/
 run/
+.kra
+.log
+.log.gz
+usercache.json
 # Ignore Gradle GUI config
 gradle-app.setting
 

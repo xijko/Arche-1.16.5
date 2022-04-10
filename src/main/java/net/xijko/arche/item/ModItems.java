@@ -37,7 +37,7 @@ public class ModItems {
             () -> new BlockItem(POOP_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 
     public static final RegistryObject<Item> DIRT_SIEVE = ITEMS.register("dirt_sieve",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
+            () -> new ArcheSieves(1,new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 
     //deposit ores
     public static final RegistryObject<Item> DIRT_DEPOSIT_ITEM = ITEMS.register("dirt_deposit",
@@ -45,8 +45,10 @@ public class ModItems {
 
     //dirt tier mats
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
+            () -> new ArcheDebris(1, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_PLATE = ITEMS.register("dirt_plate",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_SHARD = ITEMS.register("mattock_head_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
