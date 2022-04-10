@@ -17,6 +17,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.xijko.arche.item.MattockIronItem;
 
 import java.util.Random;
 import java.util.stream.Stream;
@@ -105,6 +106,7 @@ public class DirtDeposit extends OreBlock {
         super(Properties.create(Material.EARTH)
                 .sound(SoundType.GROUND)
                 .harvestTool(ToolType.SHOVEL)
+                //.harvestTool(MattockIronItem.MATTOCK)
                 .harvestLevel(0)
                 .hardnessAndResistance(1f)
         );

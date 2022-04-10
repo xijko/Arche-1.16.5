@@ -17,7 +17,6 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.item.ModItems;
-import net.xijko.arche.tileentity.ModTileEntities;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +36,7 @@ public class Arche
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
-        ModTileEntities.register(eventBus);
+        //ModTileEntities.register(eventBus);
 
         eventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading

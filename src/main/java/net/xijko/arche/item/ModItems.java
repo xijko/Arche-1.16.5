@@ -45,7 +45,7 @@ public class ModItems {
 
     //dirt tier mats
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
-            () -> new ArcheDebris(new Item.Properties(),1));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
     public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_SHARD = ITEMS.register("mattock_head_shard",

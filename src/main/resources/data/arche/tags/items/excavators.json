@@ -7,7 +7,8 @@
     "minecraft:golden_shovel",
     "minecraft:iron_shovel",
     "minecraft:diamond_shovel",
-    "minecraft:netherite_shovel"
+    "minecraft:netherite_shovel",
+    "arche:mattock_iron"
   ]
 
 }
