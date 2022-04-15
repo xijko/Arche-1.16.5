@@ -1,27 +1,15 @@
 package net.xijko.arche.item;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.IVanishable;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.RegistryObject;
-import net.xijko.arche.Arche;
-import net.xijko.arche.block.ModBlocks;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
-import static net.minecraftforge.common.ForgeHooks.isToolEffective;
-
-public class MattockIronItem extends ToolItem implements IVanishable {
+public class MattockItem extends ToolItem implements IVanishable {
 
     int attackDamageIn;
     float attackSpeedIn = this.attackSpeedIn;
@@ -30,7 +18,7 @@ public class MattockIronItem extends ToolItem implements IVanishable {
     private static final ToolType shovelType = ToolType.SHOVEL;
     private static final ToolType pickType = ToolType.PICKAXE;
 
-    public MattockIronItem(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builderIn) {
+    public MattockItem(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builderIn) {
         super(attackDamageIn, attackSpeedIn, tier, EFFECTIVE_ON, builderIn.addToolType(ToolType.SHOVEL, tier.getHarvestLevel()));
     }
 

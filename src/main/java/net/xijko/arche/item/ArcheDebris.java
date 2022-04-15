@@ -6,6 +6,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import net.minecraft.loot.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -21,25 +22,27 @@ import java.util.Random;
 public class ArcheDebris extends Item {
 
 
-    public static int archeTier = 1;
+    private int archeTier;
 
-    public ArcheDebris(int archeTier, Properties properties) {
-        super(properties);
-        properties.group(ModItemGroup.ARCHE_GROUP);
+    public ArcheDebris(Properties properties, int archeTier) {
+        super(new Properties().group(ModItemGroup.ARCHE_GROUP));
         this.archeTier = archeTier;
     }
 
-
+    public int getArcheTier() {
+        return this.archeTier;
+    }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-
+        Item offHandTool = playerIn.getHeldItemOffhand().getItem();
         if (
                 handIn == Hand.MAIN_HAND &&
-                playerIn.getHeldItemOffhand().getItem().getClass() == ArcheSieves.class
-                        ){
+                offHandTool.getClass() == ArcheSieves.class &&
+                ((ArcheSieves) offHandTool).getArcheTier() >= this.getArcheTier()
+        ){
 
-                playerIn.getHeldItem(handIn).shrink(1);
+            playerIn.getHeldItem(handIn).shrink(1);
 
                 if(playerIn.getHeldItemOffhand().isDamageable()){
                     playerIn.getHeldItemOffhand().damageItem(1,playerIn,playerEntity -> {
@@ -66,7 +69,6 @@ public class ArcheDebris extends Item {
                 Minecraft.getInstance().player.sendChatMessage("Invalid offhand detected- tag:"+playerIn.getHeldItemOffhand().getItem().getClass()+", Debris tier: " + this.archeTier);
                 return ActionResult.resultPass(playerIn.getHeldItem(handIn));
             }
-
 
 
     }

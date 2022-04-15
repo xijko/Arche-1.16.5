@@ -36,6 +36,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DIRT_DEPOSIT = BLOCKS.register("dirt_deposit",DirtDeposit::new);
 
+    public static final RegistryObject<Block> SAND_DEPOSIT = BLOCKS.register("sand_deposit",SandDeposit::new);
+
+    public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
+
+
 
     /*
     public static final RegistryObject<Block> POOP_DEPOSIT = registerBlock("poop_deposit",

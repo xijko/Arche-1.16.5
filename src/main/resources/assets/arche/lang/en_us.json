@@ -19,5 +19,7 @@
   "block.arche.amethyst_ore": "Amethyst Ore",
   "block.arche.amethyst_block": "Amethyst Block",
   "block.arche.poop_deposit": "Coprolite Deposit",
-  "block.arche.dirt_deposit": "Earthen Deposit"
+  "block.arche.dirt_deposit": "Earthen Deposit",
+  "block.arche.sand_deposit": "Sedimentary Deposit",
+  "block.arche.stone_deposit": "Metamorphic Deposit"
 }

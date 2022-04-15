@@ -1,22 +1,13 @@
 package net.xijko.arche.item;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.RecipeItemHelper;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.xijko.arche.Arche;
 
-import static net.xijko.arche.block.ModBlocks.POOP_DEPOSIT;
-import static net.xijko.arche.block.ModBlocks.DIRT_DEPOSIT;
+import static net.xijko.arche.block.ModBlocks.*;
 
 public class ModItems {
 
@@ -32,27 +23,56 @@ public class ModItems {
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 
     public static final RegistryObject<Item> POOP_DEBRIS = ITEMS.register("poop_debris",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> POOP_DEPOSIT_ITEM = ITEMS.register("poop_deposit",
-            () -> new BlockItem(POOP_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
+            () -> new BlockItem(POOP_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
+    //sieves/cleaning tools
     public static final RegistryObject<Item> DIRT_SIEVE = ITEMS.register("dirt_sieve",
-            () -> new ArcheSieves(1,new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
+            () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64),1));
+    public static final RegistryObject<Item> STONE_SIEVE = ITEMS.register("stone_sieve",
+            () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(128),2));
+
 
     //deposit ores
     public static final RegistryObject<Item> DIRT_DEPOSIT_ITEM = ITEMS.register("dirt_deposit",
             () -> new BlockItem(DIRT_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> SAND_DEPOSIT_ITEM = ITEMS.register("sand_deposit",
+            () -> new BlockItem(SAND_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> STONE_DEPOSIT_ITEM = ITEMS.register("stone_deposit",
+            () -> new BlockItem(STONE_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+
+    public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
+    public static final RegistryObject<Item> STONE_DEBRIS = ITEMS.register("stone_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2));
 
     //dirt tier mats
-    public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
-            () -> new ArcheDebris(1, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    //primary
     public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_BONE = ITEMS.register("dirt_bone",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_ROCK = ITEMS.register("dirt_rock",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    //secondary
     public static final RegistryObject<Item> DIRT_PLATE = ITEMS.register("dirt_plate",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    //prog
     public static final RegistryObject<Item> MATTOCK_HEAD_SHARD = ITEMS.register("mattock_head_shard",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
     //dirt tier artifacts
+    //dirt coin
+    public static final RegistryObject<Item> DIRT_COIN_LEFT = ITEMS.register("dirt_coin_left",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_COIN_RIGHT = ITEMS.register("dirt_coin_right",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
     public static final RegistryObject<Item> MATTOCK_HEAD_TEMPLATE = ITEMS.register("mattock_head_template",
             () -> new MattockHeadTemplate(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD_RAW = ITEMS.register("mattock_head_mold_raw",
@@ -60,7 +80,7 @@ public class ModItems {
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD = ITEMS.register("mattock_head_mold",
             () -> new MattockHeadMold(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
     public static final RegistryObject<Item> MATTOCK_IRON = ITEMS.register("mattock_iron",
-            () -> new MattockIronItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+            () -> new MattockItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
 
     /*
     public static final RegistryObject<Item> GRAVELDEBRIS = ITEMS.register("gravel_debris",

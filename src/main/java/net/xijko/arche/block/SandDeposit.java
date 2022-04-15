@@ -16,9 +16,10 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.stream.Stream;
 
-public class DirtDeposit extends OreBlock {
+public class SandDeposit extends OreBlock {
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
 /*
     private static final VoxelShape SHAPE_N = Stream.of(
                     Block.makeCuboidShape(0, 0, 0, 16, 16, 16),
@@ -96,13 +97,14 @@ public class DirtDeposit extends OreBlock {
         builder.add(FACING);
     }
     */
-    public DirtDeposit() {
-        super(Properties.create(Material.EARTH)
-                .sound(SoundType.GROUND)
+
+    public SandDeposit() {
+        super(Properties.create(Material.SAND)
+                .sound(SoundType.SAND)
                 .harvestTool(ToolType.SHOVEL)
                 //.harvestTool(MattockIronItem.MATTOCK)
                 .harvestLevel(0)
-                .hardnessAndResistance(1f)
+                .hardnessAndResistance(0.5f)
         );
     }
 
