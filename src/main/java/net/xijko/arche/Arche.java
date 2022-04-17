@@ -2,6 +2,7 @@ package net.xijko.arche;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -16,10 +17,14 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.inits.ContainerTypeInit;
+import net.xijko.arche.inits.TileEntityInit;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Arche.MOD_ID)
@@ -36,6 +41,13 @@ public class Arche
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
+
+        //Register Tile Entities
+        TileEntityInit.TILE_ENTITY_TYPES.register(eventBus);
+
+        //Register Container Types
+        ContainerTypeInit.CONTAINER_TYPES.register(eventBus);
+
         //ModTileEntities.register(eventBus);
 
         eventBus.addListener(this::setup);
@@ -51,6 +63,7 @@ public class Arche
 
         //Generate ores
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH,ModOreGen::generateOres);
+
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -69,6 +82,7 @@ public class Arche
     {
         // some example code to dispatch IMC to another mod
         InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
     }
 
     private void processIMC(final InterModProcessEvent event)

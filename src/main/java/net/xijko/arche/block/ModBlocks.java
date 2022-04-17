@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
+import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
 
 import java.util.function.Supplier;
 
@@ -31,6 +32,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> AMETHYST_BLOCK = registerBlock("amethyst_block",
             () -> new Block(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f))
     );
+
+    public static final RegistryObject<ExampleStorageBlock> EXAMPLE_STORAGE = BLOCKS.register("storage", ExampleStorageBlock::new);
 
     public static final RegistryObject<Block> POOP_DEPOSIT = BLOCKS.register("poop_deposit",PoopDeposit::new);
 
