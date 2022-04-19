@@ -2,8 +2,11 @@ package net.xijko.arche;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,9 +20,13 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.inits.ContainerTypeInit;
 import net.xijko.arche.inits.TileEntityInit;
 import net.xijko.arche.item.ModItems;
+import net.xijko.arche.item.ToolBeltItem;
+import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
+import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,12 +42,14 @@ public class Arche
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
+
     public Arche() {
         // Register the setup method for modloading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
+
+        ModContainers.register(eventBus);
 
         //Register Tile Entities
         TileEntityInit.TILE_ENTITY_TYPES.register(eventBus);
@@ -72,10 +81,15 @@ public class Arche
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         ModOreGen.registerOres();
+        ModContainers.register(FMLJavaModLoadingContext.get().getModEventBus());
+        //ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(), ToolBeltContainerScreen:: new);
+        //ScreenManager.registerFactory(Arche.containerTypeToolBelt, ToolBeltContainerScreen::new);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
+        ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(),
+                ToolBeltContainerScreen::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -90,12 +104,46 @@ public class Arche
 
     }
 
+    //ADDITIONS
+    public static ToolBeltItem itemToolBelt;  // this holds the unique instance of your block
+    public static ContainerType<ToolBeltContainer> containerTypeToolBelt;
+
+    @SubscribeEvent
+    public static void onItemsRegistration(final RegistryEvent.Register<Item> itemRegisterEvent) {
+        itemToolBelt = new ToolBeltItem();
+        itemToolBelt.setRegistryName("tool_belt");
+        itemRegisterEvent.getRegistry().register(itemToolBelt);
+    }
+/*
+    @SubscribeEvent
+    public static void registerContainers(final RegistryEvent.Register<ContainerType<?>> event) {
+        containerTypeToolBelt = IForgeContainerType.create(ToolBeltContainer::createContainerClientSide);
+        containerTypeToolBelt.setRegistryName("tool_belt_container");
+        event.getRegistry().register(containerTypeToolBelt);
+    }*/
+
+    @SubscribeEvent
+    public static void onClientSetupEvent(FMLClientSetupEvent event) {
+        // we need to attach the fullness PropertyOverride to the Item, but there are two things to be careful of:
+        // 1) We should do this on a client installation only, not on a DedicatedServer installation.  Hence we need to use
+        //    FMLClientSetupEvent.
+        // 2) FMLClientSetupEvent is multithreaded but ItemModelsProperties is not multithread-safe.  So we need to use the enqueueWork method,
+        //    which lets us register a function for synchronous execution in the main thread after the parallel processing is completed
+
+        // register the factory that is used on the client to generate a ContainerScreen corresponding to our Container
+        ScreenManager.registerFactory(Arche.containerTypeToolBelt, ToolBeltContainerScreen::new);
+    }
+
+    //END ADDITIONS
+
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
+
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)

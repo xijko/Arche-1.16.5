@@ -2,6 +2,9 @@
   "itemGroup.archeTab": "Arche",
   "item.arche.amethyst": "Amethyst",
 
+  "item.arche.tool_belt": "Tool Belt",
+  "container.arche.tool_belt":"Tool Belt",
+
   "item.arche.mattock_iron": "Iron Mattock",
 
   "item.arche.dirt_sieve": "Dirt Sieve",

@@ -1,11 +1,19 @@
 package net.xijko.arche.item;
 
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.xijko.arche.Arche;
+import net.xijko.arche.container.ToolBeltStorageContainer;
+import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 
 import static net.xijko.arche.block.ModBlocks.*;
 
@@ -13,6 +21,7 @@ public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Arche.MOD_ID);
+
 
     //ITEMS HERE
     //be sure to add to assets.MODID.lang.en_us.json for item names
@@ -32,6 +41,9 @@ public class ModItems {
             () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(64),1));
     public static final RegistryObject<Item> STONE_SIEVE = ITEMS.register("stone_sieve",
             () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(128),2));
+    public static final RegistryObject<Item> TOOL_BELT = ITEMS.register("tool_belt",
+            ToolBeltItem::new);
+    //public static final ContainerType<ToolBeltContainer> TOOL_BELT_CONTAINER = IForgeContainerType.create(ToolBeltContainer::createContainerClientSide);
 
 
     //deposit ores
