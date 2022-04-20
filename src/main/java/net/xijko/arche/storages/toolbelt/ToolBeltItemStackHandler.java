@@ -2,8 +2,10 @@ package net.xijko.arche.storages.toolbelt;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.xijko.arche.item.ToolBeltItem;
 
 import javax.annotation.Nonnull;
 
@@ -24,10 +26,20 @@ public class ToolBeltItemStackHandler extends ItemStackHandler {
             if (slot < 0 || slot >= MAX_SLOTS) {
                 throw new IllegalArgumentException("Invalid slot number:"+slot);
             }
-            if (stack.isEmpty()) return false;
+            if (stack.isEmpty() || stack.getItem() instanceof ToolBeltItem) return false;
             Item item = stack.getItem();
-            //if (item.isIn(ItemTags.SMALL_FLOWERS) || item.isIn(ItemTags.TALL_FLOWERS)) return true;
-            return false;
+            switch (slot) {
+                case 5:
+                case 4:
+                case 3:
+                case 2:
+                case 1:
+                case 0:
+                    return stack.getItem() instanceof ToolItem;
+                default:
+                            return true;
+            }
+
         }
 
         /**Count how many empty slots are in the bag

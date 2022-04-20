@@ -1,15 +1,12 @@
 package net.xijko.arche.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -23,28 +20,24 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.storages.toolbelt.ToolBeltCapabilityProvider;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
-import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
 import net.xijko.arche.storages.toolbelt.ToolBeltItemStackHandler;
-import org.apache.logging.log4j.LogManager;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.logging.Logger;
 
-import static sun.awt.image.SunWritableRaster.markDirty;
-
-public class ToolBeltItem extends Item {
-
-        private static final int MAXIMUM_NUMBER_OF_FLOWER_BAGS = 1;
+public class ToolBeltItem extends Item implements ICurio {
 
         public ToolBeltItem() {
             super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP) // the item will appear on the Miscellaneous tab in creative
@@ -83,50 +76,6 @@ public class ToolBeltItem extends Item {
          * @param ctx
          * @return
          */
-
-        /*@Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos,
-                                             PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if(!worldIn.isRemote()) {
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-            if(!player.isCrouching()) {
-                if(tileEntity instanceof LightningChannelerTile) {
-                    INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
-
-                    NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
-                } else {
-                    throw new IllegalStateException("Our Container provider is missing!");
-                }
-            } else {
-                if(tileEntity instanceof LightningChannelerTile) {
-                    if(worldIn.isThundering()) {
-                        EntityType.LIGHTNING_BOLT.spawn(((ServerWorld) worldIn), null, player,
-                                pos, SpawnReason.TRIGGERED, true, true);
-
-                        ((LightningChannelerTile)tileEntity).lightningHasStruck();
-                    }
-                }
-            }
-        }
-        return ActionResultType.SUCCESS;
-    }
-
-    private INamedContainerProvider createContainerProvider(World worldIn, BlockPos pos) {
-        return new INamedContainerProvider() {
-            @Override
-            public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("screen.tutorialmod.lightning_channeler");
-            }
-
-            @Nullable
-            @Override
-            public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-                return new LightningChannelerContainer(i, worldIn, pos, playerInventory, playerEntity);
-            }
-        };
-    }
-*/
 
         @Nonnull
         @Override
@@ -229,23 +178,10 @@ public class ToolBeltItem extends Item {
             return new ToolBeltCapabilityProvider();
         }
 
-        /*
-         * Retrieves the ItemStackHandlerFlowerBag for this itemStack (retrieved from the Capability)
-         * @param itemStack
-         * @return
-         */
-
-        private ItemStackHandler createHandler() {
+        /*private ItemStackHandler createHandler() {
             return new ItemStackHandler(2) {
                 @Override
                 public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                    /*switch (slot) {
-                        case 0: return stack.getItem() == Items.GLASS_PANE;
-                        case 1: return stack.getItem() == ModItems.AMETHYST.get() ||
-                                stack.getItem() == ModItems.FIRESTONE.get();
-                        default:
-                            return true;
-                    }*/
                     return true;
                 }
 
@@ -264,7 +200,7 @@ public class ToolBeltItem extends Item {
                     return super.insertItem(slot, stack, simulate);
                 }
             };
-        }
+        }*/
         private static ToolBeltItemStackHandler getItemStackHandlerToolBelt(ItemStack itemStack) {
             IItemHandler toolBelt = itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
             if (toolBelt == null || !(toolBelt instanceof ToolBeltItemStackHandler)) {
@@ -325,8 +261,17 @@ public class ToolBeltItem extends Item {
             ToolBeltItemStackHandler itemStackHandlerFlowerBag = getItemStackHandlerToolBelt(stack);
             itemStackHandlerFlowerBag.deserializeNBT(capabilityTag);
         }
-
-        // ------------ code used for changing the appearance of the bag based on the number of flowers in it
-
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack) {
+        ICurio.super.onEquip(slotContext, prevStack);
+        Minecraft.getInstance().player.sendChatMessage("Equipped!");
     }
+
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack) {
+        ICurio.super.onUnequip(slotContext, newStack);
+        Minecraft.getInstance().player.sendChatMessage("Unequipped!");
+    }
+
+}
 

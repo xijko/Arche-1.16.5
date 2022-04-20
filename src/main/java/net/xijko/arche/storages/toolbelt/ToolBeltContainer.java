@@ -17,10 +17,12 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.xijko.arche.Arche;
 import net.xijko.arche.container.ModContainers;
+import net.xijko.arche.item.ToolBeltItem;
 import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.tools.Tool;
 
 
 public class ToolBeltContainer extends Container{
@@ -148,19 +150,19 @@ public class ToolBeltContainer extends Container{
             int bagRow = bagSlot / BAG_SLOTS_PER_ROW;
             int bagCol = bagSlot % BAG_SLOTS_PER_ROW;
             int toolxpos = BAG_INVENTORY_XPOS;
-            int toolypos = BAG_INVENTORY_YPOS + SLOT_Y_SPACING; //starts in middle row
+            int toolypos = BAG_INVENTORY_YPOS; //starts in middle row
             int pouchxpos = BAG_INVENTORY_XPOS + MAIN_TOOL_SLOTS*SLOT_X_SPACING;
             int pouchypos = BAG_INVENTORY_YPOS;
             int xpos=0;
             int ypos=toolypos;
             //add slots for tools
             if(bagSlot<MAIN_TOOL_SLOTS){
-                xpos = toolxpos + SLOT_X_SPACING * bagCol;
+                xpos = toolxpos +1 + SLOT_X_SPACING * bagCol;
                 addSlot(new SlotItemHandler(itemStackHandlerToolBelt, slotNumber, xpos, ypos));
                 //ypos is unchanged
             }else{
-                pouchxpos -= bagSlot%2 * SLOT_X_SPACING;
-                pouchypos -= bagSlot%3  * SLOT_Y_SPACING + SLOT_Y_SPACING;
+                pouchxpos += bagSlot%2 * SLOT_X_SPACING + SLOT_X_SPACING;
+                pouchypos += bagSlot%3  * SLOT_Y_SPACING - SLOT_Y_SPACING;
                 addSlot(new SlotItemHandler(itemStackHandlerToolBelt, slotNumber, pouchxpos, pouchypos));
             }
         }
@@ -252,7 +254,7 @@ public class ToolBeltContainer extends Container{
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         Slot sourceSlot = inventorySlots.get(index);
-        if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        if (sourceSlot == null || !sourceSlot.getHasStack() || sourceSlot.getStack().getItem() instanceof ToolBeltItem) return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getStack();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
