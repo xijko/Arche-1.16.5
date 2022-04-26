@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.16.5-0.0.1'
+version = '1.16.5-0.0.2'
 group = 'net.xijko.arche' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'arche'
 
@@ -170,5 +170,17 @@ publishing {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
+
     }
+}
+
+repositories {
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+}
+
+dependencies {
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2:api")
 }

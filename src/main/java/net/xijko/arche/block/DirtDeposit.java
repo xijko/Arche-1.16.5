@@ -2,11 +2,8 @@ package net.xijko.arche.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-import net.minecraft.item.ShovelItem;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -16,16 +13,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.xijko.arche.item.MattockIronItem;
 
-import java.util.Random;
 import java.util.stream.Stream;
 
 public class DirtDeposit extends OreBlock {
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-
+/*
     private static final VoxelShape SHAPE_N = Stream.of(
                     Block.makeCuboidShape(0, 0, 0, 16, 16, 16),
                     Block.makeCuboidShape(11, 12, 8, 12, 16, 12),
@@ -57,17 +51,17 @@ public class DirtDeposit extends OreBlock {
             Block.makeCuboidShape(4, 0, 7, 5, 1, 8), Block.makeCuboidShape(9, 0, 3, 12, 3, 6), Block.makeCuboidShape(6, 0, 9, 8, 2, 11), Block.makeCuboidShape(6, 0, 5, 8, 2, 7), Block.makeCuboidShape(11, 0, 7, 14, 2, 10), Block.makeCuboidShape(5, 0, 9, 7, 1, 12), Block.makeCuboidShape(12, 2, 8, 13, 3, 9)
     ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
 
-    /*
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING,context.getPlacementHorizontalFacing().getOpposite());
     }
-    */
+
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (state.get(FACING)){
-            /*
+
             case NORTH:
                 return SHAPE_N;
             case EAST:
@@ -76,7 +70,7 @@ public class DirtDeposit extends OreBlock {
                 return SHAPE_S;
             case WEST:
                 return SHAPE_W;
-             */
+
             default:
                 return SHAPE_N;
         }
@@ -101,7 +95,7 @@ public class DirtDeposit extends OreBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
-
+    */
     public DirtDeposit() {
         super(Properties.create(Material.EARTH)
                 .sound(SoundType.GROUND)

@@ -101,7 +101,27 @@ public class ModOreGen {
                     25,
                     5,
                     200,
-                    80);
+                    20);
+
+        generateOre(overworldOres,
+                "sand_deposit",
+                event.getGeneration(),
+                new BlockMatchRuleTest(Blocks.SAND),
+                ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
+                25,
+                5,
+                200,
+                20);
+
+        generateOre(overworldOres,
+                "stone_deposit",
+                event.getGeneration(),
+                new BlockMatchRuleTest(Blocks.STONE),
+                ModBlocks.STONE_DEPOSIT.get().getDefaultState(),
+                25,
+                20,
+                60,
+                30);
         //}
     }
 

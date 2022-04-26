@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
+import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
 
 import java.util.function.Supplier;
 
@@ -32,9 +33,16 @@ public class ModBlocks {
             () -> new Block(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f))
     );
 
+    public static final RegistryObject<ExampleStorageBlock> EXAMPLE_STORAGE = BLOCKS.register("storage", ExampleStorageBlock::new);
+
     public static final RegistryObject<Block> POOP_DEPOSIT = BLOCKS.register("poop_deposit",PoopDeposit::new);
 
     public static final RegistryObject<Block> DIRT_DEPOSIT = BLOCKS.register("dirt_deposit",DirtDeposit::new);
+
+    public static final RegistryObject<Block> SAND_DEPOSIT = BLOCKS.register("sand_deposit",SandDeposit::new);
+
+    public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
+
 
 
     /*
