@@ -1,5 +1,6 @@
 package net.xijko.arche.storages.toolbelt;
 
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -7,12 +8,15 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ToolBeltCapabilityProvider implements ICapabilitySerializable<INBT> {
 
+    private static final Logger LOGGER = LogManager.getLogger();
         private final Direction NO_SPECIFIC_SIDE = null;
 
         /**
@@ -75,7 +79,6 @@ public class ToolBeltCapabilityProvider implements ICapabilitySerializable<INBT>
 
         private ToolBeltItemStackHandler itemStackHandlerToolBelt;  // initially null until our first call to getCachedInventory
 
-        //  a supplier: when called, returns the result of getCachedInventory()
         private final LazyOptional<IItemHandler> lazyInitialisionSupplier = LazyOptional.of(this::getCachedInventory);
     }
 

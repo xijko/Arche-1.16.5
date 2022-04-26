@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -19,13 +20,18 @@ import net.xijko.arche.Arche;
 import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.item.ToolBeltItem;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.tools.Tool;
+import java.util.List;
 
 
 public class ToolBeltContainer extends Container{
+    private static final Logger LOGGER = LogManager.getLogger();
 
 
     private static IItemHandler playerInventory;
@@ -52,7 +58,6 @@ public class ToolBeltContainer extends Container{
      */
 
     public ToolBeltContainer createContainerClientSide(int windowID, PlayerInventory playerInventory, net.minecraft.network.PacketBuffer extraData) {
-        // for this example we use extraData for the server to tell the client how many slots for flower itemstacks the flower bag contains.
         int numberOfSlots = extraData.readInt();
 
         try {
@@ -103,13 +108,15 @@ public class ToolBeltContainer extends Container{
         this.itemStackHandlerToolBelt = itemStackToolBelt;
         this.itemStackBeingHeld = itemStackBeingHeld;
         this.playerInventory = new InvWrapper(playerInv);
+        LOGGER.warn(this.playerInventory);
+        /*
         if(this.itemStackBeingHeld != null) {
             this.itemStackBeingHeld.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //addSlot(new SlotItemHandler(h, 0, 80, 31));
                 //addSlot(new SlotItemHandler(h, 1, 80, 53));
             });
         }
-
+        */
 
         final int SLOT_X_SPACING = 18;
         final int SLOT_Y_SPACING = 18;
@@ -177,53 +184,23 @@ public class ToolBeltContainer extends Container{
 
         ItemStack main = player.getHeldItemMainhand();
         ItemStack off = player.getHeldItemOffhand();
-        return (!main.isEmpty() && main == itemStackBeingHeld) ||
-                (!off.isEmpty() && off == itemStackBeingHeld);
+        if(!main.isEmpty() && main == itemStackBeingHeld){
+            return true;
+        }
+        if(!off.isEmpty() && off == itemStackBeingHeld){
+            return true;
+        }
+        List<SlotResult> beltCurios = CuriosApi.getCuriosHelper().findCurios(player, "belt");
+        for (SlotResult slot : beltCurios) {
+            ItemStack slotStack = slot.getStack();
+            Item slotItem = slotStack.getItem();
+            if (slotItem instanceof ToolBeltItem && !player.world.isRemote) {
+                return true;
+            }
+        };
+        return false;
     }
 
-    // This is where you specify what happens when a player shift clicks a slot in the gui
-    //  (when you shift click a slot in the Bag Inventory, it moves it to the first available position in the hotbar and/or
-    //    player inventory.  When you you shift-click a hotbar or player inventory item, it moves it to the first available
-    //    position in the Bag inventory)
-    // At the very least you must override this and return ItemStack.EMPTY or the game will crash when the player shift clicks a slot
-    // returns ItemStack.EMPTY if the source slot is empty, or if none of the the source slot item could be moved
-    //   otherwise, returns a copy of the source stack
-    /*
-    @Nonnull
-    @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int sourceSlotIndex) {
-        Slot sourceSlot = inventorySlots.get(sourceSlotIndex);
-        if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getStack();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-        final int BAG_SLOT_COUNT = itemStackHandlerToolBelt.getSlots();
-
-        // Check if the slot clicked is one of the vanilla container slots
-        if (sourceSlotIndex >= VANILLA_FIRST_SLOT_INDEX && sourceSlotIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the bag inventory
-            if (!mergeItemStack(sourceStack, BAG_INVENTORY_FIRST_SLOT_INDEX, BAG_INVENTORY_FIRST_SLOT_INDEX + BAG_SLOT_COUNT, false)){
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (sourceSlotIndex >= BAG_INVENTORY_FIRST_SLOT_INDEX && sourceSlotIndex < BAG_INVENTORY_FIRST_SLOT_INDEX + BAG_SLOT_COUNT) {
-            // This is a bag slot so merge the stack into the players inventory
-            if (!mergeItemStack(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else {
-            return ItemStack.EMPTY;
-        }
-
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.putStack(ItemStack.EMPTY);
-        } else {
-            sourceSlot.onSlotChanged();
-        }
-
-        sourceSlot.onTake(player, sourceStack);
-        return copyOfSourceStack;
-    }
-*/
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));

@@ -31,6 +31,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.xijko.arche.storages.toolbelt.ToolBeltCapabilityProvider;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltItemStackHandler;
+import net.xijko.arche.util.ModKeybinds;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
@@ -44,26 +45,51 @@ public class ToolBeltItem extends Item implements ICurio {
             );
         }
 
-        /**
-         * When the player right clicks while holding the bag, open the inventory screen
-         * @param world
-         * @param player
-         * @param hand
-         * @return the new itemstack
-         */
+    public static ToolBeltItemStackHandler getStackHandler(ItemStack toolBeltStack){
+        Item toolBeltItem = toolBeltStack.getItem();
+        if (!(toolBeltItem.getItem() instanceof ToolBeltItem)) throw new AssertionError("Unexpected ToolBeltItem type");
+        ToolBeltItem itemToolBelt = (ToolBeltItem)toolBeltStack.getItem();
+
+        return getItemStackHandlerToolBelt(toolBeltStack);
+    }
+
+    public void remoteOpenToolBeltGui(PlayerEntity player,ItemStack stack){
+        INamedContainerProvider containerProviderToolBelt = new ContainerProviderToolBelt(this, stack);
+            NetworkHooks.openGui((ServerPlayerEntity) player,
+                    containerProviderToolBelt,
+                    (packetBuffer) -> {
+                        packetBuffer.writeInt(12);
+                    });
+            Minecraft.getInstance().player.sendChatMessage("ToolBeltGui Opened");
+    }
+
+        public void openToolBeltGui(PlayerEntity player,ItemStack stack){
+                INamedContainerProvider containerProviderToolBelt = new ContainerProviderToolBelt(this, stack);
+                if(!player.world.isRemote()) {
+                    NetworkHooks.openGui((ServerPlayerEntity) player,
+                            containerProviderToolBelt,
+                            (packetBuffer) -> {
+                                packetBuffer.writeInt(12);
+                            });
+                    Minecraft.getInstance().player.sendChatMessage("ToolBeltGui Opened");
+                }
+        }
+
+    public ActionResult<ItemStack> onRemoteOpen(World world, PlayerEntity player, ItemStack stack) {
+        if (!world.isRemote) {  // server only!
+            openToolBeltGui(player,stack);
+            final int NUMBER_OF_SLOTS = 12;
+        }
+        return ActionResult.resultSuccess(stack);
+    }
+
         @Nonnull
         @Override
         public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
             ItemStack stack = player.getHeldItem(hand);
             if (!world.isRemote) {  // server only!
-                INamedContainerProvider containerProviderToolBelt = new ContainerProviderToolBelt(this, stack);
+                openToolBeltGui(player,stack);
                 final int NUMBER_OF_SLOTS = 12;
-                Minecraft.getInstance().player.sendChatMessage("Item has display name of: "+containerProviderToolBelt.getDisplayName());
-                NetworkHooks.openGui((ServerPlayerEntity) player,
-                        containerProviderToolBelt,
-                        (packetBuffer)->{packetBuffer.writeInt(12);});
-
-                // We use the packetBuffer to send the bag size; not necessary since it's always 16, but just for illustration purposes
             }
             return ActionResult.resultSuccess(stack);
         }
@@ -129,6 +155,7 @@ public class ToolBeltItem extends Item implements ICurio {
 
             return ActionResultType.SUCCESS;
         }
+
 
         // ------  Code used to generate a suitable Container for the contents of the FlowerBag
 

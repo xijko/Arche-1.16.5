@@ -25,8 +25,12 @@ import net.xijko.arche.inits.ContainerTypeInit;
 import net.xijko.arche.inits.TileEntityInit;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.item.ToolBeltItem;
+import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
+import net.xijko.arche.util.ClientForgeEvents;
+import net.xijko.arche.util.ModKeybinds;
+import net.xijko.arche.util.ModSoundEvents;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,7 +52,6 @@ public class Arche
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
-
         ModContainers.register(eventBus);
 
         //Register Tile Entities
@@ -82,6 +85,7 @@ public class Arche
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         ModOreGen.registerOres();
         ModContainers.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModNetwork.packetRegister();
         //ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(), ToolBeltContainerScreen:: new);
         //ScreenManager.registerFactory(Arche.containerTypeToolBelt, ToolBeltContainerScreen::new);
     }
@@ -90,6 +94,7 @@ public class Arche
         // do something that can only be done on the client
         ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(),
                 ToolBeltContainerScreen::new);
+        ModKeybinds.register();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
