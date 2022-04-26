@@ -30,7 +30,6 @@ import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
 import net.xijko.arche.util.ClientForgeEvents;
 import net.xijko.arche.util.ModKeybinds;
-import net.xijko.arche.util.ModSoundEvents;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
