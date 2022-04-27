@@ -299,6 +299,6 @@ public class ToolBeltItem extends Item implements ICurio {
         ICurio.super.onUnequip(slotContext, newStack);
         Minecraft.getInstance().player.sendChatMessage("Unequipped!");
     }
-
+//look at https://forums.minecraftforge.net/topic/88077-1161-custom-armor-model-textures-not-working-properly/
 }
 
