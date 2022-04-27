@@ -27,7 +27,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> AMETHYST_ORE = registerBlock("amethyst_ore",
             () -> new Block(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f))
-            );
+    );
 
     public static final RegistryObject<Block> AMETHYST_BLOCK = registerBlock("amethyst_block",
             () -> new Block(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f))
@@ -43,6 +43,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
 
+    public static final RegistryObject<Block> CLEANING_TABLE = registerBlock("cleaning_table",
+            () -> new CleaningTableBlock(AbstractBlock.Properties.create(Material.WOOD))
+    );
 
 
     /*

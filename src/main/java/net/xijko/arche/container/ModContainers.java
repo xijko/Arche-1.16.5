@@ -6,6 +6,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,6 +35,13 @@ public class ModContainers {
             = CONTAINERS.register("tool_belt_container",
             () -> IForgeContainerType.create(((windowId, inv, data) -> {
                 return new ToolBeltContainer(windowId, inv, new ToolBeltItemStackHandler(12),null);
+            })));
+    public static final RegistryObject<ContainerType<CleaningTableContainer>> CLEANING_TABLE_CONTAINER
+            = CONTAINERS.register("cleaning_table_container",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                World world = inv.player.getEntityWorld();
+                return new CleaningTableContainer(windowId, world, pos, inv, inv.player);
             })));
 
 
