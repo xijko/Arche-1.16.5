@@ -30,6 +30,14 @@ public class ModNetwork {
                 ToolBeltOpenMessage::decode,
                 ToolBeltOpenMessage::handle
         );
+
+        INSTANCE.registerMessage(
+                index++,
+                CleaningTableRestoreMessage.class,
+                CleaningTableRestoreMessage::encode,
+                CleaningTableRestoreMessage::decode,
+                CleaningTableRestoreMessage::handle
+        );
     }
 
     public static void sendToServer(Object message) {

@@ -14,7 +14,7 @@ public class ModTileEntities {
             DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Arche.MOD_ID);
 
     public static RegistryObject<TileEntityType<CleaningTableTile>> CLEANING_TABLE_TILE =
-            TILE_ENTITIES.register("lightning_channeler_tile", () -> TileEntityType.Builder.create(
+            TILE_ENTITIES.register("cleaning_table_tile", () -> TileEntityType.Builder.create(
                     CleaningTableTile::new, ModBlocks.CLEANING_TABLE.get()).build(null));
 
     public static void register(IEventBus eventBus) {

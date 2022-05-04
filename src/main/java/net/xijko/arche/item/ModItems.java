@@ -12,6 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.CleaningTableBlock;
 import net.xijko.arche.container.ToolBeltStorageContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 
@@ -43,8 +44,10 @@ public class ModItems {
             () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(128),2));
     public static final RegistryObject<Item> TOOL_BELT = ITEMS.register("tool_belt",
             ToolBeltItem::new);
-    //public static final ContainerType<ToolBeltContainer> TOOL_BELT_CONTAINER = IForgeContainerType.create(ToolBeltContainer::createContainerClientSide);
 
+    /*public static final RegistryObject<Item> CLEANING_TABLE_ITEM = ITEMS.register("cleaning_table",
+            () -> new BlockItem(CleaningTableBlock.get, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
+    //public static final ContainerType<ToolBeltContainer> TOOL_BELT_CONTAINER = IForgeContainerType.create(ToolBeltContainer::createContainerClientSide);
 
     //deposit ores
     public static final RegistryObject<Item> DIRT_DEPOSIT_ITEM = ITEMS.register("dirt_deposit",
@@ -84,6 +87,15 @@ public class ModItems {
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> DIRT_COIN_RIGHT = ITEMS.register("dirt_coin_right",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_COIN = ITEMS.register("dirt_coin",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    public static final RegistryObject<Item> DIRT_COIN_LEFT_DAMAGED = ITEMS.register("dirt_coin_left_damaged",
+            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_LEFT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
+    public static final RegistryObject<Item> DIRT_COIN_RIGHT_DAMAGED = ITEMS.register("dirt_coin_right_damaged",
+            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_RIGHT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
+
+
 
     public static final RegistryObject<Item> MATTOCK_HEAD_TEMPLATE = ITEMS.register("mattock_head_template",
             () -> new MattockHeadTemplate(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));

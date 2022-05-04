@@ -45,15 +45,6 @@ public class CleaningTableBlock extends Block {
                 } else {
                     throw new IllegalStateException("Our Container provider is missing!");
                 }
-            } else {
-                if(tileEntity instanceof CleaningTableTile) {
-                    if(worldIn.isThundering()) {
-                        EntityType.LIGHTNING_BOLT.spawn(((ServerWorld) worldIn), null, player,
-                                pos, SpawnReason.TRIGGERED, true, true);
-
-                        ((CleaningTableTile)tileEntity).lightningHasStruck();
-                    }
-                }
             }
         }
         return ActionResultType.SUCCESS;
@@ -63,7 +54,7 @@ public class CleaningTableBlock extends Block {
         return new INamedContainerProvider() {
             @Override
             public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("screen.tutorialmod.lightning_channeler");
+                return new TranslationTextComponent("screen.arche.cleaning_table");
             }
 
             @Nullable

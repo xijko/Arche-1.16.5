@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arche:dirt_coin_left"
+    },
+    {
+      "item": "arche:dirt_coin_right"
+    }
+  ],
+  "result": {
+    "item": "arche:dirt_coin",
+    "count": 1
+  }
+}
