@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
@@ -12,24 +11,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.xijko.arche.block.ModBlocks;
-import net.xijko.arche.item.ArcheArtifactBroken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CleaningTableContainer extends Container {
+public class RestoreTableContainer extends Container {
     public final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
     private static final Logger LOGGER = LogManager.getLogger();
 
 
-    public CleaningTableContainer(int windowId, World world, BlockPos pos,
-                                  PlayerInventory playerInventory, PlayerEntity player) {
-        super(ModContainers.CLEANING_TABLE_CONTAINER.get(), windowId);
+    public RestoreTableContainer(int windowId, World world, BlockPos pos,
+                                 PlayerInventory playerInventory, PlayerEntity player) {
+        super(ModContainers.RESTORE_TABLE_CONTAINER.get(), windowId);
         this.tileEntity = world.getTileEntity(pos);
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -44,10 +41,10 @@ public class CleaningTableContainer extends Container {
                 addSlot(new SlotItemHandler(h, 3, 8, 63));
 
                 //broken artifact
-                addSlot(new SlotItemHandler(h, 4, 62, 27));
+                addSlot(new SlotItemHandler(h, 4, 80, 27));
 
-                //restored artifact
-                addSlot(new SlotItemHandler(h, 5, 98, 27));
+                //restored artifact - OLD, now ejects at player position
+                //addSlot(new SlotItemHandler(h, 5, 98, 27));
             });
         }
     }
@@ -59,7 +56,7 @@ public class CleaningTableContainer extends Container {
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()),
-                playerIn, ModBlocks.CLEANING_TABLE.get());
+                playerIn, ModBlocks.RESTORE_TABLE.get());
     }
 
 
@@ -105,7 +102,7 @@ public class CleaningTableContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 6;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 5;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {

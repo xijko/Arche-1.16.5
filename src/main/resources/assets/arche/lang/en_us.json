@@ -31,7 +31,9 @@
   "block.arche.sand_deposit": "Sedimentary Deposit",
   "block.arche.stone_deposit": "Metamorphic Deposit",
 
-  "block.arche.cleaning_table":"Cleaning Table",
+  "block.arche.cleaning_table":"Restoring Table",
+  "screen.arche.restore_table": "Restoring Table",
 
-  "tooltip.arche.artifact_hover": "Hold \\u00A7eSHIFT\\u00A7r to see components"
+  "tooltip.arche.artifact_hover": "Hold \u00A7eSHIFT\u00A7r to see components",
+  "tooltip.arche.artifact_progress": "Progress: "
 }

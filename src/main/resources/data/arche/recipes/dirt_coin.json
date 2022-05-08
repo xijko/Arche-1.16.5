@@ -6,6 +6,12 @@
     },
     {
       "item": "arche:dirt_coin_right"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:slime_ball"
     }
   ],
   "result": {

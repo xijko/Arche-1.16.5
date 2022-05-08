@@ -2,8 +2,6 @@ package net.xijko.arche.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -18,16 +16,15 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.xijko.arche.container.CleaningTableContainer;
-import net.xijko.arche.tileentities.CleaningTableTile;
+import net.xijko.arche.container.RestoreTableContainer;
+import net.xijko.arche.tileentities.RestoreTableTile;
 import net.xijko.arche.tileentities.ModTileEntities;
 
 import javax.annotation.Nullable;
 
-public class CleaningTableBlock extends Block {
-    public CleaningTableBlock(Properties properties) {
+public class RestoreTableBlock extends Block {
+    public RestoreTableBlock(Properties properties) {
         super(properties);
     }
 
@@ -38,7 +35,7 @@ public class CleaningTableBlock extends Block {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
 
             if(!player.isCrouching()) {
-                if(tileEntity instanceof CleaningTableTile) {
+                if(tileEntity instanceof RestoreTableTile) {
                     INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
 
                     NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
@@ -54,13 +51,13 @@ public class CleaningTableBlock extends Block {
         return new INamedContainerProvider() {
             @Override
             public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("screen.arche.cleaning_table");
+                return new TranslationTextComponent("screen.arche.restore_table");
             }
 
             @Nullable
             @Override
             public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-                return new CleaningTableContainer(i, worldIn, pos, playerInventory, playerEntity);
+                return new RestoreTableContainer(i, worldIn, pos, playerInventory, playerEntity);
             }
         };
     }
@@ -68,7 +65,7 @@ public class CleaningTableBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntities.CLEANING_TABLE_TILE.get().create();
+        return ModTileEntities.RESTORE_TABLE_TILE.get().create();
     }
 
     @Override

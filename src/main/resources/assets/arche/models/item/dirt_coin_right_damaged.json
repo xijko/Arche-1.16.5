@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "arche:item/wip"
+    "layer0": "arche:item/dirt_coin_right_damaged"
   }
 }

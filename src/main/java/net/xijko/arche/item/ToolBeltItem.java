@@ -1,6 +1,12 @@
 package net.xijko.arche.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -11,34 +17,32 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import net.xijko.arche.Arche;
 import net.xijko.arche.storages.toolbelt.ToolBeltCapabilityProvider;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltItemStackHandler;
-import net.xijko.arche.util.ModKeybinds;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ToolBeltItem extends Item implements ICurio {
+public class ToolBeltItem extends Item implements ICurioItem {
+    private static final ResourceLocation TOOL_BELT_TEXTURE = new ResourceLocation(Arche.MOD_ID,
+            "textures/entity/tool_belt.png");
+    private Object model;
 
         public ToolBeltItem() {
             super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP) // the item will appear on the Miscellaneous tab in creative
@@ -87,11 +91,14 @@ public class ToolBeltItem extends Item implements ICurio {
         @Override
         public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
             ItemStack stack = player.getHeldItem(hand);
-            if (!world.isRemote) {  // server only!
-                openToolBeltGui(player,stack);
-                final int NUMBER_OF_SLOTS = 12;
+            if(player.isSneaking()) {
+                if (!world.isRemote) {  // server only!
+                    openToolBeltGui(player, stack);
+                    final int NUMBER_OF_SLOTS = 12;
+                }
+                return ActionResult.resultSuccess(stack);
             }
-            return ActionResult.resultSuccess(stack);
+            return ActionResult.resultPass(stack);
         }
 
         /**
@@ -106,54 +113,55 @@ public class ToolBeltItem extends Item implements ICurio {
         @Nonnull
         @Override
         public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext ctx) {
-            World world = ctx.getWorld();
-            if (world.isRemote()) return ActionResultType.PASS;
+                World world = ctx.getWorld();
+                if (world.isRemote()) return ActionResultType.PASS;
 
-            BlockPos pos = ctx.getPos();
-            Direction side = ctx.getFace();
-            ItemStack itemStack = ctx.getItem();
-            if (!(itemStack.getItem() instanceof ToolBeltItem)) throw new AssertionError("Unexpected ToolBeltItem type");
-            ToolBeltItem itemToolBelt = (ToolBeltItem)itemStack.getItem();
+                BlockPos pos = ctx.getPos();
+                Direction side = ctx.getFace();
+                ItemStack itemStack = ctx.getItem();
+                if (!(itemStack.getItem() instanceof ToolBeltItem))
+                    throw new AssertionError("Unexpected ToolBeltItem type");
+                ToolBeltItem itemToolBelt = (ToolBeltItem) itemStack.getItem();
 
-            TileEntity tileEntity = world.getTileEntity(pos);
+                TileEntity tileEntity = world.getTileEntity(pos);
 
-            if (tileEntity == null) return ActionResultType.PASS;
-            if (world.isRemote()) return ActionResultType.SUCCESS; // always succeed on client side
+                if (tileEntity == null) return ActionResultType.PASS;
+                if (world.isRemote()) return ActionResultType.SUCCESS; // always succeed on client side
 
-            // check if this object has an inventory- either Forge capability, or vanilla IInventory
-            IItemHandler tileInventory;
-            LazyOptional<IItemHandler> capability = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
-            if (capability.isPresent()) {
-                tileInventory = capability.orElseThrow(AssertionError::new);
-            } else if (tileEntity instanceof IInventory) {
-                tileInventory = new InvWrapper((IInventory)tileEntity);
-            } else {
-                return ActionResultType.FAIL;
-            }
+                // check if this object has an inventory- either Forge capability, or vanilla IInventory
+                IItemHandler tileInventory;
+                LazyOptional<IItemHandler> capability = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+                if (capability.isPresent()) {
+                    tileInventory = capability.orElseThrow(AssertionError::new);
+                } else if (tileEntity instanceof IInventory) {
+                    tileInventory = new InvWrapper((IInventory) tileEntity);
+                } else {
+                    return ActionResultType.FAIL;
+                }
 
-            // go through each flower ItemStack in our flower bag and try to insert as many as possible into the tile's inventory.
-            ToolBeltItemStackHandler itemStackHandlerFlowerBag =  itemToolBelt.getItemStackHandlerToolBelt(itemStack);
-            for (int i = 0; i < itemStackHandlerFlowerBag.getSlots(); i++) {
-                ItemStack tool = itemStackHandlerFlowerBag.getStackInSlot(i);
-                ItemStack rejectedTools = ItemHandlerHelper.insertItemStacked(tileInventory, tool, false);
-                itemStackHandlerFlowerBag.setStackInSlot(i, rejectedTools);
-            }
-            tileEntity.markDirty();           // make sure that the tileEntity knows we have changed its contents
+                // go through each flower ItemStack in our flower bag and try to insert as many as possible into the tile's inventory.
+                ToolBeltItemStackHandler itemStackHandlerFlowerBag = itemToolBelt.getItemStackHandlerToolBelt(itemStack);
+                for (int i = 0; i < itemStackHandlerFlowerBag.getSlots(); i++) {
+                    ItemStack tool = itemStackHandlerFlowerBag.getStackInSlot(i);
+                    ItemStack rejectedTools = ItemHandlerHelper.insertItemStacked(tileInventory, tool, false);
+                    itemStackHandlerFlowerBag.setStackInSlot(i, rejectedTools);
+                }
+                tileEntity.markDirty();           // make sure that the tileEntity knows we have changed its contents
 
-            // we need to mark the flowerbag ItemStack as dirty so that the server will send it to the player.
-            // This normally happens in ServerPlayerEntity.tick(), which calls this.openContainer.detectAndSendChanges();
-            // Unfortunately, this code only detects changes to item type, number, or nbt.  It doesn't check the capability instance.
-            // We could copy the detectAndSendChanges code out and call it manually, but it's easier to mark the itemstack as
-            //  dirty by modifying its nbt...
-            //  Of course, if your ItemStack's capability doesn't affect the rendering of the ItemStack, i.e. the Capability is not needed
-            //  on the client at all, then you don't need to bother to mark it dirty.
+                // we need to mark the flowerbag ItemStack as dirty so that the server will send it to the player.
+                // This normally happens in ServerPlayerEntity.tick(), which calls this.openContainer.detectAndSendChanges();
+                // Unfortunately, this code only detects changes to item type, number, or nbt.  It doesn't check the capability instance.
+                // We could copy the detectAndSendChanges code out and call it manually, but it's easier to mark the itemstack as
+                //  dirty by modifying its nbt...
+                //  Of course, if your ItemStack's capability doesn't affect the rendering of the ItemStack, i.e. the Capability is not needed
+                //  on the client at all, then you don't need to bother to mark it dirty.
 
-            CompoundNBT nbt = itemStack.getOrCreateTag();
-            int dirtyCounter = nbt.getInt("dirtyCounter");
-            nbt.putInt("dirtyCounter", dirtyCounter + 1);
-            itemStack.setTag(nbt);
+                CompoundNBT nbt = itemStack.getOrCreateTag();
+                int dirtyCounter = nbt.getInt("dirtyCounter");
+                nbt.putInt("dirtyCounter", dirtyCounter + 1);
+                itemStack.setTag(nbt);
 
-            return ActionResultType.SUCCESS;
+                return ActionResultType.SUCCESS;
         }
 
 
@@ -288,16 +296,41 @@ public class ToolBeltItem extends Item implements ICurio {
             ToolBeltItemStackHandler itemStackHandlerFlowerBag = getItemStackHandlerToolBelt(stack);
             itemStackHandlerFlowerBag.deserializeNBT(capabilityTag);
         }
+
+    @Nonnull
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack) {
-        ICurio.super.onEquip(slotContext, prevStack);
-        Minecraft.getInstance().player.sendChatMessage("Equipped!");
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+        return new ICurio.SoundInfo(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
     }
 
     @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack) {
-        ICurio.super.onUnequip(slotContext, newStack);
-        Minecraft.getInstance().player.sendChatMessage("Unequipped!");
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean canRender(String identifier, int index, LivingEntity living, ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public void render(String identifier, int index, MatrixStack matrixStack,
+                       IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity living,
+                       float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+                       float netHeadYaw, float headPitch, ItemStack stack) {
+        ICurio.RenderHelper.translateIfSneaking(matrixStack, living);
+        ICurio.RenderHelper.rotateIfSneaking(matrixStack, living);
+
+        if (!(this.model instanceof ToolBeltModel)) {
+            this.model = new ToolBeltModel<>();
+        }
+        ToolBeltModel<?> toolBeltModel = (ToolBeltModel<?>) this.model;
+        IVertexBuilder vertexBuilder = ItemRenderer
+                .getBuffer(renderTypeBuffer, toolBeltModel.getRenderType(TOOL_BELT_TEXTURE), false,
+                        stack.hasEffect());
+        toolBeltModel
+                .render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F,
+                        1.0F);
     }
 
 }

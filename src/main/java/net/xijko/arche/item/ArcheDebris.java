@@ -1,37 +1,24 @@
 package net.xijko.arche.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.loot.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.xijko.arche.Arche;
-import net.xijko.arche.storages.toolbelt.ToolBeltCapabilityProvider;
 import net.xijko.arche.storages.toolbelt.ToolBeltCheckCurio;
 import net.xijko.arche.storages.toolbelt.ToolBeltItemStackHandler;
-import net.xijko.arche.util.ArcheTags;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
 
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Random;
 
 public class ArcheDebris extends Item {
 

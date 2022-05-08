@@ -6,42 +6,40 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.xijko.arche.block.screen.CleaningTableScreen;
+import net.xijko.arche.block.screen.RestoreTableScreen;
 import net.xijko.arche.item.ArcheArtifactBroken;
-import net.xijko.arche.tileentities.CleaningTableTile;
+import net.xijko.arche.tileentities.RestoreTableTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
-public class CleaningTableRestoreMessage {
+public class RestoreTableRestoreMessage {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static CleaningTableScreen screen;
+    private static RestoreTableScreen screen;
     private static World world;
     private static BlockPos pos;
 
-    public CleaningTableRestoreMessage(CleaningTableScreen screen, World world, BlockPos pos) {
+    public RestoreTableRestoreMessage(RestoreTableScreen screen, World world, BlockPos pos) {
         super();
         this.screen = screen;
         this.world  = world;
         this.pos = pos;
     }
 
-    public static void encode(CleaningTableRestoreMessage message, PacketBuffer buffer) {
+    public static void encode(RestoreTableRestoreMessage message, PacketBuffer buffer) {
     }
 
-    public static CleaningTableRestoreMessage decode(PacketBuffer buffer) {
-        return new CleaningTableRestoreMessage(screen, world, pos);
+    public static RestoreTableRestoreMessage decode(PacketBuffer buffer) {
+        return new RestoreTableRestoreMessage(screen, world, pos);
     }
 
-    public static void handle(CleaningTableRestoreMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(RestoreTableRestoreMessage message, Supplier<NetworkEvent.Context> ctx) {
         if(!ctx.get().getPacketHandled()) {
             LOGGER.warn("received packet from "+ctx.get().getSender());
             ctx.get().enqueueWork(() -> {
@@ -54,9 +52,9 @@ public class CleaningTableRestoreMessage {
         }
     }
 
-    public static void restoreItem(CleaningTableScreen screen, World world, BlockPos pos,ServerPlayerEntity player){
+    public static void restoreItem(RestoreTableScreen screen, World world, BlockPos pos, ServerPlayerEntity player){
         LOGGER.warn(world + " " + pos);
-        CleaningTableTile tile = (CleaningTableTile) world.getTileEntity(pos);
+        RestoreTableTile tile = (RestoreTableTile) world.getTileEntity(pos);
         LOGGER.warn("restoring in "+tile);
         IItemHandler handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,null).resolve().get();
         //if(!world.isRemote()){return;}
@@ -67,6 +65,7 @@ public class CleaningTableRestoreMessage {
             LOGGER.warn("not artifact");
             return;
         }else {
+            int restoreProgress = 0;
             ArcheArtifactBroken artifact = (ArcheArtifactBroken) slotItem;
             ItemStack artifactStack = slotStack;
             if (checkNBT(artifactStack)==null) {
@@ -126,12 +125,29 @@ public class CleaningTableRestoreMessage {
                 //artifactStack.deserializeNBT(artifactStackNBT);
                 artifactStack.damageItem(-restoreProgress4,player,null);
             }
+            //restoreProgress = restoreProgress1+restoreProgress2+restoreProgress3+restoreProgress4;
+            //artifactStack.setDamage(restoreProgress);
             assert artifactStack.getTag() != null;
             if(insertResult(artifactStack.getTag())){
                 ItemStack result = new ItemStack(artifact.artifactOut,1);
-                tile.outputItemHandler.insertItem(0,result,false);
+
+                //tile.itemHandler.insertItem(5,result.copy(),false);
+                tile.ejectLootAndXp(tile.getWorld(),player,artifactStack,result);
                 artifactStack.setCount(0);
                 LOGGER.warn("Restored!");
+            }else{
+                restoreProgress = restoreProgress1+restoreProgress2+restoreProgress3+restoreProgress4;
+                if(restoreProgress>0){
+                    ItemStack resultingArtifactBrokenStack = artifactStack.copy();
+                    resultingArtifactBrokenStack.setDamage(
+                            resultingArtifactBrokenStack.getTag().getInt("comp1quant")
+                            +resultingArtifactBrokenStack.getTag().getInt("comp2quant")
+                            +resultingArtifactBrokenStack.getTag().getInt("comp3quant")
+                            +resultingArtifactBrokenStack.getTag().getInt("comp4quant")
+                    );
+                    artifactStack.shrink(1);
+                    tile.itemHandler.insertItem(4,resultingArtifactBrokenStack.copy(),false);
+                }
             }
 
             tile.markDirty();
@@ -141,9 +157,9 @@ public class CleaningTableRestoreMessage {
     public static boolean insertResult(CompoundNBT tag){
         return (
                 tag.getInt("comp1quant") +
-                        tag.getInt("comp1quant") +
-                        tag.getInt("comp1quant") +
-                        tag.getInt("comp1quant")
+                        tag.getInt("comp2quant") +
+                        tag.getInt("comp3quant") +
+                        tag.getInt("comp4quant")
         )
                 == 0;
     }

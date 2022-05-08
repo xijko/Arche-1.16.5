@@ -1,54 +1,45 @@
 package net.xijko.arche.tileentities;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.CraftingScreen;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.xijko.arche.block.CleaningTableBlock;
-import net.xijko.arche.container.CleaningTableContainer;
 import net.xijko.arche.item.ArcheArtifactBroken;
-import net.xijko.arche.item.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
-public class CleaningTableTile extends TileEntity {
+public class RestoreTableTile extends TileEntity {
     public final ItemStackHandler itemHandler = createHandler();
     public final ItemStackHandler outputItemHandler = createOutputHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> outputItemHandler);
     private static final Logger LOGGER = LogManager.getLogger();
+    protected static final Random random = new Random();
 
-    public CleaningTableTile(TileEntityType<?> tileEntityTypeIn) {
+    public RestoreTableTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 
-    public CleaningTableTile() {
-        this(ModTileEntities.CLEANING_TABLE_TILE.get());
+    public RestoreTableTile() {
+        this(ModTileEntities.RESTORE_TABLE_TILE.get());
     }
 
     /*@Override
@@ -73,7 +64,7 @@ public class CleaningTableTile extends TileEntity {
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(6) {
+        return new ItemStackHandler(5) {
 
             @Override
             protected void onContentsChanged(int slot) {
@@ -160,5 +151,19 @@ public class CleaningTableTile extends TileEntity {
         return super.getCapability(cap, side);
     }
 
+    public void ejectLootAndXp(World worldIn, PlayerEntity playerIn, ItemStack artifactIn, ItemStack artifactOut){
+        //assert Minecraft.getInstance().player != null;
+        //Minecraft.getInstance().player.sendChatMessage("Loot: " + lootOutcome);
+        ArcheArtifactBroken artifactItem = (ArcheArtifactBroken) artifactIn.getItem();
+        int archeTier = artifactItem.archeTier;
+        ItemEntity lootItem = new ItemEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+1,playerIn.getPosZ(),artifactOut);
+        if(random.nextInt(100) * archeTier> 75 ){
+            int xpGrant = random.nextInt(archeTier)+1;
+            ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(worldIn,playerIn.getPosX(),playerIn.getPosY()+2,playerIn.getPosZ(),xpGrant);
+            worldIn.addEntity(xpOrb);
+        }
+        worldIn.addEntity(lootItem);
+
+    }
 
 }

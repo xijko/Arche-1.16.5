@@ -2,7 +2,6 @@ package net.xijko.arche.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.OreBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -43,8 +42,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
 
-    public static final RegistryObject<Block> CLEANING_TABLE = registerBlock("cleaning_table",
-            () -> new CleaningTableBlock(AbstractBlock.Properties.create(Material.WOOD))
+    public static final RegistryObject<Block> RESTORE_TABLE = registerBlock("restore_table",
+            () -> new RestoreTableBlock(AbstractBlock.Properties.create(Material.WOOD))
     );
 
 
