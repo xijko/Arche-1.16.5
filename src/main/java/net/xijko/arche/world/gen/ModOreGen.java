@@ -122,6 +122,16 @@ public class ModOreGen {
                 20,
                 60,
                 30);
+
+        generateOre(overworldOres,
+                "obsidian_deposit",
+                event.getGeneration(),
+                new BlockMatchRuleTest(Blocks.OBSIDIAN),
+                ModBlocks.OBSIDIAN_DEPOSIT.get().getDefaultState(),
+                25,
+                00,
+                20,
+                30);
         //}
     }
 

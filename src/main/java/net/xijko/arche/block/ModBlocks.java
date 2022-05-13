@@ -42,6 +42,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
 
+    public static final RegistryObject<Block> OBSIDIAN_DEPOSIT = BLOCKS.register("obsidian_deposit",ObsidianDeposit::new);
+
     public static final RegistryObject<Block> RESTORE_TABLE = registerBlock("restore_table",
             () -> new RestoreTableBlock(AbstractBlock.Properties.create(Material.WOOD))
     );
