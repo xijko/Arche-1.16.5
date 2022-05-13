@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "entity/tool_belt"
+		"0": "arche:entity/tool_belt"
 	},
 	"elements": [
 		{
