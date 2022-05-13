@@ -14,6 +14,11 @@
   "item.arche.dirt_shard": "Stoneware Shard",
   "item.arche.mattock_head_shard": "Rusty Bit",
   "item.arche.dirt_plate": "Stoneware Plate",
+  "item.arche.dirt_coin_left_damaged": "Damaged Half-Coin (Left)",
+  "item.arche.dirt_coin_right_damaged": "Damaged Half-Coin (Right)",
+  "item.arche.dirt_coin_left": "Half-Coin (Left)",
+  "item.arche.dirt_coin_right": "Half-Coin (Right)",
+  "item.arche.dirt_coin": "Testifikin Dollar",
 
   "item.arche.mattock_head_template": "Rusty Mattock Head",
   "item.arche.mattock_head_mold_raw": "Unfired Mattock Head Mold",
@@ -24,5 +29,11 @@
   "block.arche.poop_deposit": "Coprolite Deposit",
   "block.arche.dirt_deposit": "Earthen Deposit",
   "block.arche.sand_deposit": "Sedimentary Deposit",
-  "block.arche.stone_deposit": "Metamorphic Deposit"
+  "block.arche.stone_deposit": "Metamorphic Deposit",
+
+  "block.arche.cleaning_table":"Restoring Table",
+  "screen.arche.restore_table": "Restoring Table",
+
+  "tooltip.arche.artifact_hover": "Hold \u00A7eSHIFT\u00A7r to see components",
+  "tooltip.arche.artifact_progress": "Progress: "
 }

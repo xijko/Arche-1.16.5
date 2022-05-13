@@ -6,7 +6,6 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,15 +19,17 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.block.screen.RestoreTableScreen;
 import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.inits.ContainerTypeInit;
+import net.xijko.arche.inits.ModToolTips;
 import net.xijko.arche.inits.TileEntityInit;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.item.ToolBeltItem;
 import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
-import net.xijko.arche.util.ClientForgeEvents;
+import net.xijko.arche.tileentities.ModTileEntities;
 import net.xijko.arche.util.ModKeybinds;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
@@ -52,6 +53,7 @@ public class Arche
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModContainers.register(eventBus);
+        ModTileEntities.register(eventBus);
 
         //Register Tile Entities
         TileEntityInit.TILE_ENTITY_TYPES.register(eventBus);
@@ -85,6 +87,8 @@ public class Arche
         ModOreGen.registerOres();
         ModContainers.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModNetwork.packetRegister();
+        MinecraftForge.EVENT_BUS.register(ModToolTips.class);
+
         //ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(), ToolBeltContainerScreen:: new);
         //ScreenManager.registerFactory(Arche.containerTypeToolBelt, ToolBeltContainerScreen::new);
     }
@@ -93,6 +97,8 @@ public class Arche
         // do something that can only be done on the client
         ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(),
                 ToolBeltContainerScreen::new);
+        ScreenManager.registerFactory(ModContainers.RESTORE_TABLE_CONTAINER.get(),
+                RestoreTableScreen::new);
         ModKeybinds.register();
     }
 

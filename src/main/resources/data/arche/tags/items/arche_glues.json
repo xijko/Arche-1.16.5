@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values":
+  [
+    "forge:slimeballs",
+    "minecraft:magma_cream",
+    "minecraft:chorus_flower"
+  ]
+
+}

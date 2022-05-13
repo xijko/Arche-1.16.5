@@ -1,0 +1,21 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "arche:dirt_coin_left"
+    },
+    {
+      "item": "arche:dirt_coin_right"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    }
+  ],
+  "result": {
+    "item": "arche:dirt_coin",
+    "count": 1
+  }
+}

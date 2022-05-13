@@ -1,14 +1,11 @@
 package net.xijko.arche.network;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.xijko.arche.Arche;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Optional;
 
 public class ModNetwork {
 
@@ -29,6 +26,14 @@ public class ModNetwork {
                 ToolBeltOpenMessage::encode,
                 ToolBeltOpenMessage::decode,
                 ToolBeltOpenMessage::handle
+        );
+
+        INSTANCE.registerMessage(
+                index++,
+                RestoreTableRestoreMessage.class,
+                RestoreTableRestoreMessage::encode,
+                RestoreTableRestoreMessage::decode,
+                RestoreTableRestoreMessage::handle
         );
     }
 
