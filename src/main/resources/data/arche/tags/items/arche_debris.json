@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values":
+  [
+    "arche:dirt_debris",
+    "arche:stone_debris"
+  ]
+
+}
