@@ -1,5 +1,21 @@
 {
   "itemGroup.archeTab": "Arche",
+
+  "advancements.arche.overworld.root.title": "Arche: The Overworld",
+  "advancements.arche.overworld.root.description": "Exploring history",
+
+
+  "advancements.arche.underworld.root.title": "Arche: The Overworld",
+  "advancements.arche.underworld.root.description": "Uncovering history",
+
+
+  "advancements.arche.nether.root.title": "Arche: The Nether",
+  "advancements.arche.nether.root.description": "Unraveling history",
+
+
+  "advancements.arche.end.root.title": "Arche: The End",
+  "advancements.arche.end.root.description": "Making history",
+
   "item.arche.amethyst": "Amethyst",
 
   "item.arche.tool_belt": "Tool Belt",
@@ -10,7 +26,8 @@
   "item.arche.dirt_sieve": "Dirt Sieve",
 
   "item.arche.poop_debris": "Coprolite Debris",
-  "item.arche.dirt_debris": "Earthen Debris",
+  "item.arche.dirt_debris": "Sedimentary Debris",
+  "item.arche.stone_debris": "Metamorphic Debris",
   "item.arche.dirt_shard": "Stoneware Shard",
   "item.arche.mattock_head_shard": "Rusty Bit",
   "item.arche.dirt_plate": "Stoneware Plate",
@@ -30,6 +47,7 @@
   "block.arche.dirt_deposit": "Earthen Deposit",
   "block.arche.sand_deposit": "Sedimentary Deposit",
   "block.arche.stone_deposit": "Metamorphic Deposit",
+  "block.arche.obsidian_deposit": "Igneous Deposit",
 
   "block.arche.cleaning_table":"Restoring Table",
   "screen.arche.restore_table": "Restoring Table",

@@ -2,7 +2,7 @@
   "replace": false,
   "values":
   [
-    "forge:slimeballs",
+    "minecraft:slime_ball",
     "minecraft:magma_cream",
     "minecraft:chorus_flower"
   ]
