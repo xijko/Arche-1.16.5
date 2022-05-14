@@ -47,6 +47,8 @@ public class ModItems {
             () -> new BlockItem(SAND_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> STONE_DEPOSIT_ITEM = ITEMS.register("stone_deposit",
             () -> new BlockItem(STONE_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> OBSIDIAN_DEPOSIT_ITEM = ITEMS.register("obsidian_deposit",
+            () -> new BlockItem(OBSIDIAN_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
