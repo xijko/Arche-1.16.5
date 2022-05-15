@@ -86,6 +86,22 @@ public class ModItems {
     public static final RegistryObject<Item> DIRT_COIN_RIGHT_DAMAGED = ITEMS.register("dirt_coin_right_damaged",
             () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_RIGHT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
 
+    //stone tier mats
+
+    //primary
+
+    //secondary
+
+    //prog
+
+    //stone tier artifacts
+    public static final RegistryObject<Item> STONE_BUCKLE_DAMAGED = ITEMS.register("stone_buckle_damaged",
+            () -> new ArcheArtifactBroken(ModItems.TOOL_BELT.get(),1,Items.STRING,16,Items.IRON_INGOT,4,Items.LEATHER_LEGGINGS,1,Items.CHEST,1));
+
+
+    public static final RegistryObject<Item> DIAMOND_SPLINT = ITEMS.register("diamond_splint",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
 
 
     public static final RegistryObject<Item> MATTOCK_HEAD_TEMPLATE = ITEMS.register("mattock_head_template",

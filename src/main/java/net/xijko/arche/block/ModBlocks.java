@@ -2,6 +2,8 @@ package net.xijko.arche.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -36,13 +38,47 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> POOP_DEPOSIT = BLOCKS.register("poop_deposit",PoopDeposit::new);
 
-    public static final RegistryObject<Block> DIRT_DEPOSIT = BLOCKS.register("dirt_deposit",DirtDeposit::new);
+    public static final RegistryObject<Block> SAND_DEPOSIT = BLOCKS.register("sand_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.SAND)
+                    .sound(SoundType.SAND)
+                    .harvestTool(ToolType.SHOVEL)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(0)
+                    .hardnessAndResistance(0.5f),
+                    0));
 
-    public static final RegistryObject<Block> SAND_DEPOSIT = BLOCKS.register("sand_deposit",SandDeposit::new);
+    public static final RegistryObject<Block> DIRT_DEPOSIT = BLOCKS.register("dirt_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.EARTH)
+                    .sound(SoundType.GROUND)
+                    .harvestTool(ToolType.SHOVEL)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(0)
+                    .hardnessAndResistance(1f),
+                    1));
 
-    public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",StoneDeposit::new);
+    public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
+                    .sound(SoundType.STONE)
+                    .harvestTool(ToolType.PICKAXE)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(Blocks.STONE.getHarvestLevel(Blocks.STONE.getDefaultState()))
+                    .hardnessAndResistance(1.5f)
+                    .setRequiresTool(),
+                    2));
 
-    public static final RegistryObject<Block> OBSIDIAN_DEPOSIT = BLOCKS.register("obsidian_deposit",ObsidianDeposit::new);
+    public static final RegistryObject<Block> OBSIDIAN_DEPOSIT = BLOCKS.register("obsidian_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
+                    .sound(SoundType.STONE)
+                    .harvestTool(ToolType.PICKAXE)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(Blocks.STONE.getHarvestLevel(Blocks.OBSIDIAN.getDefaultState()))
+                    .hardnessAndResistance(50f)
+                    .setRequiresTool(),
+                    3));
+
+    public static final RegistryObject<Block> CLEANING_TABLE = registerBlock("cleaning_table",
+            () -> new CleaningTableBlock(AbstractBlock.Properties.create(Material.IRON))
+    );
 
     public static final RegistryObject<Block> RESTORE_TABLE = registerBlock("restore_table",
             () -> new RestoreTableBlock(AbstractBlock.Properties.create(Material.WOOD))

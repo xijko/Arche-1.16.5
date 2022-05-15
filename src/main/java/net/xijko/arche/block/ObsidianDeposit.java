@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.state.DirectionProperty;
 import net.minecraftforge.common.ToolType;
 
-public class ObsidianDeposit extends OreBlock {
+public class ObsidianDeposit extends ArcheDeposit {
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     /*
@@ -95,7 +95,8 @@ public class ObsidianDeposit extends OreBlock {
                 //.harvestTool(MattockIronItem.MATTOCK)
                 .harvestLevel(Blocks.STONE.getHarvestLevel(Blocks.OBSIDIAN.getDefaultState()))
                 .hardnessAndResistance(50f)
-                .setRequiresTool()
+                .setRequiresTool(),
+                3
         );
     }
 

@@ -16,7 +16,7 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.stream.Stream;
 
-public class DirtDeposit extends OreBlock {
+public class DirtDeposit extends ArcheDeposit {
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 /*
@@ -102,7 +102,8 @@ public class DirtDeposit extends OreBlock {
                 .harvestTool(ToolType.SHOVEL)
                 //.harvestTool(MattockIronItem.MATTOCK)
                 .harvestLevel(0)
-                .hardnessAndResistance(1f)
+                .hardnessAndResistance(1f),
+                1
         );
     }
 
