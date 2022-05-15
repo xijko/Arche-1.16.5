@@ -103,7 +103,7 @@ key_key.hotbar.9:key.keyboard.9
 key_key.curios.open.desc:key.keyboard.g
 key_key.test:key.keyboard.j
 soundCategory_master:0.21523179
-soundCategory_music:1.0
+soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
 soundCategory_block:1.0

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " PS",
+    "WWW",
+    "WCW"
+  ],
+  "key": {
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "S": {
+      "item": "minecraft:sponge"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "arche:cleaning_table"
+  }
+}

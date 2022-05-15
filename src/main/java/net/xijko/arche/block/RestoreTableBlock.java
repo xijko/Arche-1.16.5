@@ -2,6 +2,8 @@ package net.xijko.arche.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -22,6 +24,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.xijko.arche.container.RestoreTableContainer;
 import net.xijko.arche.tileentities.RestoreTableTile;
@@ -34,7 +37,8 @@ import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
 
 public class RestoreTableBlock extends Block {
     public RestoreTableBlock(Properties properties) {
-        super(properties);
+
+        super(properties.create(Material.WOOD).hardnessAndResistance(2.5F).sound(SoundType.WOOD));
     }
 
     @Override

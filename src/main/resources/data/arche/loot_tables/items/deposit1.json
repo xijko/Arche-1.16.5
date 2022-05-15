@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+        "type": "minecraft:item",
+        "weight": 100,
+        "name": "minecraft:air"
+      },
+        {
+          "type": "minecraft:item",
+          "weight": 100,
+          "name": "minecraft:dirt"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "arche:dirt_coin_left_damaged"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "arche:dirt_coin_right_damaged"
+        }
+      ]
+    }
+  ]
+}

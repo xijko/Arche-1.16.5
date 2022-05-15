@@ -1,7 +1,67 @@
 {
   "variants": {
-    "": {
+    "facing=east,level=0": {
+      "model": "arche:block/cleaning_table",
+      "y": 90
+    },
+    "facing=north,level=0": {
       "model": "arche:block/cleaning_table"
+    },
+    "facing=south,level=0": {
+      "model": "arche:block/cleaning_table",
+      "y": 180
+    },
+    "facing=west,level=0": {
+      "model": "arche:block/cleaning_table",
+      "y": 270
+    },
+
+    "facing=east,level=1": {
+      "model": "arche:block/cleaning_table_l1",
+      "y": 90
+    },
+    "facing=north,level=1": {
+      "model": "arche:block/cleaning_table_l1"
+    },
+    "facing=south,level=1": {
+      "model": "arche:block/cleaning_table_l1",
+      "y": 180
+    },
+    "facing=west,level=1": {
+      "model": "arche:block/cleaning_table_l1",
+      "y": 270
+    },
+
+    "facing=east,level=2": {
+      "model": "arche:block/cleaning_table_l2",
+      "y": 90
+    },
+    "facing=north,level=2": {
+      "model": "arche:block/cleaning_table_l2"
+    },
+    "facing=south,level=2": {
+      "model": "arche:block/cleaning_table_l2",
+      "y": 180
+    },
+    "facing=west,level=2": {
+      "model": "arche:block/cleaning_table_l2",
+      "y": 270
+    },
+
+    "facing=east,level=3": {
+      "model": "arche:block/cleaning_table_l3",
+      "y": 90
+    },
+    "facing=north,level=3": {
+      "model": "arche:block/cleaning_table_l3"
+    },
+    "facing=south,level=3": {
+      "model": "arche:block/cleaning_table_l3",
+      "y": 180
+    },
+    "facing=west,level=3": {
+      "model": "arche:block/cleaning_table_l3",
+      "y": 270
     }
   }
 }

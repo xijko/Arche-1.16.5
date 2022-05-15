@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  t",
+    "www",
+    "scs"
+  ],
+  "key": {
+    "t": {
+      "item": "arche:stone_sieve"
+    },
+    "s": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "arche:restore_table"
+  }
+}
