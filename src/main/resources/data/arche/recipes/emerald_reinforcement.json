@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  e",
+    "ehe",
+    "  e"
+  ],
+  "key": {
+    "e": {
+      "item": "arche:emerald_splint"
+    },
+    "p": {
+      "item": "minecraft:golden_axe"
+    }
+  },
+  "result": {
+    "item": "arche:emerald_reinforcement"
+  }
+}

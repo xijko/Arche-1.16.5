@@ -76,6 +76,7 @@ public class Arche
 
         //Generate ores
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH,ModOreGen::generateOres);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW,ModOreGen::generateStructureOres);
 
     }
 

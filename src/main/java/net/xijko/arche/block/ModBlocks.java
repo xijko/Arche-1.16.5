@@ -13,6 +13,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.artifact.WaterJar;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
@@ -76,6 +77,26 @@ public class ModBlocks {
                     .setRequiresTool(),
                     3));
 
+    public static final RegistryObject<Block> NETHERRACK_DEPOSIT = BLOCKS.register("netherrack_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
+                    .sound(SoundType.STONE)
+                    .harvestTool(ToolType.PICKAXE)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(Blocks.NETHERRACK.getHarvestLevel(Blocks.NETHERRACK.getDefaultState()))
+                    .hardnessAndResistance(0.4f)
+                    .setRequiresTool(),
+                    5));
+
+    public static final RegistryObject<Block> ENDSTONE_DEPOSIT = BLOCKS.register("endstone_deposit",
+            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
+                    .sound(SoundType.STONE)
+                    .harvestTool(ToolType.PICKAXE)
+                    //.harvestTool(MattockIronItem.MATTOCK)
+                    .harvestLevel(Blocks.END_STONE.getHarvestLevel(Blocks.END_STONE.getDefaultState()))
+                    .hardnessAndResistance(1.5f)
+                    .setRequiresTool(),
+                    10));
+
     public static final RegistryObject<Block> CLEANING_TABLE = registerBlock("cleaning_table",
             () -> new CleaningTableBlock(AbstractBlock.Properties.create(Material.IRON))
     );
@@ -84,6 +105,11 @@ public class ModBlocks {
             () -> new RestoreTableBlock(AbstractBlock.Properties.create(Material.WOOD))
     );
 
+
+    //artifacts
+    public static final RegistryObject<Block> WATER_JAR = registerBlock("water_jar",
+            () -> new WaterJar(AbstractBlock.Properties.create(Material.WOOD))
+    );
 
     /*
     public static final RegistryObject<Block> POOP_DEPOSIT = registerBlock("poop_deposit",

@@ -49,12 +49,22 @@ public class ModItems {
             () -> new BlockItem(STONE_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> OBSIDIAN_DEPOSIT_ITEM = ITEMS.register("obsidian_deposit",
             () -> new BlockItem(OBSIDIAN_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> NETHERRACK_DEPOSIT_ITEM = ITEMS.register("netherrack_deposit",
+            () -> new BlockItem(NETHERRACK_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> ENDSTONE_DEPOSIT_ITEM = ITEMS.register("endstone_deposit",
+            () -> new BlockItem(ENDSTONE_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
             () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
     public static final RegistryObject<Item> STONE_DEBRIS = ITEMS.register("stone_debris",
             () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2));
+    public static final RegistryObject<Item> OBSIDIAN_DEBRIS = ITEMS.register("obsidian_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2));
+    public static final RegistryObject<Item> NETHERRACK_DEBRIS = ITEMS.register("netherrack_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 5));
+    public static final RegistryObject<Item> ENDSTONE_DEBRIS = ITEMS.register("endstone_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 10));
 
     //dirt tier mats
 
@@ -95,14 +105,25 @@ public class ModItems {
     //secondary
 
     //prog
+    public static final RegistryObject<Item> DIAMOND_SPLINT = ITEMS.register("diamond_splint",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIAMOND_REINFORCEMENT = ITEMS.register("diamond_reinforcement",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> EMERALD_SPLINT = ITEMS.register("emerald_splint",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> EMERALD_REINFORCEMENT = ITEMS.register("emerald_reinforcement",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> GEAR_BROKEN = ITEMS.register("gear_broken",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> SPRING_BROKEN = ITEMS.register("spring_broken",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
     //stone tier artifacts
     public static final RegistryObject<Item> STONE_BUCKLE_DAMAGED = ITEMS.register("stone_buckle_damaged",
             () -> new ArcheArtifactBroken(ModItems.TOOL_BELT.get(),1,Items.STRING,16,Items.IRON_INGOT,4,Items.LEATHER_LEGGINGS,1,Items.CHEST,1));
 
 
-    public static final RegistryObject<Item> DIAMOND_SPLINT = ITEMS.register("diamond_splint",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
 
 
 
@@ -114,6 +135,8 @@ public class ModItems {
             () -> new MattockHeadMold(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
     public static final RegistryObject<Item> MATTOCK_IRON = ITEMS.register("mattock_iron",
             () -> new MattockItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> MATTOCK_DIAMOND = ITEMS.register("mattock_diamond",
+            () -> new MattockItem(1,-2.8F, ItemTier.DIAMOND,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
 
     /*
     public static final RegistryObject<Item> GRAVELDEBRIS = ITEMS.register("gravel_debris",

@@ -1,0 +1,20 @@
+{
+  "name": "Straining Debris",
+  "icon": "arche:dirt_debris",
+  "category": "arche:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Now that you've uncovered a pile of dirt, we can begin to sift it for goodies. Sifting will (usually) yield materials - some of which you could expect to find in the world nearby through other means, but some which you may find are only available to enterprising archaeologists. Let's create a basic sieve, just to get started - it's crude, but will do for sediment."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arche:dirt_sieve",
+      "text": "In order to sift your debris, hold the debris in your main hand, and the sieve in your off-hand, and right click. The results will fall out onto the floor beneath you (or directly into your backpack, if there's room!)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Sifting can serve as an alternative method to the usual search-and-gather activities you may be used to, so if you find playing in the dirt to be more engaging overall, then consider saving up the materials you find this way for later."
+    }
+  ]
+}

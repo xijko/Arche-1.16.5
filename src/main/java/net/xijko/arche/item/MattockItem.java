@@ -3,10 +3,21 @@ package net.xijko.arche.item;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.IVanishable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
+import java.util.Map;
 import java.util.Set;
 
 public class MattockItem extends ToolItem implements IVanishable {
@@ -41,4 +52,28 @@ public class MattockItem extends ToolItem implements IVanishable {
         return 1.0F;
     }
 
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+        if (entityLiving instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entityLiving;
+            ItemStack item = player.getHeldItem(Hand.MAIN_HAND);
+
+            // Get list of enchantements on item.
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(item);
+
+            if(enchantments.containsKey(Enchantments.FORTUNE)){
+                if (state.getBlock() == Blocks.DIAMOND_ORE) {
+                    int fortuneMultiplier = enchantments.get(Enchantments.FORTUNE);
+                    worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.DIAMOND_SPLINT.get(), fortuneMultiplier)));
+                }
+                if (state.getBlock() == Blocks.EMERALD_ORE) {
+                    int fortuneMultiplier = enchantments.get(Enchantments.FORTUNE);
+                    worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.EMERALD_SPLINT.get(), fortuneMultiplier)));
+                }
+            }
+
+
+        }
+        return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
+    }
 }

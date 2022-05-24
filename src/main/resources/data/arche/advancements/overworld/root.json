@@ -10,13 +10,13 @@
       "translate": "advancements.arche.overworld.root.description"
     },
     "frame": "task",
-    "show_toast": false,
+    "show_toast": true,
     "announce_to_chat": false,
     "hidden": false,
     "background": "minecraft:textures/block/dirt.png"
   },
   "criteria": {
-    "crafting_table": {
+    "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [

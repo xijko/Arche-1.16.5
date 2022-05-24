@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    " p ",
+    " s "
+  ],
+  "key": {
+    "s": {
+      "item": "arche:diamond_splint"
+    },
+    "p": {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  },
+  "result": {
+    "item": "arche:diamond_reinforcement"
+  }
+}

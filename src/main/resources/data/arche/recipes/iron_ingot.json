@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "arche:stone_buckle_damaged"
+    }
+  },
+  "result": {
+    "item": "minecraft:iron_ingot"
+  }
+}

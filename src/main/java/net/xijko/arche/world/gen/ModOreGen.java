@@ -3,9 +3,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
@@ -92,7 +94,7 @@ public class ModOreGen {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void generateOres(final BiomeLoadingEvent event) {
-        //if (!(event.getCategory().equals(Biome.Category.NETHER) && event.getCategory().equals(Biome.Category.THEEND))) {
+        if (!(event.getCategory().equals(Biome.Category.NETHER) && event.getCategory().equals(Biome.Category.THEEND))) {
         generateOre(overworldOres,
                 "dirt_deposit",
                 event.getGeneration(),
@@ -103,7 +105,7 @@ public class ModOreGen {
                     200,
                     20);
 
-        generateOre(overworldOres,
+        /*generateOre(overworldOres,
                 "sand_deposit",
                 event.getGeneration(),
                 new BlockMatchRuleTest(Blocks.SAND),
@@ -111,7 +113,7 @@ public class ModOreGen {
                 25,
                 5,
                 200,
-                20);
+                20);*/
 
         generateOre(overworldOres,
                 "stone_deposit",
@@ -121,18 +123,68 @@ public class ModOreGen {
                 25,
                 20,
                 60,
-                30);
+                10);
 
         generateOre(overworldOres,
                 "obsidian_deposit",
                 event.getGeneration(),
-                new BlockMatchRuleTest(Blocks.OBSIDIAN),
+                new BlockMatchRuleTest(Blocks.LAVA),
                 ModBlocks.OBSIDIAN_DEPOSIT.get().getDefaultState(),
-                25,
-                00,
+                15,
+                0,
                 20,
-                30);
-        //}
+                5);
+
+        }else if(event.getCategory().equals(Biome.Category.NETHER)){
+            generateOre(netherOres,
+                    "netherrack_deposit",
+                    event.getGeneration(),
+                    new BlockMatchRuleTest(Blocks.NETHERRACK),
+                    ModBlocks.NETHERRACK_DEPOSIT.get().getDefaultState(),
+                    25,
+                    0,
+                    64,
+                    30);
+
+        }else if(event.getCategory().equals(Biome.Category.THEEND)) {
+            generateOre(endOres,
+                    "endstone_deposit",
+                    event.getGeneration(),
+                    new BlockMatchRuleTest(Blocks.END_STONE),
+                    ModBlocks.ENDSTONE_DEPOSIT.get().getDefaultState(),
+                    25,
+                    26,
+                    51,
+                    30);
+
+        }
+        if(event.getGeneration().getStructures().contains(Structure.DESERT_PYRAMID)){
+            generateOre(overworldOres,
+                    "sand_deposit",
+                    event.getGeneration(),
+                    new BlockMatchRuleTest(Blocks.SAND),
+                    ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
+                    25,
+                    26,
+                    200,
+                    30);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void generateStructureOres(final BiomeLoadingEvent event) {
+
+        if(event.getGeneration().getStructures().contains(Structure.DESERT_PYRAMID)){
+            generateStructureOre(overworldOres,
+                    "sand_deposit",
+                    event.getGeneration(),
+                    new BlockMatchRuleTest(Blocks.SAND),
+                    ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
+                    25,
+                    26,
+                    200,
+                    30);
+        }
     }
 
     private static void generateOre( ArrayList<ConfiguredFeature<?, ?>> location, String block, BiomeGenerationSettingsBuilder settings, BlockMatchRuleTest blockMatchRuleTest, BlockState defaultState, int veinSize, int minHeight, int maxHeight, int amount) {
@@ -141,6 +193,17 @@ public class ModOreGen {
                         .square().count(amount)));
         settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                         Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+                        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
+                        .square().count(amount)
+        );
+    }
+
+    private static void generateStructureOre( ArrayList<ConfiguredFeature<?, ?>> location, String block, BiomeGenerationSettingsBuilder settings, BlockMatchRuleTest blockMatchRuleTest, BlockState defaultState, int veinSize, int minHeight, int maxHeight, int amount) {
+        location.add(register(block,Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+                .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
+                .square().count(amount)));
+        settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
                         .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
                         .square().count(amount)
         );

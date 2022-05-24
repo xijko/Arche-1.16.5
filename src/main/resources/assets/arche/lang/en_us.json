@@ -22,6 +22,7 @@
   "container.arche.tool_belt":"Tool Belt",
 
   "item.arche.mattock_iron": "Iron Mattock",
+  "item.arche.mattock_diamond": "Crystalline Mattock",
 
   "item.arche.dirt_sieve": "Dirt Sieve",
 
@@ -38,6 +39,10 @@
   "item.arche.dirt_coin": "Testifikin Dollar",
 
   "item.arche.stone_buckle_damaged": "Discarded Buckle",
+  "item.arche.gear_broken": "Rusted Gear",
+  "item.arche.spring_broken": "Rusted Spring",
+  "item.arche.diamond_splint": "Diamond Splint",
+  "item.arche.emerald_splint": "Emerald Splint",
 
   "item.arche.mattock_head_template": "Rusty Mattock Head",
   "item.arche.mattock_head_mold_raw": "Unfired Mattock Head Mold",

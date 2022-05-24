@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "arche:block/water_jar",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "arche:block/water_jar"
+    }
+  }
+}

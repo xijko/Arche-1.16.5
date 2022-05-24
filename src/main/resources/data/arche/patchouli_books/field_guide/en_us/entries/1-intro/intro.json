@@ -1,0 +1,21 @@
+{
+  "name": "Finding Debris",
+  "icon": "minecraft:wooden_shovel",
+  "category": "arche:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Archaeology is the science (read: art) of digging up things and finding the story behind them. Have you ever dug out a block of dirt and wondered 'Aside from dirt, what else is this block made out of?' The sad truth is: it's always been there, only recently have we found the technology to allow us to examine our earth for finer materials, artifacts, and clues to the very nature of our world."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In our journey to understand our past, you will uncover fantastic artifacts with ancient powers, technological marvels of simpler times, and possibly even terrible knowledge.$(br2)...I'm getting ahead of myself. Let's start with something small! Find yourself a sedimentary deposit - look around for a rich spot in the ground and scoop it out with a shovel, to start."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "arche:dirt_deposit",
+      "text": "Dirt and sand which lay on the surface of our world are naturally easy to spot, and their granular nature allows them to swallow up trinkets with ease - you won't find much of particularly old age within them, but it's a good place to start.$(br2)You must use a shovel to harvest piles of sedimentary debris."
+    }
+
+  ]
+}
