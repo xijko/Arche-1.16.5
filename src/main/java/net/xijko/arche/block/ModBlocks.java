@@ -14,6 +14,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
 import net.xijko.arche.block.artifact.WaterJar;
+import net.xijko.arche.block.crops.CorpseFlower;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
@@ -115,6 +116,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> POOP_DEPOSIT = registerBlock("poop_deposit",
             () -> new Block(AbstractBlock.Properties.create(Material.EARTH).harvestLevel(0).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0f))
     );*/
+
+    //plants
+    public static final RegistryObject<Block> CORPSE_FLOWER = BLOCKS.register("corpse_flower",
+            () -> new CorpseFlower(AbstractBlock.Properties.from(Blocks.WHEAT))
+    );
 
     //google "generics registry object"
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "arche:block/corpse_flower_stage08"
+  }
+}

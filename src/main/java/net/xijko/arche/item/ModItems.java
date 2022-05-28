@@ -6,6 +6,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.ModBlocks;
 
 import static net.xijko.arche.block.ModBlocks.*;
 
@@ -137,6 +138,14 @@ public class ModItems {
             () -> new MattockItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_DIAMOND = ITEMS.register("mattock_diamond",
             () -> new MattockItem(1,-2.8F, ItemTier.DIAMOND,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+
+    //plants
+    public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
+            () -> new BlockItem(ModBlocks.CORPSE_FLOWER.get(), new Item.Properties()
+                    //.food(new Food.Builder().hunger(1).saturation(0.1F).meat().build())
+                    .group(ModItemGroup.ARCHE_GROUP)));
+    /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
 
     /*
     public static final RegistryObject<Item> GRAVELDEBRIS = ITEMS.register("gravel_debris",

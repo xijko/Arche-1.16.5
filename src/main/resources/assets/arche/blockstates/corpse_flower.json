@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "arche:block/corpse_flower_stage00"
+    },
+    "age=1": {
+      "model": "arche:block/corpse_flower_stage01"
+    },
+    "age=2": {
+      "model": "arche:block/corpse_flower_stage02"
+    },
+    "age=3": {
+      "model": "arche:block/corpse_flower_stage03"
+    },
+    "age=4": {
+      "model": "arche:block/corpse_flower_stage04"
+    },
+    "age=5": {
+      "model": "arche:block/corpse_flower_stage05"
+    },
+    "age=6": {
+      "model": "arche:block/corpse_flower_stage06"
+    },
+    "age=7": {
+      "model": "arche:block/corpse_flower_stage07"
+    },
+    "age=8": {
+      "model": "arche:block/corpse_flower_stage08"
+    },
+    "age=9": {
+      "model": "arche:block/corpse_flower_stage09"
+    },
+    "age=10": {
+      "model": "arche:block/corpse_flower_stage10"
+    },
+    "age=11": {
+      "model": "arche:block/corpse_flower_stage11"
+    },
+    "age=12": {
+      "model": "arche:block/corpse_flower_stage12"
+    },
+    "age=13": {
+      "model": "arche:block/corpse_flower_stage13"
+    },
+    "age=14": {
+      "model": "arche:block/corpse_flower_stage14"
+    },
+    "age=15": {
+      "model": "arche:block/corpse_flower_stage15"
+    }
+  }
+}

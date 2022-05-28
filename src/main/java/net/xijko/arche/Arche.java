@@ -3,6 +3,8 @@ package net.xijko.arche;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -101,6 +103,7 @@ public class Arche
         ScreenManager.registerFactory(ModContainers.RESTORE_TABLE_CONTAINER.get(),
                 RestoreTableScreen::new);
         ModKeybinds.register();
+        RenderTypeLookup.setRenderLayer(ModBlocks.CORPSE_FLOWER.get(), RenderType.getCutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
