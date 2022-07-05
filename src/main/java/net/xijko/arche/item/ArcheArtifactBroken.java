@@ -47,7 +47,9 @@ public class ArcheArtifactBroken extends Item {
 
     private int componentTotal;
 
-    public ArcheArtifactBroken(Item artifactOut, int archeTier, Item A, int a, Item B, int b, Item C, int c, Item D, int d) {
+    private boolean isSeed;
+
+    public ArcheArtifactBroken(Item artifactOut, int archeTier, Item A, int a, Item B, int b, Item C, int c, Item D, int d, boolean isSeed) {
         super(new Properties().group(ModItemGroup.ARCHE_GROUP).maxStackSize(1).maxDamage(a+b+c+d+1));
         this.artifactOut = artifactOut;
         this.archeTier = archeTier;
@@ -76,6 +78,7 @@ public class ArcheArtifactBroken extends Item {
             this.comp4 = null;
         }
         this.componentTotal = a+b+c+d;
+        this.isSeed=isSeed;
     }
 
     public int getComp1Quant(){
@@ -102,6 +105,13 @@ public class ArcheArtifactBroken extends Item {
         defaultNBT.putInt("comp3quant",this.comp3Quant);
         defaultNBT.putInt("comp4quant",this.comp4Quant);
         return defaultNBT;
+    }
+
+
+
+    @Override
+    public boolean isRepairable(ItemStack stack) {
+        return false;
     }
 
     @Override

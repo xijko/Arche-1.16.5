@@ -1,0 +1,21 @@
+{
+  "sortnum": 2,
+  "name": "Materials",
+  "icon": "arche:dirt_shard",
+  "category": "arche:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've found a material! As you may have noticed, sifting debris can yield all kinds of handy items - some of them uniquely handy for our studies. Just about every material you can find is able to be used as a substitute in your every day crafting, or built up into an important archaeological component."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arche:dirt_plate",
+      "text": "Take, for example, this common ceramic shard. 8 of them can be glued together to form a ceramic plate, which we will definitely need for later when we start patching up old artifacts."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "At some point, however, dirt won't be enough to sate your scholarly appetite - if we want to dig deeper into harder rock, we will need the famous archaeologist's tool: a mattock! Maybe you can find some rusted pieces of a mattock head in the dirt from archaeologists past? 4 chunks of rusty metal should be enough to recreate the shape."
+    }
+  ]
+}

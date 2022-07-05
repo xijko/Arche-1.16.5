@@ -1,0 +1,35 @@
+{
+  "sortnum": 3,
+  "name": "Mattocks",
+  "icon": "arche:mattock_iron",
+  "category": "arche:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ignoring for a moment the peculiar thought that we just used archaeology to archaeologize an old archaeologist's archaeology tool, you definitely won't be able to able to dig anything up that piece of brittle trash! But luckily, the shape is pretty accurate."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mattocks will be your primary tool for interacting with the findings of the world - a mattock can be used as either a pickaxe or a shovel, but with a slightly slower dig time for both. Yes, we know, although it's half pick and half hatchet, mattocks are used for digging and breaking apart the ground in the real world. You can bash apart deposits with a pickaxe like a barbarian, but that'll destroy the items within."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arche:mattock_head_mold_raw",
+      "text": "Use the mattock head as a template and press it into some clay to make a mold (don't worry, you get to keep the rusty template if you need to make another mould later)."
+    },
+    {
+    "type": "patchouli:smelting",
+    "recipe": "arche:mattock_head_mold",
+    "text": "Cook that bad boy in a furnace."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arche:mattock_iron",
+      "text": "Now just bang it all together with 2 sticks and 4 iron ingots. The mould is pretty durable - you can probably squeeze 4 mattocks out of it, if you're careful!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Just like with a pickaxe, you'll soon require harder tools to effectively break apart deposits with finesse. Keep an eye out for new deposits - each one requires a new tier of mattock, some of more arcane composition than others. This is cutting-edge stuff, but you'll figure it out."
+    }
+  ]
+}

@@ -108,12 +108,12 @@ public class ModItems {
             VillageRingItem::new);
 
     public static final RegistryObject<Item> DIRT_COIN_LEFT_DAMAGED = ITEMS.register("dirt_coin_left_damaged",
-            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_LEFT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
+            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_LEFT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1,false));
     public static final RegistryObject<Item> DIRT_COIN_RIGHT_DAMAGED = ITEMS.register("dirt_coin_right_damaged",
-            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_RIGHT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
+            () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_RIGHT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1,false));
 
     public static final RegistryObject<Item> VILLAGE_RING_DAMAGED = ITEMS.register("village_ring_damaged",
-            () -> new ArcheArtifactBroken(ModItems.VILLAGE_RING.get(),1,Items.GOLD_INGOT,64,Items.FLINT,4,Items.EMERALD,2,Items.SLIME_BALL,2));
+            () -> new ArcheArtifactBroken(ModItems.VILLAGE_RING.get(),1,Items.GOLD_INGOT,64,Items.FLINT,4,Items.EMERALD,2,Items.SLIME_BALL,2,false));
 
     //stone tier mats
 
@@ -137,7 +137,7 @@ public class ModItems {
 
     //stone tier artifacts
     public static final RegistryObject<Item> STONE_BUCKLE_DAMAGED = ITEMS.register("stone_buckle_damaged",
-            () -> new ArcheArtifactBroken(ModItems.TOOL_BELT.get(),1,Items.STRING,16,Items.IRON_INGOT,4,Items.LEATHER_LEGGINGS,1,Items.CHEST,1));
+            () -> new ArcheArtifactBroken(ModItems.TOOL_BELT.get(),1,Items.STRING,16,Items.IRON_INGOT,4,Items.LEATHER_LEGGINGS,1,Items.CHEST,1,false));
 
 
 
