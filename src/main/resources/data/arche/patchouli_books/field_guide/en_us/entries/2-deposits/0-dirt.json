@@ -1,0 +1,18 @@
+{
+  "sortnum": 0,
+  "name": "Sedimentary Deposits",
+  "icon": "arche:dirt_deposit",
+  "category": "arche:deposits",
+  "advancement" : "arche:archaeology/root",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "arche:dirt_deposit",
+      "text": "Sand and dirt, the soft gritty home to all but the most recent of life's detritus.$(br2)Findings described as: organic, classical, common."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Dirt and sand which lay on the surface of our world are naturally easy to spot, and their granular nature allows them to swallow up trinkets with ease. You won't find much of particularly old age or strudiness within them, but are more likely to find creature-made objects like tools or... poop."
+    }
+  ]
+}

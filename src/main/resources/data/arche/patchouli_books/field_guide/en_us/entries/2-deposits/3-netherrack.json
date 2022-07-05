@@ -1,0 +1,18 @@
+{
+  "sortnum": 3,
+  "name": "Infernal Deposits",
+  "icon": "arche:netherrack_deposit",
+  "category": "arche:deposits",
+  "advancement": "arche:archaeology/netherrack_debris_found",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "arche:netherrack_deposit",
+      "text": "Within the flesh-red gravel of the underworld, maligned treasures act as silent witnesses to the horrors of a land darkened by flame. $(br2)Findings described as: blistering, sinister, warped."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Dark secrets linger in the embers of this forsaken world - a red-hot crucible of life which is both cradle and grave to the forces of chaos and decay. Yet, even for its harsh ecosystem, gentle hideous creatures relish a land that tenderly swaddles their vile existence in kind, like a proper home. Was this world present at the beginning of the story, or a dire refuge crafted at the height of a blasphemous society?"
+    }
+  ]
+}

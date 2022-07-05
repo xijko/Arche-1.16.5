@@ -1,0 +1,18 @@
+{
+  "sortnum": 2,
+  "name": "Igneous Deposits",
+  "icon": "arche:obsidian_deposit",
+  "category": "arche:deposits",
+  "advancement": "arche:archaeology/obsidian_debris_found",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "arche:obsidian_deposit",
+      "text": "A hard, volcanic mineral which safekeeps the trophies of ancient magma.$(br2)Findings described as: cataclysmic, ancient, indestructible."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Deep under the foundations of life, the most ancient of earthly artifacts are found embedded in the tempered crystal of our planet. Withstood through time that spans a surreal length, only the most sturdy of artifacts can find their way to the depths and survive the intense pressures and heat of the earth's molten heart - a credit to their value, or likely the hubris of the adventurers who carried them there."
+    }
+  ]
+}

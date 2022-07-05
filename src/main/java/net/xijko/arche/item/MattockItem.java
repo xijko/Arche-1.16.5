@@ -16,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.xijko.arche.block.ArcheDeposit;
 
 import java.util.Map;
 import java.util.Set;
@@ -28,15 +29,20 @@ public class MattockItem extends ToolItem implements IVanishable {
     private static final Set<Block> EFFECTIVE_ON = ImmutableSet.of();
     private static final ToolType shovelType = ToolType.SHOVEL;
     private static final ToolType pickType = ToolType.PICKAXE;
+    public int archeTier;
 
-    public MattockItem(float attackDamageIn, float attackSpeedIn, IItemTier tier, Properties builderIn) {
+    public MattockItem(float attackDamageIn, float attackSpeedIn, IItemTier tier, int archeTier, Properties builderIn) {
         super(attackDamageIn, attackSpeedIn, tier, EFFECTIVE_ON, builderIn.addToolType(ToolType.SHOVEL, tier.getHarvestLevel()));
+        this.archeTier = archeTier;
     }
 
 
     public boolean canHarvestBlock(BlockState blockIn) {
         int i = this.getTier().getHarvestLevel();
          if( (blockIn.isToolEffective(pickType) || blockIn.isToolEffective(shovelType)) && i>=blockIn.getHarvestLevel()){
+             if(blockIn.getBlock() instanceof ArcheDeposit){
+                 return this.archeTier >= ((ArcheDeposit) blockIn.getBlock()).archeTier;
+             }
              return true;
          } else{
              return false;

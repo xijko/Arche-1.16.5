@@ -12,7 +12,7 @@ invertYMouse:false
 realmsNotifications:true
 reducedDebugInfo:false
 snooperEnabled:false
-showSubtitles:false
+showSubtitles:true
 touchscreen:false
 fullscreen:false
 bobView:true
@@ -23,7 +23,7 @@ fov:0.0
 screenEffectScale:1.0
 fovEffectScale:1.0
 gamma:0.0
-renderDistance:12
+renderDistance:21
 entityDistanceScaling:1.0
 guiScale:0
 particles:0
@@ -102,7 +102,7 @@ key_key.hotbar.8:key.keyboard.8
 key_key.hotbar.9:key.keyboard.9
 key_key.curios.open.desc:key.keyboard.g
 key_key.test:key.keyboard.j
-soundCategory_master:0.21523179
+soundCategory_master:0.5745033
 soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0

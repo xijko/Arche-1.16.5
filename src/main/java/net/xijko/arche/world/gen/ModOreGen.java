@@ -1,6 +1,11 @@
 package net.xijko.arche.world.gen;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.serialization.Codec;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.Commands;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
@@ -8,9 +13,14 @@ import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.feature.structure.StructureIndexesSavedData;
 import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
+import net.minecraft.world.gen.feature.template.RuleTest;
+import net.minecraft.world.gen.placement.DecoratedPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -18,8 +28,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.xijko.arche.Arche;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.world.ModFeatures;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
+
+import static net.xijko.arche.block.ArcheDeposit.GENERATED;
+
 
 /*
 @Mod.EventBusSubscriber(modid = Arche.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -92,34 +107,43 @@ public class ModOreGen {
          */
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void generateOres(final BiomeLoadingEvent event) {
         if (!(event.getCategory().equals(Biome.Category.NETHER) && event.getCategory().equals(Biome.Category.THEEND))) {
         generateOre(overworldOres,
                 "dirt_deposit",
                 event.getGeneration(),
                     new BlockMatchRuleTest(Blocks.DIRT),
-                    ModBlocks.DIRT_DEPOSIT.get().getDefaultState(),
+                    ModBlocks.DIRT_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                     25,
                     5,
                     200,
                     20);
 
-        /*generateOre(overworldOres,
+        generateOre(overworldOres,
                 "sand_deposit",
                 event.getGeneration(),
                 new BlockMatchRuleTest(Blocks.SAND),
-                ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
+                ModBlocks.SAND_DEPOSIT.get().getDefaultState().with(GENERATED,true),
                 25,
                 5,
                 200,
-                20);*/
+                20);
+
+            /*generateStructureOre(overworldOres,
+                    event.getGeneration(),
+                    Blocks.SAND,
+                    Blocks.DIAMOND_BLOCK,
+                    25,
+                    5,
+                    200,
+                    20);*/
 
         generateOre(overworldOres,
                 "stone_deposit",
                 event.getGeneration(),
                 new BlockMatchRuleTest(Blocks.STONE),
-                ModBlocks.STONE_DEPOSIT.get().getDefaultState(),
+                ModBlocks.STONE_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                 25,
                 20,
                 60,
@@ -129,7 +153,7 @@ public class ModOreGen {
                 "obsidian_deposit",
                 event.getGeneration(),
                 new BlockMatchRuleTest(Blocks.LAVA),
-                ModBlocks.OBSIDIAN_DEPOSIT.get().getDefaultState(),
+                ModBlocks.OBSIDIAN_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                 15,
                 0,
                 20,
@@ -140,7 +164,7 @@ public class ModOreGen {
                     "netherrack_deposit",
                     event.getGeneration(),
                     new BlockMatchRuleTest(Blocks.NETHERRACK),
-                    ModBlocks.NETHERRACK_DEPOSIT.get().getDefaultState(),
+                    ModBlocks.NETHERRACK_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                     25,
                     0,
                     64,
@@ -151,64 +175,66 @@ public class ModOreGen {
                     "endstone_deposit",
                     event.getGeneration(),
                     new BlockMatchRuleTest(Blocks.END_STONE),
-                    ModBlocks.ENDSTONE_DEPOSIT.get().getDefaultState(),
+                    ModBlocks.ENDSTONE_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                     25,
                     26,
                     51,
                     30);
 
         }
-        if(event.getGeneration().getStructures().contains(Structure.DESERT_PYRAMID)){
-            generateOre(overworldOres,
+
+            /*generateOre(overworldOres,
                     "sand_deposit",
                     event.getGeneration(),
                     new BlockMatchRuleTest(Blocks.SAND),
-                    ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
+                    ModBlocks.SAND_DEPOSIT.get().getDefaultState().with(GENERATED,false),
                     25,
                     26,
                     200,
                     30);
-        }
+
+             */
     }
 
-    @SubscribeEvent(priority = EventPriority.LOW)
+    /*@SubscribeEvent(priority = EventPriority.LOWEST)
     public static void generateStructureOres(final BiomeLoadingEvent event) {
+                generateStructureOre(overworldOres,
+                        "diamond_block",
+                        Structure.DESERT_PYRAMID,
+                        Blocks.SAND,
+                        Blocks.DIAMOND_BLOCK,
+                        64,
+                        event.getGeneration(),
+                        new BlockMatchRuleTest(Blocks.SAND),
+                        Blocks.DIAMOND_BLOCK.getDefaultState(),
+                        25,
+                        26,
+                        200,
+                        300);
+    }*/
 
-        if(event.getGeneration().getStructures().contains(Structure.DESERT_PYRAMID)){
-            generateStructureOre(overworldOres,
-                    "sand_deposit",
-                    event.getGeneration(),
-                    new BlockMatchRuleTest(Blocks.SAND),
-                    ModBlocks.SAND_DEPOSIT.get().getDefaultState(),
-                    25,
-                    26,
-                    200,
-                    30);
-        }
-    }
+    static void generateOre(ArrayList<ConfiguredFeature<?, ?>> location, String block, BiomeGenerationSettingsBuilder settings, BlockMatchRuleTest blockMatchRuleTest, BlockState defaultState, int veinSize, int minHeight, int maxHeight, int amount) {
 
-    private static void generateOre( ArrayList<ConfiguredFeature<?, ?>> location, String block, BiomeGenerationSettingsBuilder settings, BlockMatchRuleTest blockMatchRuleTest, BlockState defaultState, int veinSize, int minHeight, int maxHeight, int amount) {
         location.add(register(block,Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
                         .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
                         .square().count(amount)));
-        settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+        settings.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
                         Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
                         .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
                         .square().count(amount)
         );
     }
-
-    private static void generateStructureOre( ArrayList<ConfiguredFeature<?, ?>> location, String block, BiomeGenerationSettingsBuilder settings, BlockMatchRuleTest blockMatchRuleTest, BlockState defaultState, int veinSize, int minHeight, int maxHeight, int amount) {
-        location.add(register(block,Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+    /*private static void generateStructureOre(ArrayList<ConfiguredFeature<?, ?>> location, Structure struct, Block blockTarget, Block blockReplace, int radius, BiomeGenerationSettingsBuilder settings, int veinSize, int minHeight, int maxHeight, int amount) {
+        location.add(register(blockTarget.getRegistryName().getPath(), ModFeatures.STRUCTURE_ORE_FEATURE.get().withConfiguration(new StructureOreFeatureConfig((Codec<OreFeatureConfig>) StructureOreFeatureConfig.CODEC,struct,blockTarget,blockReplace))
                 .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
                 .square().count(amount)));
+
         settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+                ModFeatures.STRUCTURE_ORE_FEATURE.get().withConfiguration(new StructureOreFeatureConfig((Codec<OreFeatureConfig>) StructureOreFeatureConfig.CODEC,struct,blockTarget,blockReplace))
                         .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
                         .square().count(amount)
         );
-    }
-
+    }*/
     /*public static void gen(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder generation = event.getGeneration();
         if(event.getCategory().equals(Biome.Category.NETHER)){
@@ -225,6 +251,23 @@ public class ModOreGen {
             if (ore != null) generation.withFeature(GenerationStage.Decoration.RAW_GENERATION, ore);
         }
     }*/
+
+    static void generateStructureOre(ArrayList<ConfiguredFeature<?, ?>> location, BiomeGenerationSettingsBuilder settings, Block bTarget, Block bReplace, int veinSize, int minHeight, int maxHeight, int amount) {
+
+        StructureOrePlacement sop = new StructureOrePlacement<>(StructureOrePlacementConfig.CODEC);
+        BlockState defaultState = bTarget.getDefaultState();
+
+        BlockMatchRuleTest blockMatchRuleTest = new BlockMatchRuleTest(bTarget);
+        location.add(register(bReplace.getRegistryName().getPath(), Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+                .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight))))
+                .square().count(amount));
+
+        settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Feature.ORE.withConfiguration(new OreFeatureConfig(blockMatchRuleTest, defaultState, veinSize))
+                        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(minHeight, 0, maxHeight)))
+                        .square().count(amount)
+        );
+    }
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, Arche.MOD_ID + ":" + name, configuredFeature);

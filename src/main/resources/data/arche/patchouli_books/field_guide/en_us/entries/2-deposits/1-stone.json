@@ -1,0 +1,18 @@
+{
+  "sortnum": 1,
+  "name": "Metamorphic Deposits",
+  "icon": "arche:stone_deposit",
+  "category": "arche:deposits",
+  "advancement": "arche:archaeology/stone_debris_found",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "arche:stone_deposit",
+      "text": "Metamorphic layers of earth that have been folded over and shifted under the surface. Considerably harder than its sedimentary brothers, this rock will require more specialized archaeologist's tools.$(br2)Findings described as: preserved, lithic, ferrous."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These layers once served as the soft grounds to ancient life, but as the plates of the earth shake and squeeze in their patient determinations, trinkets in softer soils find themselves sinking deeper and deeper into the foundations of our world. Only artifacts worthy to challenge the tectonic tests of time can hope to descend and be plucked from their hard, cold tombs to find second life in a bright, new world."
+    }
+  ]
+}

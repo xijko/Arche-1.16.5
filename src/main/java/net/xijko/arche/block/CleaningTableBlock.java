@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.xijko.arche.container.RestoreTableContainer;
+import net.xijko.arche.item.ArcheDebris;
 import net.xijko.arche.tileentities.ModTileEntities;
 import net.xijko.arche.tileentities.RestoreTableTile;
 
@@ -81,7 +82,7 @@ public class CleaningTableBlock extends CauldronBlock {
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setWaterLevel(worldIn, pos, state, 3);
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
@@ -98,7 +99,7 @@ public class CleaningTableBlock extends CauldronBlock {
 
                     player.addStat(Stats.USE_CAULDRON);
                     this.setWaterLevel(worldIn, pos, state, 0);
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
@@ -113,11 +114,11 @@ public class CleaningTableBlock extends CauldronBlock {
                         } else if (!player.inventory.addItemStackToInventory(itemstack4)) {
                             player.dropItem(itemstack4, false);
                         } else if (player instanceof ServerPlayerEntity) {
-                            ((ServerPlayerEntity)player).sendContainerToPlayer(player.container);
+                            ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
                         }
                     }
 
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     this.setWaterLevel(worldIn, pos, state, i - 1);
                 }
 
@@ -129,18 +130,18 @@ public class CleaningTableBlock extends CauldronBlock {
                         player.addStat(Stats.USE_CAULDRON);
                         player.setHeldItem(handIn, itemstack3);
                         if (player instanceof ServerPlayerEntity) {
-                            ((ServerPlayerEntity)player).sendContainerToPlayer(player.container);
+                            ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
                         }
                     }
 
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     this.setWaterLevel(worldIn, pos, state, i + 1);
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else {
                 if (i > 0 && item instanceof IDyeableArmorItem) {
-                    IDyeableArmorItem idyeablearmoritem = (IDyeableArmorItem)item;
+                    IDyeableArmorItem idyeablearmoritem = (IDyeableArmorItem) item;
                     if (idyeablearmoritem.hasColor(itemstack) && !worldIn.isRemote) {
                         idyeablearmoritem.removeColor(itemstack);
                         this.setWaterLevel(worldIn, pos, state, i - 1);
@@ -165,13 +166,13 @@ public class CleaningTableBlock extends CauldronBlock {
                         } else if (!player.inventory.addItemStackToInventory(itemstack2)) {
                             player.dropItem(itemstack2, false);
                         } else if (player instanceof ServerPlayerEntity) {
-                            ((ServerPlayerEntity)player).sendContainerToPlayer(player.container);
+                            ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
                         }
                     }
 
                     return ActionResultType.func_233537_a_(worldIn.isRemote);
                 } else if (i > 0 && item instanceof BlockItem) {
-                    Block block = ((BlockItem)item).getBlock();
+                    Block block = ((BlockItem) item).getBlock();
                     if (block instanceof ShulkerBoxBlock && !worldIn.isRemote()) {
                         ItemStack itemstack1 = new ItemStack(Blocks.SHULKER_BOX, 1);
                         if (itemstack.hasTag()) {
@@ -182,26 +183,40 @@ public class CleaningTableBlock extends CauldronBlock {
                         this.setWaterLevel(worldIn, pos, state, i - 1);
                         player.addStat(Stats.CLEAN_SHULKER_BOX);
                         return ActionResultType.SUCCESS;
-                    } else if(block instanceof ArcheDeposit){
-                        ((ArcheDeposit) block).ejectLootAndXp(worldIn,player);
-                        worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    } else if (block instanceof ArcheDeposit) {
+                        ((ArcheDeposit) block).ejectLootAndXp(worldIn, pos, player, "", block.getDefaultState());
+                        worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         if (!player.abilities.isCreativeMode) {
                             player.getHeldItem(handIn).shrink(1);
                             this.setWaterLevel(worldIn, pos, state, i - 1);
                         }
 
 
-
                         return ActionResultType.SUCCESS;
-                    }else {
-                        return ActionResultType.CONSUME;
+
+
                     }
-                }else {
-                    return ActionResultType.PASS;
+                }else if (i > 0 && itemstack.getItem() instanceof ArcheDebris) {
+                        ArcheDebris itemDebris = (ArcheDebris) itemstack.getItem();
+                        if (itemDebris.isAltDeposit) {
+                            LOGGER.warn("This is detected!");
+                            ((ArcheDebris) itemstack.getItem()).ejectLootAndXp(worldIn, pos, player, null);
+                            worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                            if (!player.abilities.isCreativeMode) {
+                                player.getHeldItem(handIn).shrink(1);
+                                this.setWaterLevel(worldIn, pos, state, i - 1);
+                            }
+                        }
+                        return ActionResultType.SUCCESS;
+                    }
                 }
             }
-        }
+
+
+        LOGGER.warn("Cauldron failed!");
+        return ActionResultType.CONSUME;
     }
+
 
 /*
     private static final VoxelShape SHAPE_N = Stream.of(

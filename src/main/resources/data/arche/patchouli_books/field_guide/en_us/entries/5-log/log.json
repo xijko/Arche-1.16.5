@@ -1,0 +1,11 @@
+{
+  "name": "Surface",
+  "icon": "minecraft:grass_block",
+  "category": "arche:log",
+  "pages": [
+    {
+    "type": "patchouli:text",
+    "text": "Archaeology is the science (read: art) of digging up things and finding the story behind them. Have you ever dug out a block of dirt and wondered 'Aside from dirt, what else is this block made out of?' The sad truth is: it's always been there, only recently have we found the technology to allow us to examine our earth for finer materials, artifacts, and clues to the very nature of our world."
+    }
+  ]
+}

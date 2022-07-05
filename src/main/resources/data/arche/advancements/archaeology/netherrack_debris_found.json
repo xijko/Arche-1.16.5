@@ -1,0 +1,29 @@
+{
+  "parent": "arche:archaeology/obsidian_debris_found",
+  "display": {
+    "icon": {
+      "item": "arche:netherrack_deposit"
+    },
+    "title": {
+      "translate": "advancements.arche.archaeology.netherrack_debris_found.title"
+    },
+    "description": {
+      "translate": "advancements.arche.archaeology.netherrack_debris_found.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "hidden": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "arche:netherrack_debris"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -19,6 +20,8 @@ import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
 
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -38,16 +41,32 @@ public class ModBlocks {
 
     public static final RegistryObject<ExampleStorageBlock> EXAMPLE_STORAGE = BLOCKS.register("storage", ExampleStorageBlock::new);
 
-    public static final RegistryObject<Block> POOP_DEPOSIT = BLOCKS.register("poop_deposit",PoopDeposit::new);
-
+    private static List<Structure> sandDepositStructures = new ArrayList<Structure>(){{
+        add(Structure.VILLAGE.getStructure());
+        add(Structure.DESERT_PYRAMID.getStructure());
+    }};
+    private static List<Block> sandDepositBlocks = new ArrayList<Block>(){{
+        add(Blocks.DIAMOND_BLOCK);
+        add(Blocks.CAKE);
+    }};
     public static final RegistryObject<Block> SAND_DEPOSIT = BLOCKS.register("sand_deposit",
-            () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.SAND)
+            () -> new SandDeposit(AbstractBlock.Properties.create(Material.SAND)
                     .sound(SoundType.SAND)
                     .harvestTool(ToolType.SHOVEL)
                     //.harvestTool(MattockIronItem.MATTOCK)
                     .harvestLevel(0)
                     .hardnessAndResistance(0.5f),
-                    0));
+                    0,
+                    sandDepositStructures,
+                    sandDepositBlocks,
+                    true));
+
+    private static List<Structure> dirtDepositStructures = new ArrayList<Structure>(){{
+        add(Structure.VILLAGE.getStructure());
+    }};
+    private static List<Block> dirtDepositBlocks = new ArrayList<Block>(){{
+        add(Blocks.DIAMOND_BLOCK);
+    }};
 
     public static final RegistryObject<Block> DIRT_DEPOSIT = BLOCKS.register("dirt_deposit",
             () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.EARTH)
@@ -56,7 +75,10 @@ public class ModBlocks {
                     //.harvestTool(MattockIronItem.MATTOCK)
                     .harvestLevel(0)
                     .hardnessAndResistance(1f),
-                    1));
+                    1,
+                    dirtDepositStructures,
+                    dirtDepositBlocks,
+                    false));
 
     public static final RegistryObject<Block> STONE_DEPOSIT = BLOCKS.register("stone_deposit",
             () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
@@ -66,7 +88,10 @@ public class ModBlocks {
                     .harvestLevel(Blocks.STONE.getHarvestLevel(Blocks.STONE.getDefaultState()))
                     .hardnessAndResistance(1.5f)
                     .setRequiresTool(),
-                    2));
+                    2,
+                    null,
+                    null,
+                    false));
 
     public static final RegistryObject<Block> OBSIDIAN_DEPOSIT = BLOCKS.register("obsidian_deposit",
             () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
@@ -76,7 +101,10 @@ public class ModBlocks {
                     .harvestLevel(Blocks.STONE.getHarvestLevel(Blocks.OBSIDIAN.getDefaultState()))
                     .hardnessAndResistance(50f)
                     .setRequiresTool(),
-                    3));
+                    3,
+                    null,
+                    null,
+                    false));
 
     public static final RegistryObject<Block> NETHERRACK_DEPOSIT = BLOCKS.register("netherrack_deposit",
             () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
@@ -86,7 +114,10 @@ public class ModBlocks {
                     .harvestLevel(Blocks.NETHERRACK.getHarvestLevel(Blocks.NETHERRACK.getDefaultState()))
                     .hardnessAndResistance(0.4f)
                     .setRequiresTool(),
-                    5));
+                    5,
+                    null,
+                    null,
+                    false));
 
     public static final RegistryObject<Block> ENDSTONE_DEPOSIT = BLOCKS.register("endstone_deposit",
             () -> new ArcheDeposit(AbstractBlock.Properties.create(Material.ROCK)
@@ -96,7 +127,10 @@ public class ModBlocks {
                     .harvestLevel(Blocks.END_STONE.getHarvestLevel(Blocks.END_STONE.getDefaultState()))
                     .hardnessAndResistance(1.5f)
                     .setRequiresTool(),
-                    10));
+                    10,
+                    null,
+                    null,
+                    false));
 
     public static final RegistryObject<Block> CLEANING_TABLE = registerBlock("cleaning_table",
             () -> new CleaningTableBlock(AbstractBlock.Properties.create(Material.IRON))

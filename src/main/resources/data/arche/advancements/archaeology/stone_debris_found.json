@@ -1,0 +1,29 @@
+{
+  "parent": "arche:archaeology/dirt_mattock",
+  "display": {
+    "icon": {
+      "item": "arche:stone_deposit"
+    },
+    "title": {
+      "translate": "advancements.arche.archaeology.stone_debris_found.title"
+    },
+    "description": {
+      "translate": "advancements.arche.archaeology.stone_debris_found.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "hidden": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "arche:stone_debris"
+          }
+        ]
+      }
+    }
+  }
+}

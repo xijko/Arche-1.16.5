@@ -1,20 +1,20 @@
 {
   "itemGroup.archeTab": "Arche",
 
-  "advancements.arche.overworld.root.title": "Arche: The Overworld",
-  "advancements.arche.overworld.root.description": "Exploring history",
+  "advancements.arche.archaeology.root.title": "Learning history",
+  "advancements.arche.archaeology.root.description": "Locate a sedimentary deposit",
 
+  "advancements.arche.archaeology.stone_debris_found.title": "Uncovering history",
+  "advancements.arche.archaeology.stone_debris_found.description": "Locate a metamorphic deposit",
 
-  "advancements.arche.underworld.root.title": "Arche: The Overworld",
-  "advancements.arche.underworld.root.description": "Uncovering history",
+  "advancements.arche.archaeology.obsidian_debris_found.title": "Discovering history",
+  "advancements.arche.archaeology.obsidian_debris_found.description": "Locate an igneous deposit",
 
+  "advancements.arche.archaeology.netherrack_debris_found.title": "Unraveling history",
+  "advancements.arche.archaeology.netherrack_debris_found.description": "Locate an infernal deposit",
 
-  "advancements.arche.nether.root.title": "Arche: The Nether",
-  "advancements.arche.nether.root.description": "Unraveling history",
-
-
-  "advancements.arche.end.root.title": "Arche: The End",
-  "advancements.arche.end.root.description": "Making history",
+  "advancements.arche.archaeology.endstone_debris_found.title": "Making history",
+  "advancements.arche.archaeology.endstone_debris_found.description": "Locate a regal deposit",
 
   "item.arche.amethyst": "Amethyst",
 
@@ -29,6 +29,9 @@
   "item.arche.poop_debris": "Coprolite Debris",
   "item.arche.dirt_debris": "Sedimentary Debris",
   "item.arche.stone_debris": "Metamorphic Debris",
+  "item.arche.igneous_debris": "Igneous Debris",
+  "item.arche.netherrack_debris": "Infernal Debris",
+  "item.arche.endstone_debris": "Regal Debris",
   "item.arche.dirt_shard": "Stoneware Shard",
   "item.arche.mattock_head_shard": "Rusty Bit",
   "item.arche.dirt_plate": "Stoneware Plate",
@@ -37,6 +40,8 @@
   "item.arche.dirt_coin_left": "Half-Coin (Left)",
   "item.arche.dirt_coin_right": "Half-Coin (Right)",
   "item.arche.dirt_coin": "Testifikin Dollar",
+  "item.arche.village_ring_damaged": "Damaged Signet",
+  "item.arche.village_ring": "Testificon Dynasty Signet",
 
   "item.arche.stone_buckle_damaged": "Discarded Buckle",
   "item.arche.gear_broken": "Rusted Gear",
@@ -51,10 +56,15 @@
   "block.arche.amethyst_ore": "Amethyst Ore",
   "block.arche.amethyst_block": "Amethyst Block",
   "block.arche.poop_deposit": "Coprolite Deposit",
-  "block.arche.dirt_deposit": "Earthen Deposit",
+  "block.arche.dirt_deposit": "Sedimentary Deposit",
   "block.arche.sand_deposit": "Sedimentary Deposit",
   "block.arche.stone_deposit": "Metamorphic Deposit",
   "block.arche.obsidian_deposit": "Igneous Deposit",
+  "block.arche.netharrack_deposit": "Infernal Deposit",
+  "block.arche.endstone_deposit": "Regal Deposit",
+
+  "block.arche.corpse_flower_seed": "Corpse Flower Seed",
+  "block.arche.corpse_flower": "Corpse Flower",
 
   "block.arche.restore_table":"Restoring Table",
   "screen.arche.restore_table": "Restoring Table",

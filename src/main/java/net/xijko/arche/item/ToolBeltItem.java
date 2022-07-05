@@ -213,29 +213,6 @@ public class ToolBeltItem extends Item implements ICurioItem {
             return new ToolBeltCapabilityProvider();
         }
 
-        /*private ItemStackHandler createHandler() {
-            return new ItemStackHandler(2) {
-                @Override
-                public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                    return true;
-                }
-
-                @Override
-                public int getSlotLimit(int slot) {
-                    return 1;
-                }
-
-                @Nonnull
-                @Override
-                public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                    if (!isItemValid(slot, stack)) {
-                        return stack;
-                    }
-
-                    return super.insertItem(slot, stack, simulate);
-                }
-            };
-        }*/
         private static ToolBeltItemStackHandler getItemStackHandlerToolBelt(ItemStack itemStack) {
             IItemHandler toolBelt = itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
             if (toolBelt == null || !(toolBelt instanceof ToolBeltItemStackHandler)) {

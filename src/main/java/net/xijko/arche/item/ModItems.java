@@ -1,5 +1,6 @@
 package net.xijko.arche.item;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -7,6 +8,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.block.artifact.DirtCoin;
+import net.xijko.arche.block.artifact.VillageRingItem;
 
 import static net.xijko.arche.block.ModBlocks.*;
 
@@ -26,8 +29,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> POOP_DEBRIS = ITEMS.register("poop_debris",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
-    public static final RegistryObject<Item> POOP_DEPOSIT_ITEM = ITEMS.register("poop_deposit",
-            () -> new BlockItem(POOP_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
     //sieves/cleaning tools
     public static final RegistryObject<Item> DIRT_SIEVE = ITEMS.register("dirt_sieve",
@@ -46,6 +47,12 @@ public class ModItems {
             () -> new BlockItem(DIRT_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> SAND_DEPOSIT_ITEM = ITEMS.register("sand_deposit",
             () -> new BlockItem(SAND_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    //ALTS
+    public static final RegistryObject<Item> DESERT_PYRAMID_DEPOSIT = ITEMS.register("desert_pyramid_deposit",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 10,"desert_pyramid", true));
+    public static final RegistryObject<Item> DESERT_PYRAMID_DEBRIS = ITEMS.register("desert_pyramid_debris",
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 10, "desert_pyramid", false));
+
     public static final RegistryObject<Item> STONE_DEPOSIT_ITEM = ITEMS.register("stone_deposit",
             () -> new BlockItem(STONE_DEPOSIT.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> OBSIDIAN_DEPOSIT_ITEM = ITEMS.register("obsidian_deposit",
@@ -57,20 +64,22 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> DIRT_DEBRIS = ITEMS.register("dirt_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP),1,"",false));
     public static final RegistryObject<Item> STONE_DEBRIS = ITEMS.register("stone_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2,"",false));
     public static final RegistryObject<Item> OBSIDIAN_DEBRIS = ITEMS.register("obsidian_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 2,"",false));
     public static final RegistryObject<Item> NETHERRACK_DEBRIS = ITEMS.register("netherrack_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 5));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 5,"",false));
     public static final RegistryObject<Item> ENDSTONE_DEBRIS = ITEMS.register("endstone_debris",
-            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 10));
+            () -> new ArcheDebris(new Item.Properties().group(ModItemGroup.ARCHE_GROUP), 10,"",false));
 
     //dirt tier mats
 
     //primary
     public static final RegistryObject<Item> DIRT_SHARD = ITEMS.register("dirt_shard",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_THREAD = ITEMS.register("dirt_thread",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> DIRT_BONE = ITEMS.register("dirt_bone",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
@@ -79,6 +88,8 @@ public class ModItems {
 
     //secondary
     public static final RegistryObject<Item> DIRT_PLATE = ITEMS.register("dirt_plate",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> DIRT_STRING = ITEMS.register("dirt_string",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
     //prog
@@ -92,12 +103,17 @@ public class ModItems {
     public static final RegistryObject<Item> DIRT_COIN_RIGHT = ITEMS.register("dirt_coin_right",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> DIRT_COIN = ITEMS.register("dirt_coin",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE)));
+            () -> new DirtCoin(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> VILLAGE_RING = ITEMS.register("village_ring",
+            VillageRingItem::new);
 
     public static final RegistryObject<Item> DIRT_COIN_LEFT_DAMAGED = ITEMS.register("dirt_coin_left_damaged",
             () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_LEFT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
     public static final RegistryObject<Item> DIRT_COIN_RIGHT_DAMAGED = ITEMS.register("dirt_coin_right_damaged",
             () -> new ArcheArtifactBroken(ModItems.DIRT_COIN_RIGHT.get(),1,Items.CLAY_BALL,8,ModItems.DIRT_SHARD.get(),4,ModItems.DIRT_PLATE.get(),2,Items.GOLD_NUGGET,1));
+
+    public static final RegistryObject<Item> VILLAGE_RING_DAMAGED = ITEMS.register("village_ring_damaged",
+            () -> new ArcheArtifactBroken(ModItems.VILLAGE_RING.get(),1,Items.GOLD_INGOT,64,Items.FLINT,4,Items.EMERALD,2,Items.SLIME_BALL,2));
 
     //stone tier mats
 
@@ -135,15 +151,21 @@ public class ModItems {
     public static final RegistryObject<Item> MATTOCK_HEAD_MOLD = ITEMS.register("mattock_head_mold",
             () -> new MattockHeadMold(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(4)));
     public static final RegistryObject<Item> MATTOCK_IRON = ITEMS.register("mattock_iron",
-            () -> new MattockItem(1,-2.8F, ItemTier.IRON,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+            () -> new MattockItem(1,-2.8F, ItemTier.IRON,2,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> MATTOCK_DIAMOND = ITEMS.register("mattock_diamond",
-            () -> new MattockItem(1,-2.8F, ItemTier.DIAMOND,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+            () -> new MattockItem(1,-2.8F, ItemTier.DIAMOND,3,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> MATTOCK_NETHERRACK = ITEMS.register("mattock_netherrack",
+            () -> new MattockItem(1,-2.8F, ItemTier.DIAMOND,5,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> MATTOCK_ENDSTONE = ITEMS.register("mattock_endstone",
+            () -> new MattockItem(4,-2.8F, ItemTier.NETHERITE,10,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
 
     //plants
-    public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
+    /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () -> new BlockItem(ModBlocks.CORPSE_FLOWER.get(), new Item.Properties()
-                    //.food(new Food.Builder().hunger(1).saturation(0.1F).meat().build())
-                    .group(ModItemGroup.ARCHE_GROUP)));
+                    .group(ModItemGroup.ARCHE_GROUP)));*/
+
+    public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
+            () ->  new BlockNamedItem(ModBlocks.CORPSE_FLOWER.get(), (new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
 

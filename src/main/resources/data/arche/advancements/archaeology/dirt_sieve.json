@@ -1,0 +1,25 @@
+{
+  "parent": "arche:archaeology/root",
+  "display": {
+    "icon": {
+      "item": "arche:dirt_sieve"
+    },
+    "title": "Sifting Soil",
+    "description": "Construct a crude sieve to separate sedimentary debris.",
+    "frame": "task",
+    "show_toast": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "arche:dirt_sieve"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "arche:archaeology/dirt_sieve",
+  "display": {
+    "icon": {
+      "item": "arche:mattock_iron"
+    },
+    "title": "A Proper Archaeologist",
+    "description": "Forge your mattock from the mould of a rusted mattock head.",
+    "frame": "task",
+    "show_toast": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "arche:mattock_iron"
+          }
+        ]
+      }
+    }
+  }
+}

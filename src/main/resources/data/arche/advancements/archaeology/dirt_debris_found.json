@@ -1,0 +1,25 @@
+{
+  "parent": "arche:overworld/non",
+  "display": {
+    "icon": {
+      "item": "arche:dirt_deposit"
+    },
+    "title": "Unearth the Past",
+    "description": "You found a sedimentary deposit!",
+    "frame": "task",
+    "show_toast": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "arche:dirt_debris"
+          }
+        ]
+      }
+    }
+  }
+}

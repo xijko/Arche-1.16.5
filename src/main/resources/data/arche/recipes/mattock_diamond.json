@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "-#-",
-    "-|-",
-    " | "
+    "DCE",
+    " M "
   ],
   "key": {
-    "#": {
-      "item": "arche:mattock_head_mold"
+    "C": {
+      "item": "minecraft:conduit"
     },
-    "-": {
-      "tag": "forge:ingots/iron"
+    "E": {
+      "item": "arche:emerald_reinforcement"
     },
-    "|": {
-      "tag": "forge:rods/wooden"
+    "D": {
+      "item": "arche:diamond_reinforcement"
+    },
+    "M": {
+      "item": "arche:mattock_iron"
     }
   },
   "result": {
-    "item": "arche:mattock_iron"
+    "item": "arche:mattock_diamond"
   }
 }
