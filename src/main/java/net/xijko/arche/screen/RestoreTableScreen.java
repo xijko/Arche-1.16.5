@@ -1,4 +1,4 @@
-package net.xijko.arche.block.screen;
+package net.xijko.arche.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;

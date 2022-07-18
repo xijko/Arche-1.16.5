@@ -10,6 +10,7 @@ import net.xijko.arche.Arche;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.artifact.DirtCoin;
 import net.xijko.arche.block.artifact.VillageRingItem;
+import net.xijko.arche.block.crops.SoilBag;
 
 import static net.xijko.arche.block.ModBlocks.*;
 
@@ -37,6 +38,7 @@ public class ModItems {
             () -> new ArcheSieves(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).maxDamage(128),2));
     public static final RegistryObject<Item> TOOL_BELT = ITEMS.register("tool_belt",
             ToolBeltItem::new);
+
 
     /*public static final RegistryObject<Item> CLEANING_TABLE_ITEM = ITEMS.register("cleaning_table",
             () -> new BlockItem(CleaningTableBlock.get, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
@@ -115,6 +117,7 @@ public class ModItems {
     public static final RegistryObject<Item> VILLAGE_RING_DAMAGED = ITEMS.register("village_ring_damaged",
             () -> new ArcheArtifactBroken(ModItems.VILLAGE_RING.get(),1,Items.GOLD_INGOT,64,Items.FLINT,4,Items.EMERALD,2,Items.SLIME_BALL,2,false));
 
+
     //stone tier mats
 
     //primary
@@ -140,7 +143,23 @@ public class ModItems {
             () -> new ArcheArtifactBroken(ModItems.TOOL_BELT.get(),1,Items.STRING,16,Items.IRON_INGOT,4,Items.LEATHER_LEGGINGS,1,Items.CHEST,1,false));
 
 
+    //obsidian tier mats
 
+    //primary
+    public static final RegistryObject<Item> OBSIDIAN_SHARD = ITEMS.register("obsidian_shard",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    //secondary
+    public static final RegistryObject<Item> OBSIDIAN_PLATE = ITEMS.register("obsidian_plate",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> SCUBA_HELMET = ITEMS.register("scuba_helmet",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    //stone tier artifacts
+    public static final RegistryObject<Item> SCUBA = ITEMS.register("scuba",
+            ScubaItem::new);
+    public static final RegistryObject<Item> OBSIDIAN_SCUBA_DAMAGED = ITEMS.register("obsidian_scuba_damaged",
+            () -> new ArcheArtifactBroken(ModItems.SCUBA.get(),1,ModItems.DIRT_STRING.get(), 16, ModItems.STONE_BUCKLE_DAMAGED.get(),2,Items.CONDUIT,2,Items.BARREL,1,false));
 
 
 
@@ -160,12 +179,17 @@ public class ModItems {
             () -> new MattockItem(4,-2.8F, ItemTier.NETHERITE,10,(new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
 
     //plants
-    /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
-            () -> new BlockItem(ModBlocks.CORPSE_FLOWER.get(), new Item.Properties()
-                    .group(ModItemGroup.ARCHE_GROUP)));*/
 
+    public static final RegistryObject<Item> UNLABELED_SOILBAG = ITEMS.register("unlabeled_soilbag",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> CORPSE_FLOWER_NOTES = ITEMS.register("corpse_flower_notes",
+            () ->  new NotesItem(new NotesItem.Properties().group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> CORPSE_FLOWER_SOILBAG = ITEMS.register("corpse_flower_soilbag",
+            () -> new SoilBag(Blocks.DIRT,9));
     public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () ->  new BlockNamedItem(ModBlocks.CORPSE_FLOWER.get(), (new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
+    public static final RegistryObject<Item> CORPSE_FLOWER_SOILBAG_DAMAGED = ITEMS.register("corpse_flower_soilbag_damaged",
+            () -> new ArcheArtifactBroken(ModItems.CORPSE_FLOWER_SOILBAG.get(),9,ModItems.DIRT_STRING.get(),9,Items.SOUL_SOIL, 4, Items.ZOMBIE_HEAD,4,Items.SKELETON_SKULL,1,true));
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
 

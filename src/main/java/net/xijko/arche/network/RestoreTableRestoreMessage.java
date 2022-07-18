@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.xijko.arche.block.screen.RestoreTableScreen;
+import net.xijko.arche.screen.RestoreTableScreen;
 import net.xijko.arche.item.ArcheArtifactBroken;
 import net.xijko.arche.tileentities.RestoreTableTile;
 import org.apache.logging.log4j.LogManager;

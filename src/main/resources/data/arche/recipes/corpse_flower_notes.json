@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "S": {
+      "item": "arche:corpse_flower_seed"
+    }
+  },
+  "result": {
+    "item": "arche:corpse_flower_notes"
+  }
+}

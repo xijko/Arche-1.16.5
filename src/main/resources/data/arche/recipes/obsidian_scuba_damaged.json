@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GOG",
+    "GH "
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:leather_helmet"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "O": {
+      "item": "arche:obsidian_plate"
+    }
+  },
+  "result": {
+    "item": "arche:obsidian_scuba_damaged"
+  }
+}

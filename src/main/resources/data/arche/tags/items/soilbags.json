@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values":
+  [
+    "arche:unlabeled_soilbag",
+    "arche:corpse_flower_soilbag_damaged",
+    "arche:corpse_flower_soilbag"
+  ]
+
+}

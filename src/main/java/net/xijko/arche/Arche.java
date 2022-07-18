@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.world.gen.feature.structure.JigsawStructure;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -21,7 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
-import net.xijko.arche.block.screen.RestoreTableScreen;
+import net.xijko.arche.screen.RestoreTableScreen;
 import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.events.SpawnEvents;
 import net.xijko.arche.inits.ContainerTypeInit;
@@ -32,11 +34,11 @@ import net.xijko.arche.item.ToolBeltItem;
 import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
+import net.xijko.arche.structures.ModStructures;
 import net.xijko.arche.tileentities.ModTileEntities;
 import net.xijko.arche.util.ModKeybinds;
-import net.xijko.arche.world.ModFeatures;
+import net.xijko.arche.villagers.ModVillagers;
 import net.xijko.arche.world.gen.ModOreGen;
-import net.xijko.arche.world.gen.ModStructureGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.SlotTypeMessage;
@@ -59,7 +61,6 @@ public class Arche
         ModBlocks.register(eventBus);
         ModContainers.register(eventBus);
         ModTileEntities.register(eventBus);
-        ModFeatures.register(eventBus);
 
         //Register Tile Entities
         TileEntityInit.TILE_ENTITY_TYPES.register(eventBus);
@@ -67,7 +68,8 @@ public class Arche
         //Register Container Types
         ContainerTypeInit.CONTAINER_TYPES.register(eventBus);
 
-        //ModTileEntities.register(eventBus);
+        ModVillagers.register(eventBus);
+
 
         eventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -97,7 +99,11 @@ public class Arche
         MinecraftForge.EVENT_BUS.register(ModToolTips.class);
         MinecraftForge.EVENT_BUS.register(SpawnEvents.class);
         MinecraftForge.EVENT_BUS.addListener(SpawnEvents::spawnEntity);
+        MinecraftForge.EVENT_BUS.addListener(ModStructures::addNewVillageBuilding);
 
+        event.enqueueWork(ModVillagers::registerPOIs);
+
+//K9#8016
 
 
         //ScreenManager.registerFactory(ModContainers.TOOL_BELT_CONTAINER.get(), ToolBeltContainerScreen:: new);

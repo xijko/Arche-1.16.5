@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "arche:soilbags"
+    },
+    {
+      "item": "arche:corpse_flower_notes"
+    }
+  ],
+  "result": {
+    "item": "arche:corpse_flower_soilbag_damaged",
+    "count": 1
+  }
+}

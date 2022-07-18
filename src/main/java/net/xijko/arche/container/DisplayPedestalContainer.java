@@ -17,15 +17,15 @@ import net.xijko.arche.block.ModBlocks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SoilTableContainer extends Container {
+public class DisplayPedestalContainer extends Container {
     public final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
     private static final Logger LOGGER = LogManager.getLogger();
 
 
-    public SoilTableContainer(int windowId, World world, BlockPos pos,
-                              PlayerInventory playerInventory, PlayerEntity player) {
+    public DisplayPedestalContainer(int windowId, World world, BlockPos pos,
+                                    PlayerInventory playerInventory, PlayerEntity player) {
         super(ModContainers.RESTORE_TABLE_CONTAINER.get(), windowId);
         this.tileEntity = world.getTileEntity(pos);
         playerEntity = player;

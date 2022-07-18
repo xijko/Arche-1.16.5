@@ -32,9 +32,12 @@
   "item.arche.igneous_debris": "Igneous Debris",
   "item.arche.netherrack_debris": "Infernal Debris",
   "item.arche.endstone_debris": "Regal Debris",
+
   "item.arche.dirt_shard": "Stoneware Shard",
-  "item.arche.mattock_head_shard": "Rusty Bit",
   "item.arche.dirt_plate": "Stoneware Plate",
+  "item.arche.dirt_thread": "Old Thread",
+  "item.arche.dirt_string": "Rope",
+  "item.arche.mattock_head_shard": "Rusty Bit",
   "item.arche.dirt_coin_left_damaged": "Damaged Half-Coin (Left)",
   "item.arche.dirt_coin_right_damaged": "Damaged Half-Coin (Right)",
   "item.arche.dirt_coin_left": "Half-Coin (Left)",
@@ -48,6 +51,12 @@
   "item.arche.spring_broken": "Rusted Spring",
   "item.arche.diamond_splint": "Diamond Splint",
   "item.arche.emerald_splint": "Emerald Splint",
+
+
+  "item.arche.obsidian_shard": "Glassy Shard",
+  "item.arche.obsidian_plate": "Large Glass Jar",
+  "item.arche.obsidian_scuba_damaged": "Glass Helmet",
+  "item.arche.scuba": "Prototype Breathing Apparatus",
 
   "item.arche.mattock_head_template": "Rusty Mattock Head",
   "item.arche.mattock_head_mold_raw": "Unfired Mattock Head Mold",
@@ -70,5 +79,8 @@
   "screen.arche.restore_table": "Restoring Table",
 
   "tooltip.arche.artifact_hover": "Hold \u00A7eSHIFT\u00A7r to see components",
-  "tooltip.arche.artifact_progress": "Progress: "
+  "tooltip.arche.artifact_progress": "Progress: ",
+
+  "entity.minecraft.villager.arche.museum_curator":"Curator"
+
 }

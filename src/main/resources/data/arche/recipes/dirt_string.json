@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ttt",
+    "tst",
+    "ttt"
+  ],
+  "key": {
+    "t": {
+      "item": "arche:dirt_thread"
+    },
+    "s": {
+      "tag": "forge:string"
+    }
+  },
+  "result": {
+    "item": "arche:dirt_string"
+  }
+}

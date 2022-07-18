@@ -28,7 +28,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.xijko.arche.Arche;
 import net.xijko.arche.block.ModBlocks;
-import net.xijko.arche.world.ModFeatures;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;

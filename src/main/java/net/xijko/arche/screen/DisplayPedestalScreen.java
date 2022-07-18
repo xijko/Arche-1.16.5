@@ -1,4 +1,4 @@
-package net.xijko.arche.block.screen;
+package net.xijko.arche.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -12,36 +12,34 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.IItemHandler;
 import net.xijko.arche.Arche;
 import net.xijko.arche.container.RestoreTableContainer;
-import net.xijko.arche.container.SoilTableContainer;
 import net.xijko.arche.item.ArcheArtifactBroken;
 import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.network.RestoreTableRestoreMessage;
-import net.xijko.arche.network.SoilTableRestoreMessage;
 import net.xijko.arche.tileentities.RestoreTableTile;
-import net.xijko.arche.tileentities.SoilTableTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SoilTableScreen extends ContainerScreen<SoilTableContainer> {
+public class DisplayPedestalScreen extends ContainerScreen<RestoreTableContainer> {
     private final ResourceLocation GUI = new ResourceLocation(Arche.MOD_ID,
-            "textures/gui/soil_table.png");
+            "textures/gui/restore_table.png");
     private final ResourceLocation compOverlay = new ResourceLocation(Arche.MOD_ID,
-            "textures/gui/soil_table_overlay.png");
+            "textures/gui/restore_table_overlay.png");
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final ResourceLocation CLEANING_TABLE_TEXTURE = new ResourceLocation(Arche.MOD_ID,"textures/gui/restore_button.png");
     private static Button restoreButton;
 
 
-    public SoilTableScreen(SoilTableContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public DisplayPedestalScreen(RestoreTableContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         initButton(screenContainer);
     }
 
-    protected void initButton(SoilTableContainer screenContainer){
+    protected void initButton(RestoreTableContainer screenContainer){
         ITextComponent title = ITextComponent.getTextComponentOrEmpty("Restore");
         restoreButton = new Button(this.guiLeft+61, this.guiTop+60, 55, 20, title, (button) -> {
-            SoilTableTile table = (SoilTableTile) screenContainer.tileEntity;
-            ModNetwork.sendToServer(new SoilTableRestoreMessage(this,table.getWorld(),table.getPos()));
+            RestoreTableTile table = (RestoreTableTile) screenContainer.tileEntity;
+            //ModNetwork.sendToServer(new RestoreTableRestoreMessage(this,table.getWorld(),table.getPos()));
         });
         this.addButton(restoreButton);
     }

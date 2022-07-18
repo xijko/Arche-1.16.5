@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "vvv",
+    "vOv",
+    "vvv"
+  ],
+  "key": {
+    "v": {
+      "item": "arche:obsidian_shard"
+    },
+    "O": {
+      "tag": "forge:slimeballs"
+    }
+  },
+  "result": {
+    "item": "arche:obsidian_plate"
+  }
+}

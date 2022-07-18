@@ -30,12 +30,12 @@ public class ModContainers {
                 World world = inv.player.getEntityWorld();
                 return new RestoreTableContainer(windowId, world, pos, inv, inv.player);
             })));
-    public static final RegistryObject<ContainerType<SoilTableContainer>> SOIL_TABLE_CONTAINER
-            = CONTAINERS.register("soil_table_container",
+    public static final RegistryObject<ContainerType<DisplayPedestalContainer>> SOIL_TABLE_CONTAINER
+            = CONTAINERS.register("display_pedestal_container",
             () -> IForgeContainerType.create(((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 World world = inv.player.getEntityWorld();
-                return new SoilTableContainer(windowId, world, pos, inv, inv.player);
+                return new DisplayPedestalContainer(windowId, world, pos, inv, inv.player);
             })));
 
     public static void register(IEventBus eventBus) {
