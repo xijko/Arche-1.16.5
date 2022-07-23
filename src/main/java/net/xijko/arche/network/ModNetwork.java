@@ -48,6 +48,14 @@ public class ModNetwork {
 
         INSTANCE.registerMessage(
                 index++,
+                RestoreTableRestoreMessage.class,
+                RestoreTableRestoreMessage::encode,
+                RestoreTableRestoreMessage::decode,
+                RestoreTableRestoreMessage::handle
+        );
+
+        INSTANCE.registerMessage(
+                index++,
                 CorpseFlowerDespawnMessage.class,
                 CorpseFlowerDespawnMessage::encode,
                 CorpseFlowerDespawnMessage::decode,

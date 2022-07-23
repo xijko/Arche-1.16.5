@@ -140,6 +140,10 @@ public class ModBlocks {
             () -> new RestoreTableBlock(AbstractBlock.Properties.create(Material.WOOD))
     );
 
+    public static final RegistryObject<Block> DISPLAY_PEDESTAL = registerBlock("display_pedestal",
+            () -> new DisplayPedestalBlock(AbstractBlock.Properties.create(Material.WOOD))
+    );
+
 
     //artifacts
     public static final RegistryObject<Block> WATER_JAR = registerBlock("water_jar",

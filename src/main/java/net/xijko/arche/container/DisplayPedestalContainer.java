@@ -26,7 +26,7 @@ public class DisplayPedestalContainer extends Container {
 
     public DisplayPedestalContainer(int windowId, World world, BlockPos pos,
                                     PlayerInventory playerInventory, PlayerEntity player) {
-        super(ModContainers.RESTORE_TABLE_CONTAINER.get(), windowId);
+        super(ModContainers.DISPLAY_PEDESTAL_CONTAINER.get(), windowId);
         this.tileEntity = world.getTileEntity(pos);
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -36,15 +36,6 @@ public class DisplayPedestalContainer extends Container {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //mats
                 addSlot(new SlotItemHandler(h, 0, 8, 9));
-                addSlot(new SlotItemHandler(h, 1, 8, 27));
-                addSlot(new SlotItemHandler(h, 2, 8, 45));
-                addSlot(new SlotItemHandler(h, 3, 8, 63));
-
-                //broken artifact
-                addSlot(new SlotItemHandler(h, 4, 80, 27));
-
-                //restored artifact - OLD, now ejects at player position
-                //addSlot(new SlotItemHandler(h, 5, 98, 27));
             });
         }
     }
@@ -56,7 +47,7 @@ public class DisplayPedestalContainer extends Container {
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()),
-                playerIn, ModBlocks.RESTORE_TABLE.get());
+                playerIn, ModBlocks.DISPLAY_PEDESTAL.get());
     }
 
 
@@ -102,7 +93,7 @@ public class DisplayPedestalContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 5;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {

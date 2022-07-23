@@ -15,6 +15,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.screen.RestoreTableScreen;
 import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.events.SpawnEvents;
@@ -37,6 +39,7 @@ import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
 import net.xijko.arche.structures.ModStructures;
 import net.xijko.arche.tileentities.ModTileEntities;
 import net.xijko.arche.util.ModKeybinds;
+import net.xijko.arche.util.render.DisplayPedestalTileRenderer;
 import net.xijko.arche.villagers.ModVillagers;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
@@ -99,9 +102,10 @@ public class Arche
         MinecraftForge.EVENT_BUS.register(ModToolTips.class);
         MinecraftForge.EVENT_BUS.register(SpawnEvents.class);
         MinecraftForge.EVENT_BUS.addListener(SpawnEvents::spawnEntity);
-        MinecraftForge.EVENT_BUS.addListener(ModStructures::addNewVillageBuilding);
+        //MinecraftForge.EVENT_BUS.addListener(ModStructures::addNewVillageBuilding);
 
         event.enqueueWork(ModVillagers::registerPOIs);
+        event.enqueueWork(ModStructures::addNewVillageBuilding);
 
 //K9#8016
 
@@ -116,8 +120,13 @@ public class Arche
                 ToolBeltContainerScreen::new);
         ScreenManager.registerFactory(ModContainers.RESTORE_TABLE_CONTAINER.get(),
                 RestoreTableScreen::new);
+        ScreenManager.registerFactory(ModContainers.DISPLAY_PEDESTAL_CONTAINER.get(),
+                DisplayPedestalScreen::new);
         ModKeybinds.register();
         RenderTypeLookup.setRenderLayer(ModBlocks.CORPSE_FLOWER.get(), RenderType.getCutout());
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.DISPLAY_PEDESTAL_TILE.get(), DisplayPedestalTileRenderer::new);
+        RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_PEDESTAL.get(), RenderType.getTranslucent());
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

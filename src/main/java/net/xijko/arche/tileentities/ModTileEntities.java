@@ -35,6 +35,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("corpse_flower_tile", () -> TileEntityType.Builder.create(
                     CorpseFlowerTile::new, ModBlocks.CORPSE_FLOWER.get()).build(null));
 
+    public static RegistryObject<TileEntityType<DisplayPedestalTile>> DISPLAY_PEDESTAL_TILE =
+            TILE_ENTITIES.register("display_pedestal_tile", () -> TileEntityType.Builder.create(
+                    DisplayPedestalTile::new, ModBlocks.DISPLAY_PEDESTAL.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
     }

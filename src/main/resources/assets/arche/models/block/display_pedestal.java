@@ -1,4 +1,5 @@
 Stream.of(
+Block.box(1, 13, 1, 15, 32, 15),
 Block.box(0, 11, 0, 16, 13, 16),
 Block.box(1, 0, 1, 15, 4, 15),
 Block.box(2, 4, 2, 14, 11, 14),
