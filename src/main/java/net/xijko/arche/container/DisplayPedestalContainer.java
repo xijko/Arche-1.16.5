@@ -35,7 +35,7 @@ public class DisplayPedestalContainer extends Container {
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //mats
-                addSlot(new SlotItemHandler(h, 0, 8, 9));
+                addSlot(new SlotItemHandler(h, 0, 80, 104));
             });
         }
     }
@@ -71,7 +71,7 @@ public class DisplayPedestalContainer extends Container {
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
+        //addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
 
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
@@ -85,7 +85,7 @@ public class DisplayPedestalContainer extends Container {
     //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
     //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
     private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
+    private static final int PLAYER_INVENTORY_ROW_COUNT = 0;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
     private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;

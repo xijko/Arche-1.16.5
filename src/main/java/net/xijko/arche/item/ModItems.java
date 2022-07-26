@@ -190,6 +190,9 @@ public class ModItems {
             () ->  new BlockNamedItem(ModBlocks.CORPSE_FLOWER.get(), (new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> CORPSE_FLOWER_SOILBAG_DAMAGED = ITEMS.register("corpse_flower_soilbag_damaged",
             () -> new ArcheArtifactBroken(ModItems.CORPSE_FLOWER_SOILBAG.get(),9,ModItems.DIRT_STRING.get(),9,Items.SOUL_SOIL, 4, Items.ZOMBIE_HEAD,4,Items.SKELETON_SKULL,1,true));
+
+
+
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));*/
 

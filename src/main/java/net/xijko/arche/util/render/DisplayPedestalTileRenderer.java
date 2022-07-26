@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Quaternion;
@@ -29,14 +30,18 @@ import net.minecraft.world.World;
 import net.xijko.arche.block.DisplayPedestalBlock;
 import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
 
 public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPedestalTile> {
 
         private Minecraft mc = Minecraft.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger();
 
-        public DisplayPedestalTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+
+    public DisplayPedestalTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
             super(rendererDispatcherIn);
         }
 
@@ -61,8 +66,11 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
         public void render(DisplayPedestalTile te, float partialTicks, MatrixStack matrixStackIn,
                            IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
             DisplayPedestalBlock block = (DisplayPedestalBlock) te.getBlockState().getBlock();
-            if (te.getItem().equals(ItemStack.EMPTY) || te.getItem().getItem().equals(Items.AIR))
+
+
+            if (te.getItem().equals(ItemStack.EMPTY) || te.getItem().getItem().equals(Items.AIR)){
                 return;
+            }
 
             ClientPlayerEntity player = mc.player;
             int lightLevel = getLightLevel(te.getWorld(), te.getPos().up());
@@ -70,14 +78,14 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
             float angle = getFacing(te.getBlockState());
             Quaternion rotation = Vector3f.YP.rotationDegrees(angle);
 
-            renderItem(te.getItem(), new double[] { 0.5d, 1d, 0.5d },
+            renderItem(te.getItem(), new double[] { 0.5d, 1.38d, 0.5d },
                     rotation, matrixStackIn, bufferIn, partialTicks,
-                    combinedOverlayIn, lightLevel, 3f);
+                    combinedOverlayIn, lightLevel, 1f);
 
             ITextComponent label = te.getItem().hasDisplayName() ? te.getItem().getDisplayName()
                     : new TranslationTextComponent(te.getItem().getTranslationKey());
 
-            renderLabel(matrixStackIn, bufferIn, lightLevel, new double[] { .5d, 1.2d, .5d }, label, 0xffffff);
+            renderLabel(matrixStackIn, bufferIn, lightLevel, new double[] { .5d, 2d, .5d }, label, 0xffffff);
         }
 
         private void renderItem(ItemStack stack, double[] translation, Quaternion rotation, MatrixStack matrixStack,
@@ -87,8 +95,9 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
             matrixStack.rotate(rotation);
             matrixStack.scale(scale, scale, scale);
 
-            IBakedModel model = mc.getItemRenderer().getItemModelWithOverrides(stack, null, null);
-            mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, true, matrixStack, buffer,
+            IBakedModel model = mc.getItemRenderer().getItemModelWithOverrides(stack,
+                    mc.world, null);
+            mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, true, matrixStack, buffer,
                     lightLevel, combinedOverlay, model);
             matrixStack.pop();
         }

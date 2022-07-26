@@ -145,7 +145,8 @@
 			"scale": [0.8, 0.8, 0.8]
 		},
 		"fixed": {
-			"translation": [0, -1.75, 0]
+			"translation": [0, -1.75, 0],
+			"rotation": [0,180,0]
 		}
 	}
 }

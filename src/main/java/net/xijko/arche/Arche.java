@@ -124,8 +124,8 @@ public class Arche
                 DisplayPedestalScreen::new);
         ModKeybinds.register();
         RenderTypeLookup.setRenderLayer(ModBlocks.CORPSE_FLOWER.get(), RenderType.getCutout());
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.DISPLAY_PEDESTAL_TILE.get(), DisplayPedestalTileRenderer::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_PEDESTAL.get(), RenderType.getTranslucent());
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.DISPLAY_PEDESTAL_TILE.get(), DisplayPedestalTileRenderer::new);
 
     }
 
