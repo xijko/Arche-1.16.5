@@ -25,6 +25,10 @@ public class ModItems {
     //be sure to add to assets.MODID.models.item.ITEMREGISTERNAME.json for sprite details/texture
     //be sure to add .png to assets.MODID.textures.item
 
+    public static final RegistryObject<Item> DEBUG = ITEMS.register("debug",
+            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+
     public static final RegistryObject<Item> AMETHYST = ITEMS.register("amethyst",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP))); //this determines the 'group' that this item belongs to - is sued by creative inventories to determine the tab
 

@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -78,12 +79,11 @@ public class DisplayPedestalTile extends TileEntity {
         return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
     }
 
-
-
-    /**
-     * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the chunk or when
-     * many blocks change at once. This compound comes back to you clientside in {@link handleUpdateTag}
+    /*
+      Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the chunk or when
+      many blocks change at once.
      */
+     //This compound comes back to you clientside in {@link handleUpdateTag}
     public CompoundNBT getUpdateTag() {
         return this.write(new CompoundNBT());
     }
@@ -204,93 +204,6 @@ public class DisplayPedestalTile extends TileEntity {
                 return handler.cast();
         }
         return super.getCapability(cap, side);
-    }
-
-    public void renderPedestal(DisplayPedestalScreen screen, Quaternion rotation, int x, int y, float z){
-        ItemStack stack = new ItemStack(ModBlocks.DISPLAY_PEDESTAL.get(),1);
-        IBakedModel bakedmodel = screen.getItemRenderer().getItemModelWithOverrides(stack, screen.getContainer().tileEntity.getWorld(), null);
-        //Quaternion rot = new Quaternion(20,angle,0,true);
-
-
-
-        RenderSystem.pushMatrix();
-        screen.getItemRenderer().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        screen.getItemRenderer().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).setBlurMipmapDirect(false, false);
-        RenderSystem.enableRescaleNormal();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.defaultAlphaFunc();
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.translatef((float)x, (float)y+100, screen.getItemRenderer().zLevel + z);
-        RenderSystem.translatef(8.0F, 8.0F, 0.0F);
-        RenderSystem.scalef(1.0F, -1.0F, 1.0F);
-        RenderSystem.scalef(16.0F, 16.0F, 16.0F);
-        MatrixStack matrixstack = new MatrixStack();
-        matrixstack.rotate(rotation);
-        matrixstack.translate(0,1.6,0);
-        matrixstack.scale(6,6,6);
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        boolean flag = !bakedmodel.isSideLit();
-        if (flag) {
-            RenderHelper.setupGuiFlatDiffuseLighting();
-        }
-
-        screen.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
-        irendertypebuffer$impl.finish();
-        RenderSystem.enableDepthTest();
-        if (flag) {
-            RenderHelper.setupGui3DDiffuseLighting();
-        }
-
-        RenderSystem.disableAlphaTest();
-        RenderSystem.disableRescaleNormal();
-        RenderSystem.popMatrix();
-    }
-
-    public void renderArtifact(DisplayPedestalScreen screen, ItemStack stack, int x, int y, IBakedModel bakedmodel) {
-        float zLevel = -100F;
-        float angle = (System.currentTimeMillis() / 50) % 360;
-
-        if(stack.isEmpty() || stack.getItem()== Items.AIR || stack == ItemStack.EMPTY) angle=45;
-        Quaternion rotation = new Quaternion(20,angle,0,true);
-        //Quaternion rot = new Quaternion(20,angle,0,true);
-
-        RenderSystem.pushMatrix();
-        screen.getItemRenderer().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        screen.getItemRenderer().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).setBlurMipmapDirect(false, false);
-        RenderSystem.enableRescaleNormal();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.defaultAlphaFunc();
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.translatef((float)x, (float)y, screen.getItemRenderer().zLevel + zLevel);
-        RenderSystem.translatef(8.0F, 8.0F, 0.0F);
-        RenderSystem.scalef(1.0F, -1.0F, 1.0F);
-        RenderSystem.scalef(16.0F, 16.0F, 16.0F);
-        MatrixStack matrixstack = new MatrixStack();
-        matrixstack.rotate(rotation);
-        matrixstack.translate(0d, 1.14d, 0d);
-        matrixstack.scale(6,6,6);
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        boolean flag = !bakedmodel.isSideLit();
-        if (flag) {
-            RenderHelper.setupGuiFlatDiffuseLighting();
-        }
-
-        screen.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
-        irendertypebuffer$impl.finish();
-        RenderSystem.enableDepthTest();
-        if (flag) {
-            RenderHelper.setupGui3DDiffuseLighting();
-        }
-
-        RenderSystem.disableAlphaTest();
-        RenderSystem.disableRescaleNormal();
-        RenderSystem.popMatrix();
-        renderPedestal(screen,rotation,x,y,zLevel);
-
     }
 
 }
