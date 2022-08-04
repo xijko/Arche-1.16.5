@@ -12,6 +12,7 @@ import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.INestedGuiEventHandler;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
+import net.minecraft.client.gui.widget.list.ExtendedList;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -41,10 +42,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.EMPTY_LIST;
 
@@ -80,10 +85,11 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         int width = this.width;
         int top = this.guiTop;
         int left = this.guiLeft;
-        this.lorePanel = new DisplayPedestalScreen.DisplayPedestalLorePanel(this.minecraft, width / 2, height - 20, top, left+width/2,matrixStack,this.font,this.lore ,mouseX,mouseY);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.lorePanel = new DisplayPedestalLorePanel(this.minecraft, width / 2, height - 20, top, left,matrixStack,this.font,this.lore ,mouseX,mouseY);
         matrixStack.translate(0,0,500);
         this.lorePanel.render(matrixStack,mouseX,mouseY,partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        setLorePanelListeners();
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
         //this.lorePanel = new DisplayPedestalScreen.DisplayPedestalLorePanel(this.minecraft, this.width / 2, this.height, this.guiTop, this.guiLeft + this.width / 2,matrixStack,this.font,this.lore ,mouseX,mouseY);
         //this.drawArtifact(matrixStack);
@@ -91,6 +97,15 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
 
         //this.drawComponentMaterials();
         //this.drawComponentOverlay(matrixStack);
+    }
+
+    public void setLorePanelListeners(){
+        this.lorePanel.setListener(new IGuiEventListener() {
+            @Override
+            public boolean mouseScrolled(double p_231043_1_, double p_231043_3_, double p_231043_5_) {
+                return IGuiEventListener.super.mouseScrolled(p_231043_1_, p_231043_3_, p_231043_5_);
+            }
+        });
     }
 
     @Override
@@ -117,7 +132,10 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         renderArtifact(this,matrixStack,itemStack,rendererX,rendererY, ibakedmodel);
     }
 
-
+    @Override
+    public void init(Minecraft p_231158_1_, int p_231158_2_, int p_231158_3_) {
+        super.init(p_231158_1_, p_231158_2_, p_231158_3_);
+    }
 
     public void renderPedestal(DisplayPedestalScreen screen, Quaternion rotation, int x, int y, float z){
         ItemStack stack = new ItemStack(ModBlocks.DISPLAY_PEDESTAL.get(),1);
@@ -268,114 +286,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
-        //initButton(this.container);
-    }
-
-    protected void drawLorePanel(){
 
     }
-
-    private static class DisplayPedestalLorePanel extends ScrollPanel implements INestedGuiEventHandler {
-
-        MatrixStack ms;
-        FontRenderer font;
-        List<ITextProperties> lore;
-        int width;
-        int height;
-        int top;
-        int left;
-        int x;
-        int y;
-
-        private final List<IGuiEventListener> listenerList = Lists.newArrayList();
-
-        public DisplayPedestalLorePanel(Minecraft client, int width, int height, int top, int left, MatrixStack ms, FontRenderer font, List<ITextProperties> lore, int x, int y) {
-            super(client, width, height, top, left);
-            this.ms = ms;
-            this.font = font;
-            this.lore = lore;
-            this.width = width;
-            this.height = height;
-            this.top = top;
-            this.left = left;
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
-            super.render(matrix, x, y, partialTicks);
-        }
-
-        @Override
-        public int getContentHeight()
-        {
-            int height = (this.lore.size() * 9);
-            if (height < this.height - this.top - 8)
-                height = this.height - this.top - 8;
-            return height;
-        }
-
-        @Override
-        protected int getScrollAmount()
-        {
-            return 9 * 3;
-        }
-
-        @Override
-        protected void drawPanel(MatrixStack mStack, int entryRight, int relativeY, Tessellator tess, int mouseX, int mouseY) {
-            for(int i=0;i<this.lore.size();i++){
-                String line = this.lore.get(i).getString();
-                this.font.drawString(mStack,line,this.left,relativeY,1);
-                relativeY += 9;
-            }
-        }
-
-        protected void renderText(MatrixStack mStack, int entryRight, int relativeY, Tessellator tess, int mouseX, int mouseY){
-
-        }
-
-        @Override
-        public List<? extends IGuiEventListener> getEventListeners() {
-            return super.getEventListeners();
-        }
-
-        private void applyScrollLimits(){
-            int max = getMaxScroll();
-
-            if (max < 0)
-            {
-                max /= 2;
-            }
-
-            if (this.scrollDistance < 0.0F)
-            {
-                this.scrollDistance = 0.0F;
-            }
-
-            if (this.scrollDistance > max)
-            {
-                this.scrollDistance = max;
-            }
-        }
-
-        private int getMaxScroll()
-        {
-            return this.getContentHeight() - (this.height - this.border);
-        }
-
-        public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-            LOGGER.warn("Scroll!");
-            if (delta != 0)
-            {
-                this.scrollDistance += -delta * getScrollAmount();
-                applyScrollLimits();
-                return true;
-            }
-            return false;
-        }
-
-    }
-
 
 }

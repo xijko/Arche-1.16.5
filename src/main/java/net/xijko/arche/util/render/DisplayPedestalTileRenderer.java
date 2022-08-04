@@ -28,7 +28,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.xijko.arche.block.DisplayPedestalBlock;
-import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
