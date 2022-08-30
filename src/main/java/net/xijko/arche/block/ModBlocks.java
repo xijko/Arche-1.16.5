@@ -144,6 +144,10 @@ public class ModBlocks {
             () -> new DisplayPedestalBlock(AbstractBlock.Properties.create(Material.WOOD))
     );
 
+    public static final RegistryObject<Block> MUSEUM_CATALOG = registerBlock("museum_catalog",
+            () -> new MuseumCatalogBlock(AbstractBlock.Properties.create(Material.WOOD))
+    );
+
 
     //artifacts
     public static final RegistryObject<Block> WATER_JAR = registerBlock("water_jar",

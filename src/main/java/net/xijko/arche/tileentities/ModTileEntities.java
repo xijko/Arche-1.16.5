@@ -39,6 +39,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("display_pedestal_tile", () -> TileEntityType.Builder.create(
                     DisplayPedestalTile::new, ModBlocks.DISPLAY_PEDESTAL.get()).build(null));
 
+    public static RegistryObject<TileEntityType<MuseumCatalogTile>> MUSEUM_CATALOG_TILE =
+            TILE_ENTITIES.register("museum_datalog_tile", () -> TileEntityType.Builder.create(
+                    MuseumCatalogTile::new, ModBlocks.DISPLAY_PEDESTAL.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
     }

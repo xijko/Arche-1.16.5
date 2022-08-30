@@ -26,7 +26,7 @@ public class ModItems {
     //be sure to add .png to assets.MODID.textures.item
 
     public static final RegistryObject<Item> DEBUG = ITEMS.register("debug",
-            () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+            () -> new ArcheDebug(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     public static final RegistryObject<Item> AMETHYST = ITEMS.register("amethyst",

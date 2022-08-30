@@ -14,26 +14,22 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.xijko.arche.block.ModBlocks;
-import net.xijko.arche.tileentities.DisplayPedestalTile;
-import net.xijko.arche.util.render.DisplayPedestalTileRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DisplayPedestalContainer extends Container {
+public class MuseumCatalogContainer extends Container {
     public final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public DisplayPedestalContainer(int windowId, World world, BlockPos pos,
-                                    PlayerInventory playerInventory, PlayerEntity player) {
-        super(ModContainers.DISPLAY_PEDESTAL_CONTAINER.get(), windowId);
+    public MuseumCatalogContainer(int windowId, World world, BlockPos pos,
+                                  PlayerInventory playerInventory, PlayerEntity player) {
+        super(ModContainers.MUSEUM_CATALOG_CONTAINER.get(), windowId);
         this.tileEntity = world.getTileEntity(pos);
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        if (tileEntity instanceof DisplayPedestalTile){
-            if(!((DisplayPedestalTile) tileEntity).museum_owned) layoutPlayerInventorySlots(8, 86);
-        }
+        layoutPlayerInventorySlots(8, 86);
 
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
@@ -41,10 +37,6 @@ public class DisplayPedestalContainer extends Container {
                 addSlot(new SlotItemHandler(h, 0, 8, 104));
             });
         }
-    }
-
-    public boolean isLightningStorm() {
-        return tileEntity.getWorld().isThundering();
     }
 
     @Override
@@ -88,7 +80,7 @@ public class DisplayPedestalContainer extends Container {
     //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
     //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
     private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int PLAYER_INVENTORY_ROW_COUNT = 0;
+    private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
     private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;

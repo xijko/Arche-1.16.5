@@ -3,15 +3,19 @@ package net.xijko.arche.tileentities;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.xijko.arche.block.DisplayPedestalBlock;
+import net.xijko.arche.block.MuseumCatalogBlock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,13 +24,22 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class DisplayPedestalTile extends TileEntity {
-    public final ItemStackHandler itemHandler = createHandler();
-    public final ItemStackHandler outputItemHandler = createOutputHandler();
+    public final ItemStackHandler itemHandler = createHandler(this.museum_owned);
+    public final ItemStackHandler outputItemHandler = createOutputHandler(this.museum_owned);
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> outputItemHandler);
     private static final Logger LOGGER = LogManager.getLogger();
     protected static final Random random = new Random();
     public ItemStack cachedItem;
+
+    public int museumSlot = 0;
+    public int museumX = 0;
+    public int museumY = 0;
+    public int museumZ = 0;
+
+    public boolean museum_owned = false;
+    public boolean museum_completed = false;
+    public boolean museum_paired = false;
 
     public DisplayPedestalTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -68,6 +81,7 @@ public class DisplayPedestalTile extends TileEntity {
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.put("inv", itemHandler.serializeNBT());
+        compound.put("cat",new CompoundNBT());
         return super.write(compound);
     }
 
@@ -89,12 +103,12 @@ public class DisplayPedestalTile extends TileEntity {
         this.validate();
         LazyOptional<IItemHandler> handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).cast();
         if(!handler.isPresent()){
-            createHandler();
+            createHandler(this.museum_owned);
         }
         return this.itemHandler.getStackInSlot(0);
     }
 
-    private ItemStackHandler createHandler() {
+    private ItemStackHandler createHandler(boolean isOwned) {
         return new ItemStackHandler(1) {
 
             @Override
@@ -131,8 +145,10 @@ public class DisplayPedestalTile extends TileEntity {
         };
     }
 
-    private ItemStackHandler createOutputHandler() {
+    private ItemStackHandler createOutputHandler(boolean isOwned) {
         return new ItemStackHandler(1) {
+
+            //protected boolean canInsert = true;
 
             @Override
             protected void onContentsChanged(int slot) {
@@ -141,6 +157,7 @@ public class DisplayPedestalTile extends TileEntity {
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+
                 return true;
             }
 
@@ -164,7 +181,8 @@ public class DisplayPedestalTile extends TileEntity {
     @Override
     public void onLoad() {
         super.onLoad();
-
+        setMuseumPaired();
+        LOGGER.warn("Result of Pair: "+ this.museum_paired);
     }
 
     @Nonnull
@@ -175,6 +193,29 @@ public class DisplayPedestalTile extends TileEntity {
                 return handler.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    public boolean checkForMuseumCatalog(){
+        int deltX = this.museumX;
+        int deltY = this.museumY;
+        int deltZ = this.museumZ;
+        BlockPos catalogTestPos = this.getPos().add(
+                deltX,
+                deltY,
+                deltZ
+        );
+        assert world != null;
+        BlockState catalogBlockState = world.getBlockState(catalogTestPos);
+        return catalogBlockState.getBlock() instanceof MuseumCatalogBlock;
+    }
+
+    public void setMuseumPaired(){
+        BlockPos pos = this.getPos();
+        this.museum_paired = checkForMuseumCatalog();
+    }
+
+    public void setMuseumOwned(){
+        this.museum_owned = true;
     }
 
 }

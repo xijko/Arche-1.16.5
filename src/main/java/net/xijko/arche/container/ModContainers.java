@@ -38,6 +38,14 @@ public class ModContainers {
                 return new DisplayPedestalContainer(windowId, world, pos, inv, inv.player);
             })));
 
+    public static final RegistryObject<ContainerType<MuseumCatalogContainer>> MUSEUM_CATALOG_CONTAINER
+            = CONTAINERS.register("museum_catalog_container",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                World world = inv.player.getEntityWorld();
+                return new MuseumCatalogContainer(windowId, world, pos, inv, inv.player);
+            })));
+
 
     public static void register(IEventBus eventBus) {
         CONTAINERS.register(eventBus);
