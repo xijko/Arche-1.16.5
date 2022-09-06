@@ -11,6 +11,10 @@ import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.artifact.DirtCoin;
 import net.xijko.arche.block.artifact.VillageRingItem;
 import net.xijko.arche.block.crops.SoilBag;
+import org.lwjgl.system.CallbackI;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 import static net.xijko.arche.block.ModBlocks.*;
 
@@ -18,6 +22,12 @@ public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Arche.MOD_ID);
+    
+    public static List<Item>[] artifactList = new List[];
+    
+    private RegistryObject<? extends Item> registerArtifact(final String name, final Supplier<? extends Item> sup){
+        return ITEMS.register(name, sup);
+    }
 
 
     //ITEMS HERE

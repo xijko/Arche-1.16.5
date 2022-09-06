@@ -61,39 +61,6 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
         //this.buttons.get(0).active = true;
     }
 
-    public void drawComponentMaterials(){
-        this.itemRenderer.zLevel = 1;
-        int bumpDown = 18;
-        int startX = 26 + this.guiLeft;
-        int startY = 9 + this.guiTop;
-        MuseumCatalogTile table = (MuseumCatalogTile) this.container.tileEntity;
-        IItemHandler handler = table.itemHandler;
-        if(!(handler.getStackInSlot(4).getItem() instanceof ArcheArtifactBroken)){this.buttons.get(0).active = false;
-            return;}
-        ItemStack artifactBrokenStack = handler.getStackInSlot(4);
-        ArcheArtifactBroken artifactBroken = (ArcheArtifactBroken) artifactBrokenStack.getItem();
-        Item comp1 = artifactBroken.comp1;
-        Item comp2 = artifactBroken.comp2;
-        Item comp3 = artifactBroken.comp3;
-        Item comp4 = artifactBroken.comp4;
-        int q1 = artifactBrokenStack.getTag().getInt("comp1quant");
-        int q2 = artifactBrokenStack.getTag().getInt("comp2quant");
-        int q3 = artifactBrokenStack.getTag().getInt("comp3quant");
-        int q4 = artifactBrokenStack.getTag().getInt("comp4quant");
-        if(comp1!=null && q1 > 0){
-            this.itemRenderer.renderItemIntoGUI(new ItemStack(comp1, q1),startX,startY);
-        }
-        if(comp2!=null && q2 > 0){
-            this.itemRenderer.renderItemIntoGUI(new ItemStack(comp2, q2),startX,startY+bumpDown);
-        }
-        if(comp3!=null && q3 > 0){
-            this.itemRenderer.renderItemIntoGUI(new ItemStack(comp3, q3),startX,startY+bumpDown*2);
-        }
-        if(comp4!=null && q4 > 0){
-            this.itemRenderer.renderItemIntoGUI(new ItemStack(comp4, q4),startX,startY+bumpDown*3);
-        }
-        this.buttons.get(0).active = true;
-    }
 
     /*public void drawComponentOverlay(MatrixStack matrixStack){
         RenderSystem.color4f(1f, 1f, 1f, 0.8f);
@@ -111,7 +78,7 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
-        this.drawComponentMaterials();
+        //this.drawComponentMaterials();
         //this.drawComponentOverlay(matrixStack);
     }
 

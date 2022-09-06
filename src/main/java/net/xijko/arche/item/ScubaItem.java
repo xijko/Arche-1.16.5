@@ -45,7 +45,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ScubaItem extends Item implements ICurioItem {
+public class ScubaItem extends ArcheArtifactItem implements ICurioItem {
     private static final ResourceLocation SCUBA_TEXTURE = new ResourceLocation(Arche.MOD_ID,
             "textures/equipment/scuba.png");
     private Object model;

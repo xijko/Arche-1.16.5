@@ -19,6 +19,8 @@ import net.xijko.arche.util.render.DisplayPedestalTileRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_OWNED;
+
 public class DisplayPedestalContainer extends Container {
     public final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
@@ -38,9 +40,24 @@ public class DisplayPedestalContainer extends Container {
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //mats
-                addSlot(new SlotItemHandler(h, 0, 8, 104));
+                if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
+                    addSlot(new MuseumSlotItemHandler(h, 0, 8, 104));
+                }else{
+                    addSlot(new SlotItemHandler(h, 0, 8, 104));
+                }
             });
         }
+    }
+
+    public static class MuseumSlotItemHandler extends SlotItemHandler{
+
+        public MuseumSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+
+
+
     }
 
     public boolean isLightningStorm() {
@@ -49,8 +66,12 @@ public class DisplayPedestalContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()),
-                playerIn, ModBlocks.DISPLAY_PEDESTAL.get());
+        if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
+            return true;
+        }else {
+            return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()),
+                    playerIn, ModBlocks.DISPLAY_PEDESTAL.get());
+        }
     }
 
 
@@ -104,6 +125,9 @@ public class DisplayPedestalContainer extends Container {
         if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getStack();
         ItemStack copyOfSourceStack = sourceStack.copy();
+        if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
+            return ItemStack.EMPTY;
+        }
 
         // Check if the slot clicked is one of the vanilla container slots
         if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {

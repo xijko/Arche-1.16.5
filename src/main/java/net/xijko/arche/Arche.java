@@ -25,6 +25,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.screen.DisplayPedestalScreen;
+import net.xijko.arche.screen.MuseumCatalogScreen;
 import net.xijko.arche.screen.RestoreTableScreen;
 import net.xijko.arche.container.ModContainers;
 import net.xijko.arche.events.SpawnEvents;
@@ -122,6 +123,8 @@ public class Arche
                 RestoreTableScreen::new);
         ScreenManager.registerFactory(ModContainers.DISPLAY_PEDESTAL_CONTAINER.get(),
                 DisplayPedestalScreen::new);
+        ScreenManager.registerFactory(ModContainers.MUSEUM_CATALOG_CONTAINER.get(),
+                MuseumCatalogScreen::new);
         ModKeybinds.register();
         RenderTypeLookup.setRenderLayer(ModBlocks.CORPSE_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_PEDESTAL.get(), RenderType.getTranslucent());

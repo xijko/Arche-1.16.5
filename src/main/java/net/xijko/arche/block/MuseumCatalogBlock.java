@@ -82,7 +82,7 @@ public class MuseumCatalogBlock extends Block {
         return new INamedContainerProvider() {
             @Override
             public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("screen.arche.display_pedestal");
+                return new TranslationTextComponent("screen.arche.museum_catalog");
             }
 
             @Nullable

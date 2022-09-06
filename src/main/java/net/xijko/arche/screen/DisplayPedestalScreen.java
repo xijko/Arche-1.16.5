@@ -3,6 +3,7 @@ package net.xijko.arche.screen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -24,11 +25,13 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.text.*;
 import net.minecraftforge.client.gui.ScrollPanel;
 import net.minecraftforge.items.IItemHandler;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.DisplayPedestalBlock;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.container.DisplayPedestalContainer;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
@@ -39,6 +42,9 @@ import org.lwjgl.opengl.GL11;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+
+import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_OWNED;
+import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_SLOT;
 
 public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContainer> implements INestedGuiEventHandler{
     private int tick = 0;
@@ -53,6 +59,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
     boolean scrolling = false;
     boolean hasLore = false;
     int xSize = 256; //336
+    public ItemStack displayItem = ItemStack.EMPTY;
 
     public DisplayPedestalScreen(DisplayPedestalContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -150,11 +157,24 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         RenderSystem.popMatrix();
     }
 
+    public ItemStack getDisplayedStack(ItemStack stackIn){
+        DisplayPedestalTile tile = this.tile;
+        BlockState state = tile.getBlockState();
+        BlockPos pos = tile.getPos();
+        Boolean isMuseumOwned = tile.museum_owned;
+        if(isMuseumOwned){
+            return this.displayItem;
+        }else{
+            return stackIn;
+        }
+    }
+
     public void renderArtifact(DisplayPedestalScreen screen, MatrixStack matrixStack,ItemStack stackIn, int x, int y, IBakedModel bakedmodel) {
         float zLevel = -100F;
         float angle = (System.currentTimeMillis() / 50) % 360;
 
-        ItemStack stack = stackIn.copy();
+        ItemStack stack = getDisplayedStack(stackIn).copy();
+
 
         if(stack.isEmpty() || stack.getItem()== Items.AIR || stack == ItemStack.EMPTY) angle=45;
         if(stack.getItem() instanceof BlockItem){

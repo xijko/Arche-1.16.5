@@ -39,7 +39,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ToolBeltItem extends Item implements ICurioItem {
+public class ToolBeltItem extends ArcheArtifactItem implements ICurioItem {
     private static final ResourceLocation TOOL_BELT_TEXTURE = new ResourceLocation(Arche.MOD_ID,
             "textures/entity/tool_belt.png");
     private Object model;

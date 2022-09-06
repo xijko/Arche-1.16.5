@@ -41,7 +41,7 @@ public class MuseumCatalogTile extends TileEntity {
     private static final Logger LOGGER = LogManager.getLogger();
     protected static final Random random = new Random();
     public ItemStack cachedItem;
-    private int artifactCount = 32;
+    public int artifactCount = 32;
     public int[] xArray = new int[artifactCount];
     public int[] yArray = new int[artifactCount];
     public int[] zArray = new int[artifactCount];
@@ -171,8 +171,12 @@ public class MuseumCatalogTile extends TileEntity {
         return this.itemHandler.getStackInSlot(0);
     }
 
+    public int getArtifactCount(){
+        return artifactCount;
+    }
+
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(9 * Math.round(getArtifactCount()/9)) {
 
             @Override
             protected void onContentsChanged(int slot) {
