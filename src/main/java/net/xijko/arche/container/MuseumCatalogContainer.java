@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -23,7 +24,9 @@ public class MuseumCatalogContainer extends Container {
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
     private static final Logger LOGGER = LogManager.getLogger();
-    private int artifactCount;
+    private static int artifactCount = 36;
+    private int MAX_ARTIFACT_COUNT = artifactCount;
+    public MuseumCatalogItemStackHandler museumCatalogItemStackHandler;
 
     public MuseumCatalogContainer(int windowId, World world, BlockPos pos,
                                   PlayerInventory playerInventory, PlayerEntity player) {
@@ -34,15 +37,17 @@ public class MuseumCatalogContainer extends Container {
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
+
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //THIS IS THE SLOTS FOR THE INPUTS< WILL LAY OUT
                 //addSlot(new SlotItemHandler(h, this.artifactCount, 8, 104));
-                addSlotBox(h, 36, 8, 8, 9, 18, 3, 18);
+                layoutPlayerInventorySlots(8, 86);
+                addSlotBox(h, 36, 8, 8, 9, 18, 4, 18);
+                //layoutCatalogInventorySlots(museumCatalogItemStackHandler);
             });
         }
 
-        layoutPlayerInventorySlots(8, 86);
     }
 
     @Override
@@ -77,6 +82,44 @@ public class MuseumCatalogContainer extends Container {
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
+    public static int getArtifactCount(){
+        return artifactCount;
+    }
+
+    private void layoutCatalogInventorySlots(IItemHandler h){
+        int artifactSlotCount = getArtifactCount();
+        int slotLimit = TE_INVENTORY_FIRST_SLOT_INDEX + artifactSlotCount;
+        if (artifactSlotCount < 1 || artifactSlotCount > MAX_ARTIFACT_COUNT) {
+            //LOGGER.("Unexpected invalid slot count in ItemStackHandlerFlowerBag(" + bagSlotCount + ")");
+            artifactSlotCount = MathHelper.clamp(artifactSlotCount, 1, MAX_ARTIFACT_COUNT);
+        }
+
+        final int SLOT_X_SPACING = 18;
+        final int SLOT_Y_SPACING = 18;
+        final int CATALOG_INVENTORY_YPOS = 0;
+        final int CATALOG_INVENTORY_XPOS = 0;
+        final int EXTRA_ITEM_SLOTS = 6;
+        final int BAG_SLOTS_PER_ROW = 8;
+        final int BAG_INVENTORY_XPOS = 8;
+        // Add the tile inventory container to the gui
+        for (int bagSlot =TE_INVENTORY_FIRST_SLOT_INDEX; bagSlot < slotLimit; ++bagSlot) {
+            //add slots for pouch
+            int slotNumber = bagSlot;
+            int toolRowSlotPos = BAG_INVENTORY_XPOS + SLOT_X_SPACING *bagSlot;
+            int bagRow = bagSlot / BAG_SLOTS_PER_ROW;
+            int bagCol = bagSlot % BAG_SLOTS_PER_ROW;
+            int inventoryxpos = BAG_INVENTORY_XPOS;
+            int inventoryypos = CATALOG_INVENTORY_YPOS; //starts in middle row
+            int xpos=0;
+            int ypos=inventoryypos;
+            //add slots for tools
+            xpos = inventoryxpos +1 + SLOT_X_SPACING * bagCol;
+            LOGGER.warn("Added SLot "+slotNumber+" at "+"xpos:"+xpos+" ypos:"+ypos);
+            addSlot(new SlotItemHandler(h, slotNumber, xpos, ypos));
+                //ypos is unchanged
+        }
+    }
+
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.
     // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
@@ -93,7 +136,7 @@ public class MuseumCatalogContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private final int TE_INVENTORY_SLOT_COUNT = 36;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {

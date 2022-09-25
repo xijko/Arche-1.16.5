@@ -23,7 +23,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Arche.MOD_ID);
     
-    public static List<Item>[] artifactList = new List[];
+    //public static List<Item>[] artifactList = new List[];
     
     private RegistryObject<? extends Item> registerArtifact(final String name, final Supplier<? extends Item> sup){
         return ITEMS.register(name, sup);

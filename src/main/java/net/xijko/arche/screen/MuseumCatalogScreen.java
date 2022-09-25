@@ -39,10 +39,7 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
 
     protected void initButton(MuseumCatalogContainer screenContainer){
         ITextComponent title = ITextComponent.getTextComponentOrEmpty("Restore");
-        restoreButton = new Button(this.guiLeft+61, this.guiTop+60, 55, 20, title, (button) -> {
-            MuseumCatalogTile table = (MuseumCatalogTile) screenContainer.tileEntity;
-        });
-        this.addButton(restoreButton);
+
     }
 
     @Override

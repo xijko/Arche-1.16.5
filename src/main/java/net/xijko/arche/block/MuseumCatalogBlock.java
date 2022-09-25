@@ -32,6 +32,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xijko.arche.container.DisplayPedestalContainer;
 import net.xijko.arche.container.MuseumCatalogContainer;
+import net.xijko.arche.container.MuseumCatalogItemStackHandler;
 import net.xijko.arche.item.ArcheDebug;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
 import net.xijko.arche.tileentities.ModTileEntities;

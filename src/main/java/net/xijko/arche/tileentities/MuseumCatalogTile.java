@@ -20,6 +20,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xijko.arche.block.DisplayPedestalBlock;
+import net.xijko.arche.container.MuseumCatalogContainer;
+import net.xijko.arche.container.MuseumCatalogItemStackHandler;
+import net.xijko.arche.item.ArcheArtifactBroken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -176,28 +179,37 @@ public class MuseumCatalogTile extends TileEntity {
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(9 * Math.round(getArtifactCount()/9)) {
+        return new ItemStackHandler(1) {
 
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
-            }
+                if (slot==4){
 
-            @Nonnull
-            @Override
-            public ItemStack getStackInSlot(int slot) {
-                return super.getStackInSlot(slot);
+                }
             }
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-             return true;
-
+                switch (slot) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        return !(stack.getItem() instanceof ArcheArtifactBroken);
+                    case 4: return stack.getItem() instanceof ArcheArtifactBroken;
+                    default:
+                        return true;
+                }
             }
 
             @Override
             public int getSlotLimit(int slot) {
-                return 1;
+                if(slot == 4){
+                    return 1;
+                }else {
+                    return 64;
+                }
             }
 
             @Nonnull

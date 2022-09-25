@@ -61,10 +61,10 @@ public class ToolBeltContainer extends Container{
         int numberOfSlots = extraData.readInt();
 
         try {
-            ToolBeltItemStackHandler itemStackHandlerFlowerBag = new ToolBeltItemStackHandler(numberOfSlots);
+            ToolBeltItemStackHandler itemStackHandlerToolBelt = new ToolBeltItemStackHandler(numberOfSlots);
             layoutPlayerInventorySlots(8, 86);
             // on the client side there is no parent ItemStack to communicate with - we use a dummy inventory
-            return new ToolBeltContainer(windowID, playerInventory, itemStackHandlerFlowerBag, ItemStack.EMPTY);
+            return new ToolBeltContainer(windowID, playerInventory, itemStackHandlerToolBelt, ItemStack.EMPTY);
         } catch (IllegalArgumentException iae) {
             //LOGGER.(iae);
         }
