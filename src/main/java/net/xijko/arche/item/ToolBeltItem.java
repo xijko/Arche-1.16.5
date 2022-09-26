@@ -45,7 +45,7 @@ public class ToolBeltItem extends ArcheArtifactItem implements ICurioItem {
     private Object model;
 
         public ToolBeltItem() {
-            super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP) // the item will appear on the Miscellaneous tab in creative
+            super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP),1 // the item will appear on the Miscellaneous tab in creative
             );
         }
 

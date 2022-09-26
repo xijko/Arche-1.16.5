@@ -54,6 +54,15 @@ public class ModNetwork {
                 RestoreTableRestoreMessage::handle
         );
 
+
+        INSTANCE.registerMessage(
+                index++,
+                MuseumCatalogConsumeMessage.class,
+                MuseumCatalogConsumeMessage::encode,
+                MuseumCatalogConsumeMessage::decode,
+                MuseumCatalogConsumeMessage::handle
+        );
+
         INSTANCE.registerMessage(
                 index++,
                 CorpseFlowerDespawnMessage.class,

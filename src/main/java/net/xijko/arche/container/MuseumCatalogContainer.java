@@ -36,14 +36,13 @@ public class MuseumCatalogContainer extends Container {
         this.artifactCount = ((MuseumCatalogTile) this.tileEntity).getArtifactCount();
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-
+        layoutPlayerInventorySlots(8, 86);
 
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //THIS IS THE SLOTS FOR THE INPUTS< WILL LAY OUT
                 //addSlot(new SlotItemHandler(h, this.artifactCount, 8, 104));
-                layoutPlayerInventorySlots(8, 86);
-                addSlotBox(h, 36, 8, 8, 9, 18, 4, 18);
+                addSlot(new SlotItemHandler(h, 0, 8, 9));
                 //layoutCatalogInventorySlots(museumCatalogItemStackHandler);
             });
         }

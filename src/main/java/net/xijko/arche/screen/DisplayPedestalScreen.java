@@ -59,7 +59,6 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
     boolean scrolling = false;
     boolean hasLore = false;
     int xSize = 256; //336
-    public ItemStack displayItem = ItemStack.EMPTY;
 
     public DisplayPedestalScreen(DisplayPedestalContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -163,7 +162,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         BlockPos pos = tile.getPos();
         Boolean isMuseumOwned = tile.museum_owned;
         if(isMuseumOwned){
-            return this.displayItem;
+            return tile.getItem();
         }else{
             return stackIn;
         }
@@ -173,8 +172,9 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         float zLevel = -100F;
         float angle = (System.currentTimeMillis() / 50) % 360;
 
-        ItemStack stack = getDisplayedStack(stackIn).copy();
+        //ItemStack stack = getDisplayedStack(stackIn).copy();
 
+        ItemStack stack = this.tile.getItem();
 
         if(stack.isEmpty() || stack.getItem()== Items.AIR || stack == ItemStack.EMPTY) angle=45;
         if(stack.getItem() instanceof BlockItem){

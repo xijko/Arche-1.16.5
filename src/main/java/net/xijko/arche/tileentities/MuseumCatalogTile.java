@@ -4,6 +4,7 @@ import com.google.common.collect.Collections2;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -23,6 +24,11 @@ import net.xijko.arche.block.DisplayPedestalBlock;
 import net.xijko.arche.container.MuseumCatalogContainer;
 import net.xijko.arche.container.MuseumCatalogItemStackHandler;
 import net.xijko.arche.item.ArcheArtifactBroken;
+import net.xijko.arche.item.ArcheArtifactItem;
+import net.xijko.arche.item.ModItems;
+import net.xijko.arche.network.ModNetwork;
+import net.xijko.arche.network.MuseumCatalogConsumeMessage;
+import net.xijko.arche.network.RestoreTableRestoreMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +50,8 @@ public class MuseumCatalogTile extends TileEntity {
     private static final Logger LOGGER = LogManager.getLogger();
     protected static final Random random = new Random();
     public ItemStack cachedItem;
-    public int artifactCount = 32;
+    public int artifactCount = ModItems.artifactCount;
+    public boolean[] artifactCompletion = new boolean[artifactCount];
     public int[] xArray = new int[artifactCount];
     public int[] yArray = new int[artifactCount];
     public int[] zArray = new int[artifactCount];
@@ -84,29 +91,19 @@ public class MuseumCatalogTile extends TileEntity {
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
         itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        deserializePedestalNBT(nbt.getCompound("artifacts"));
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.put("inv", itemHandler.serializeNBT());
+        compound.put("artifacts", serializePedestalsNBT());
         return super.write(compound);
     }
-
-    public CompoundNBT pedestalWrite(CompoundNBT compound) {
-        compound.put("inv", serializePedestalsNBT());
-        return super.write(compound);
-    }
-
-    public void pedestalRead(BlockState state, CompoundNBT nbt) {
-        deserializePedestalNBT(nbt.getCompound("inv"));
-        super.read(state, nbt);
-    }
-
 
     public CompoundNBT serializePedestalsNBT()
     {
-        findPedestals();
         ListNBT nbtTagList = new ListNBT();
         int pedestalCount = pedestalArray.length;
         for (int i = 0; i < pedestalCount; i++)
@@ -121,7 +118,15 @@ public class MuseumCatalogTile extends TileEntity {
                 nbtTagList.add(pedestalTag);
             }
         }
+        ListNBT nbtArtifactList = new ListNBT();
+        for(int i=0; i<artifactCount;i++){
+            CompoundNBT catalogTag = new CompoundNBT();
+            catalogTag.putInt("Slot",i);
+            catalogTag.putBoolean("Complete",artifactCompletion[i]);
+            nbtArtifactList.add(catalogTag);
+        }
         CompoundNBT nbt = new CompoundNBT();
+        nbt.put("Artifacts",nbtArtifactList);
         nbt.put("Pedestals", nbtTagList);
         nbt.putInt("Size", pedestalCount);
         LOGGER.warn(nbt.toString());
@@ -132,6 +137,7 @@ public class MuseumCatalogTile extends TileEntity {
     {
         pedestalArray = new int[nbt.contains("Size", Constants.NBT.TAG_INT) ? nbt.getInt("Size") : pedestalArray.length];
         ListNBT tagList = nbt.getList("Pedestals", Constants.NBT.TAG_COMPOUND);
+        ListNBT artifactList = nbt.getList("Artifacts",Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++)
         {
             CompoundNBT itemTags = tagList.getCompound(i);
@@ -148,22 +154,20 @@ public class MuseumCatalogTile extends TileEntity {
                 zArray[i] = zPos;
             }
         }
-        onLoad();
-    }
+        for (int i = 0; i < artifactList.size(); i++)
+        {
+            CompoundNBT itemTags = artifactList.getCompound(i);
+            int slot = itemTags.getInt("Slot");
+            boolean completed = itemTags.getBoolean("Complete");
 
-    /*
-    @Nullable
-    @OnlyIn(Dist.CLIENT)
-    public ItemStack getCachedEntity() {
-        if (this.cachedItem == null) {
-            this.cachedItem = EntityType.loadEntityAndExecute(this.spawnData.getNbt(), this.getWorld(), Function.identity());
-            if (this.itemHandler.getStackInSlot(0).getItem() != Blocks.AIR.asItem() && this.itemHandler.serializeNBT().contains("inv", 8) && this.cachedEntity instanceof MobEntity) {
+            if (slot >= 0 && slot < pedestalArray.length)
+            {
+                artifactCompletion[i] = completed;
             }
         }
-
-        return this.cachedItem;
+        //onLoad();
     }
-*/
+
     public ItemStack getItem(){
         //TileEntity.readTileEntity(this.getBlockState(),);
         this.validate();
@@ -172,6 +176,30 @@ public class MuseumCatalogTile extends TileEntity {
             createHandler();
         }
         return this.itemHandler.getStackInSlot(0);
+    }
+
+    public boolean getArtifactValidCheck(ItemStack itemStackIn){
+        serializePedestalsNBT();
+        Item item = itemStackIn.getItem();
+        if(item instanceof ArcheArtifactItem){
+            int slot = ((ArcheArtifactItem) item).slot;
+            return !artifactCompletion[slot];
+        }else{
+            return false;
+        }
+    }
+
+    public ItemStack consumeArtifact(ItemStack itemStackIn){
+        if(getArtifactValidCheck(itemStackIn)){
+            ArcheArtifactItem item = (ArcheArtifactItem) itemStackIn.getItem();
+            int slot = item.slot;
+            artifactCompletion[slot]=true;
+            serializePedestalsNBT();
+        }
+        ModNetwork.sendToServer(new MuseumCatalogConsumeMessage(this.getWorld(),this.getPos()));
+        itemStackIn.shrink(1);
+        LOGGER.warn("Consumed!");
+        return ItemStack.EMPTY;
     }
 
     public int getArtifactCount(){
@@ -184,32 +212,28 @@ public class MuseumCatalogTile extends TileEntity {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
-                if (slot==4){
+            }
 
+            @Override
+            public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+                super.setStackInSlot(slot, stack);
+                if(slot == 0){
+                    consumeArtifact(stack);
                 }
             }
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot) {
-                    case 0:
-                    case 1:
-                    case 2:
-                    case 3:
-                        return !(stack.getItem() instanceof ArcheArtifactBroken);
-                    case 4: return stack.getItem() instanceof ArcheArtifactBroken;
+                    case 0: return getArtifactValidCheck(stack);
                     default:
-                        return true;
+                        return false;
                 }
             }
 
             @Override
             public int getSlotLimit(int slot) {
-                if(slot == 4){
                     return 1;
-                }else {
-                    return 64;
-                }
             }
 
             @Nonnull
@@ -218,8 +242,7 @@ public class MuseumCatalogTile extends TileEntity {
                 if(!isItemValid(slot, stack)) {
                     return stack;
                 }
-
-                return super.insertItem(slot, stack, simulate);
+                return consumeArtifact(stack);
             }
         };
     }
@@ -248,7 +271,6 @@ public class MuseumCatalogTile extends TileEntity {
                 if(!isItemValid(slot, stack)) {
                     return stack;
                 }
-
                 return super.insertItem(slot, stack, simulate);
             }
         };
@@ -257,6 +279,7 @@ public class MuseumCatalogTile extends TileEntity {
     @Override
     public void onLoad() {
         super.onLoad();
+        findPedestals();
         serializePedestalsNBT();
     }
 

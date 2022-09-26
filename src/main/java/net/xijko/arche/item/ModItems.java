@@ -2,6 +2,7 @@ package net.xijko.arche.item;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
+import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,6 +14,7 @@ import net.xijko.arche.block.artifact.VillageRingItem;
 import net.xijko.arche.block.crops.SoilBag;
 import org.lwjgl.system.CallbackI;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -22,6 +24,8 @@ public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Arche.MOD_ID);
+    public static int artifactCount = 32;
+    public static ArcheArtifactItem[] artifactItemsList = new ArcheArtifactItem[artifactCount];
     
     //public static List<Item>[] artifactList = new List[];
     
@@ -232,6 +236,9 @@ public class ModItems {
 */
     //END ITEMS
 
+    public static void setArtifactSlot(int slot, ArcheArtifactItem item){
+        artifactItemsList[slot] = item;
+    }
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

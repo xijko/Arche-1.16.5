@@ -12,6 +12,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.xijko.arche.Arche;
+import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ToolBeltModel;
 import net.xijko.arche.item.model.VillageRingModel;
@@ -21,13 +22,13 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 
-public class VillageRingItem extends Item implements ICurioItem {
+public class VillageRingItem extends ArcheArtifactItem implements ICurioItem {
     private static final ResourceLocation VILLAGE_RING_TEXTURE = new ResourceLocation(Arche.MOD_ID,
             "textures/entity/village_ring.png");
     private Object model;
 
     public VillageRingItem() {
-        super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE) // the item will appear on the Miscellaneous tab in creative
+        super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE), 0 // the item will appear on the Miscellaneous tab in creative
         );
     }
 

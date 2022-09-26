@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
@@ -28,7 +29,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.xijko.arche.block.DisplayPedestalBlock;
+import net.xijko.arche.item.ModItems;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
+import net.xijko.arche.tileentities.MuseumCatalogTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -67,7 +70,9 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
             DisplayPedestalBlock block = (DisplayPedestalBlock) te.getBlockState().getBlock();
 
 
-            if (te.getItem().equals(ItemStack.EMPTY) || te.getItem().getItem().equals(Items.AIR)){
+            ItemStack renderItemStack = te.getItem();
+
+            if (renderItemStack.equals(ItemStack.EMPTY) || renderItemStack.getItem().equals(Items.AIR)){
                 return;
             }
 
@@ -77,12 +82,12 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
             float angle = getFacing(te.getBlockState());
             Quaternion rotation = Vector3f.YP.rotationDegrees(angle);
 
-            renderItem(te.getItem(), new double[] { 0.5d, 1.38d, 0.5d },
+            renderItem(renderItemStack, new double[] { 0.5d, 1.38d, 0.5d },
                     rotation, matrixStackIn, bufferIn, partialTicks,
                     combinedOverlayIn, lightLevel, 1f);
 
-            ITextComponent label = te.getItem().hasDisplayName() ? te.getItem().getDisplayName()
-                    : new TranslationTextComponent(te.getItem().getTranslationKey());
+            ITextComponent label = renderItemStack.hasDisplayName() ? renderItemStack.getDisplayName()
+                    : new TranslationTextComponent(renderItemStack.getTranslationKey());
 
             renderLabel(matrixStackIn, bufferIn, lightLevel, new double[] { .5d, 2d, .5d }, label, 0xffffff);
         }

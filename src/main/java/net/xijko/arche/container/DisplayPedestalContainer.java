@@ -40,10 +40,10 @@ public class DisplayPedestalContainer extends Container {
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //mats
-                if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
-                    addSlot(new MuseumSlotItemHandler(h, 0, 8, 104));
-                }else{
+                if(!tileEntity.getBlockState().get(MUSEUM_OWNED)){
                     addSlot(new SlotItemHandler(h, 0, 8, 104));
+                }else{
+                    addSlot(new MuseumSlotItemHandler(h,0,8,104));
                 }
             });
         }
@@ -54,6 +54,7 @@ public class DisplayPedestalContainer extends Container {
         public MuseumSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
+
 
 
 

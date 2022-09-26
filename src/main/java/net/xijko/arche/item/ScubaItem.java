@@ -51,7 +51,7 @@ public class ScubaItem extends ArcheArtifactItem implements ICurioItem {
     private Object model;
 
         public ScubaItem() {
-            super(new Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP) // the item will appear on the Miscellaneous tab in creative
+            super(new Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP),2 // the item will appear on the Miscellaneous tab in creative
             );
         }
 
