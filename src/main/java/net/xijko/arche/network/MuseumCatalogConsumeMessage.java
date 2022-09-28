@@ -49,14 +49,14 @@ public class MuseumCatalogConsumeMessage {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity player = ctx.get().getSender();
                 if (!(player instanceof PlayerEntity)) return;
-                consumeItem(screen,player.world,pos,player);
+                consumeItem(player.world,pos,player);
 
                 ctx.get().setPacketHandled(true);
             });
         }
     }
 
-    public static void consumeItem(MuseumCatalogScreen screen, World world, BlockPos pos, ServerPlayerEntity player){
+    public static void consumeItem(World world, BlockPos pos, ServerPlayerEntity player){
         LOGGER.warn(world + " " + pos);
         MuseumCatalogTile tile = (MuseumCatalogTile) world.getTileEntity(pos);
         LOGGER.warn("restoring in "+tile);

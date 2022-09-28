@@ -67,9 +67,8 @@ public class DisplayPedestalTileRenderer  extends TileEntityRenderer<DisplayPede
         @Override
         public void render(DisplayPedestalTile te, float partialTicks, MatrixStack matrixStackIn,
                            IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-            DisplayPedestalBlock block = (DisplayPedestalBlock) te.getBlockState().getBlock();
 
-
+            if(!te.getWorld().isRemote())return;
             ItemStack renderItemStack = te.getItem();
 
             if (renderItemStack.equals(ItemStack.EMPTY) || renderItemStack.getItem().equals(Items.AIR)){

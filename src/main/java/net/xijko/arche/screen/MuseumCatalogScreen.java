@@ -22,10 +22,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.MuseumCatalogBlock;
 import net.xijko.arche.container.MuseumCatalogContainer;
 import net.xijko.arche.container.RestoreTableContainer;
 import net.xijko.arche.item.ArcheArtifactBroken;
 import net.xijko.arche.item.ArcheArtifactItem;
+import net.xijko.arche.item.ArcheArtifactList;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.network.RestoreTableRestoreMessage;
@@ -90,7 +92,7 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
         int startY = 9 + this.guiTop;
         MuseumCatalogTile tile = (MuseumCatalogTile) this.container.tileEntity;
         //tile.serializePedestalsNBT();
-        ArcheArtifactItem[] artifactItemsList = ModItems.artifactItemsList;
+        ArcheArtifactItem[] artifactItemsList = MuseumCatalogBlock.getArtifactItemList();
         for (int i = 0; i < artifactItemsList.length; i++) {
             boolean completed = tile.artifactCompletion[i];
             ArcheArtifactItem artifact = artifactItemsList[i];

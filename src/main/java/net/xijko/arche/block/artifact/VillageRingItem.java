@@ -14,6 +14,7 @@ import net.minecraft.util.SoundEvents;
 import net.xijko.arche.Arche;
 import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.item.ModItemGroup;
+import net.xijko.arche.item.ModItems;
 import net.xijko.arche.item.ToolBeltModel;
 import net.xijko.arche.item.model.VillageRingModel;
 import top.theillusivec4.curios.api.SlotContext;

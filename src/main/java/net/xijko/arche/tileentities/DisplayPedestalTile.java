@@ -16,6 +16,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xijko.arche.block.DisplayPedestalBlock;
 import net.xijko.arche.block.MuseumCatalogBlock;
+import net.xijko.arche.item.ArcheArtifactList;
 import net.xijko.arche.item.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -99,6 +100,7 @@ public class DisplayPedestalTile extends TileEntity {
         return this.cachedItem;
     }
 */
+
     public ItemStack getItem(){
         //TileEntity.readTileEntity(this.getBlockState(),);
         ItemStack renderItemStack = this.itemHandler.getStackInSlot(0);
@@ -114,7 +116,7 @@ public class DisplayPedestalTile extends TileEntity {
                 MuseumCatalogTile museumCatalogTile = (MuseumCatalogTile) this.getWorld().getTileEntity(museumCatalogPairedPos);
                 boolean renderCatalogItem = museumCatalogTile.artifactCompletion[this.museumSlot];
                 if(renderCatalogItem){
-                    renderItemStack = new ItemStack(ModItems.artifactItemsList[this.museumSlot],1);
+                    renderItemStack = new ItemStack(MuseumCatalogBlock.artifactItemsList[this.museumSlot],1);
                 }
             }
         }

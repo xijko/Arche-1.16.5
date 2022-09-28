@@ -12,6 +12,8 @@ import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.artifact.DirtCoin;
 import net.xijko.arche.block.artifact.VillageRingItem;
 import net.xijko.arche.block.crops.SoilBag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
@@ -21,13 +23,13 @@ import java.util.function.Supplier;
 import static net.xijko.arche.block.ModBlocks.*;
 
 public class ModItems {
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Arche.MOD_ID);
     public static int artifactCount = 32;
-    public static ArcheArtifactItem[] artifactItemsList = new ArcheArtifactItem[artifactCount];
     
-    //public static List<Item>[] artifactList = new List[];
+
     
     private RegistryObject<? extends Item> registerArtifact(final String name, final Supplier<? extends Item> sup){
         return ITEMS.register(name, sup);
@@ -236,11 +238,13 @@ public class ModItems {
 */
     //END ITEMS
 
-    public static void setArtifactSlot(int slot, ArcheArtifactItem item){
-        artifactItemsList[slot] = item;
-    }
+
+
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
+
+
 }

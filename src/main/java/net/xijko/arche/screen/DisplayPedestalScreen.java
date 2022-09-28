@@ -175,6 +175,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         //ItemStack stack = getDisplayedStack(stackIn).copy();
 
         ItemStack stack = this.tile.getItem();
+        LOGGER.warn(stack);
 
         if(stack.isEmpty() || stack.getItem()== Items.AIR || stack == ItemStack.EMPTY) angle=45;
         if(stack.getItem() instanceof BlockItem){
