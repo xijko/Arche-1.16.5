@@ -7,6 +7,8 @@ run/
 .log.gz
 run/saves/
 run/usercache.json
+run/logs/
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
