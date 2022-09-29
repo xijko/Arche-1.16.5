@@ -36,6 +36,8 @@ public class ModItems {
     }
 
 
+
+
     //ITEMS HERE
     //be sure to add to assets.MODID.lang.en_us.json for item names
     //be sure to add to assets.MODID.models.item.ITEMREGISTERNAME.json for sprite details/texture

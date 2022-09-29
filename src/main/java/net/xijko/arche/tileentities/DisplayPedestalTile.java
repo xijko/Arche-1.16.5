@@ -14,8 +14,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.xijko.arche.Arche;
 import net.xijko.arche.block.DisplayPedestalBlock;
 import net.xijko.arche.block.MuseumCatalogBlock;
+import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.item.ArcheArtifactList;
 import net.xijko.arche.item.ModItems;
 import org.apache.logging.log4j.LogManager;
@@ -77,13 +79,14 @@ public class DisplayPedestalTile extends TileEntity {
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
         itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        deserializeMuseumSlot(nbt);
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.put("inv", itemHandler.serializeNBT());
-        compound.put("cat",new CompoundNBT());
+        compound.putInt("museumslot",this.museumSlot);
         return super.write(compound);
     }
 
@@ -116,7 +119,7 @@ public class DisplayPedestalTile extends TileEntity {
                 MuseumCatalogTile museumCatalogTile = (MuseumCatalogTile) this.getWorld().getTileEntity(museumCatalogPairedPos);
                 boolean renderCatalogItem = museumCatalogTile.artifactCompletion[this.museumSlot];
                 if(renderCatalogItem){
-                    renderItemStack = new ItemStack(MuseumCatalogBlock.artifactItemsList[this.museumSlot],1);
+                    renderItemStack = new ItemStack(Arche.ARTIFACT_ITEM_LISTS[this.museumSlot],1);
                 }
             }
         }
@@ -240,6 +243,16 @@ public class DisplayPedestalTile extends TileEntity {
 
     public void setMuseumOwned(){
         this.museum_owned = true;
+    }
+
+    public void deserializeMuseumSlot(CompoundNBT compound){
+        this.museumSlot = compound.getInt("museumslot");
+    }
+
+    public CompoundNBT serializeMuseumSlot(){
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putInt("museumslot",this.museumSlot);
+        return nbt;
     }
 
 }

@@ -29,7 +29,7 @@ public class VillageRingItem extends ArcheArtifactItem implements ICurioItem {
     private Object model;
 
     public VillageRingItem() {
-        super(new Item.Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE), 0 // the item will appear on the Miscellaneous tab in creative
+        super(new Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP).rarity(Rarity.RARE), 0 // the item will appear on the Miscellaneous tab in creative
         );
     }
 

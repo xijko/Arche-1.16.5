@@ -67,10 +67,12 @@ public class DisplayPedestalBlock extends BreakableBlock {
 
             if(tileEntity != null) {
                 if(player.getHeldItemMainhand().getItem() instanceof ArcheDebug){
-                    int slot = state.get(MUSEUM_SLOT);
-                    worldIn.setBlockState(pos,state.with(MUSEUM_SLOT,slot+1));
+                    int slot = tileEntity.museumSlot;
+                    slot++;
+                    tileEntity.museumSlot = slot;
                     tileEntity.museum_paired = false;
-                    LOGGER.warn("MUSEUM_SLOT = "+slot);
+                    tileEntity.markDirty();
+                    LOGGER.warn("MUSEUM_SLOT: "+tileEntity.museumSlot +" > " +slot);
                     LOGGER.warn("MUSEUM_PAIRED = false");
                     return ActionResultType.CONSUME;
 
@@ -78,6 +80,7 @@ public class DisplayPedestalBlock extends BreakableBlock {
 
                     worldIn.setBlockState(pos,state.with(MUSEUM_OWNED,true));
                     tileEntity.museum_paired = false;
+                    tileEntity.markDirty();
                     LOGGER.warn("MUSEUM_OWNED = "+tileEntity.museum_owned);
                     LOGGER.warn("MUSEUM_PAIRED = false");
                     return ActionResultType.CONSUME;

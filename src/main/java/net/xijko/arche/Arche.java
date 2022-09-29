@@ -24,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.screen.MuseumCatalogScreen;
 import net.xijko.arche.screen.RestoreTableScreen;
@@ -57,10 +58,13 @@ public class Arche
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
+    public static ArcheArtifactItem[] ARTIFACT_ITEM_LISTS = new ArcheArtifactItem[32];
+
 
     public Arche() {
         // Register the setup method for modloading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModContainers.register(eventBus);

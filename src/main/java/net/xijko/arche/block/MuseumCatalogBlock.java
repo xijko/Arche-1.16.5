@@ -3,15 +3,14 @@ package net.xijko.arche.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BreakableBlock;
+import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -32,11 +31,14 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.xijko.arche.Arche;
+import net.xijko.arche.block.artifact.VillageRingItem;
 import net.xijko.arche.container.DisplayPedestalContainer;
 import net.xijko.arche.container.MuseumCatalogContainer;
 import net.xijko.arche.container.MuseumCatalogItemStackHandler;
 import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.item.ArcheDebug;
+import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
 import net.xijko.arche.tileentities.ModTileEntities;
@@ -50,12 +52,13 @@ import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
 public class MuseumCatalogBlock extends Block {
 
     public static final BooleanProperty MUSEUM_OWNED = BooleanProperty.create("museum_owned");
-    public static ArcheArtifactItem[] artifactItemsList;
+
+
 
 
     public MuseumCatalogBlock(Properties p_i48440_1_) {
         super(p_i48440_1_.notSolid());
-        initializeArtifactList();
+        //initializeArtifactList();
     }
 
     @Override
@@ -160,12 +163,14 @@ public class MuseumCatalogBlock extends Block {
     }
 
     public static ArcheArtifactItem[] getArtifactItemList(){
-        return artifactItemsList;
+        return Arche.ARTIFACT_ITEM_LISTS;
     }
 
-    public void initializeArtifactList(){
-        String artifacts = "";
-        for (RegistryObject<Item> i : ModItems.ITEMS.getEntries()
+    public static void initializeArtifact(ArcheArtifactItem item, int slot){
+        /*String artifacts = "";
+
+        Item.
+        for (Item i : itemGroup.get
              ) {
             if(i.get().getClass().isInstance(ArcheArtifactItem.class)){
                 int slot = ((ArcheArtifactItem) i.get()).slot;
@@ -173,5 +178,9 @@ public class MuseumCatalogBlock extends Block {
                 artifacts += i.get().toString();
             }
         }
+         */
+        //artifactItemsList[slot] = item;
     }
+
+
 }
