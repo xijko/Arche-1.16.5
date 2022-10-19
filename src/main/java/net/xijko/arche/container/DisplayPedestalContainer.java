@@ -19,31 +19,31 @@ import net.xijko.arche.util.render.DisplayPedestalTileRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_OWNED;
-
 public class DisplayPedestalContainer extends Container {
-    public final TileEntity tileEntity;
+    public final DisplayPedestalTile tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
     private static final Logger LOGGER = LogManager.getLogger();
+    private static int TE_INVENTORY_SLOT_COUNT = 1;
 
     public DisplayPedestalContainer(int windowId, World world, BlockPos pos,
                                     PlayerInventory playerInventory, PlayerEntity player) {
         super(ModContainers.DISPLAY_PEDESTAL_CONTAINER.get(), windowId);
-        this.tileEntity = world.getTileEntity(pos);
+        this.tileEntity = (DisplayPedestalTile) world.getTileEntity(pos);
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        if (tileEntity instanceof DisplayPedestalTile){
-            if(!((DisplayPedestalTile) tileEntity).museum_owned) layoutPlayerInventorySlots(8, 86);
+        if (tileEntity != null){
+            if(!tileEntity.museum_owned) layoutPlayerInventorySlots(8, 86);
         }
 
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 //mats
-                if(!tileEntity.getBlockState().get(MUSEUM_OWNED)){
-                    addSlot(new SlotItemHandler(h, 0, 8, 104));
+                if(((DisplayPedestalTile)tileEntity).museum_owned){
+                    //addSlot(new MuseumSlotItemHandler(h,0,8,104));
+                    TE_INVENTORY_SLOT_COUNT = 0;
                 }else{
-                    addSlot(new MuseumSlotItemHandler(h,0,8,104));
+                    addSlot(new SlotItemHandler(h, 0, 8, 104));
                 }
             });
         }
@@ -67,7 +67,7 @@ public class DisplayPedestalContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
+        if(!tileEntity.museum_owned){
             return true;
         }else {
             return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()),
@@ -118,7 +118,7 @@ public class DisplayPedestalContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    ;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
@@ -126,7 +126,7 @@ public class DisplayPedestalContainer extends Container {
         if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getStack();
         ItemStack copyOfSourceStack = sourceStack.copy();
-        if(tileEntity.getBlockState().get(MUSEUM_OWNED)){
+        if(tileEntity.museum_owned){
             return ItemStack.EMPTY;
         }
 

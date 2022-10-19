@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.structure.JigsawStructure;
@@ -16,6 +17,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -24,6 +26,9 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
+import net.xijko.arche.entity.CandleEntity;
+import net.xijko.arche.entity.ModEntityTypes;
+import net.xijko.arche.entity.client.CandleRenderer;
 import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.screen.MuseumCatalogScreen;
@@ -46,6 +51,7 @@ import net.xijko.arche.villagers.ModVillagers;
 import net.xijko.arche.world.gen.ModOreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
@@ -69,6 +75,7 @@ public class Arche
         ModBlocks.register(eventBus);
         ModContainers.register(eventBus);
         ModTileEntities.register(eventBus);
+        ModEntityTypes.register(eventBus);
 
         //Register Tile Entities
         TileEntityInit.TILE_ENTITY_TYPES.register(eventBus);
@@ -86,6 +93,8 @@ public class Arche
         eventBus.addListener(this::processIMC);
         // Register the doClientStuff method for modloading
         eventBus.addListener(this::doClientStuff);
+
+        GeckoLib.initialize();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -133,6 +142,8 @@ public class Arche
         RenderTypeLookup.setRenderLayer(ModBlocks.CORPSE_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_PEDESTAL.get(), RenderType.getTranslucent());
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.DISPLAY_PEDESTAL_TILE.get(), DisplayPedestalTileRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CANDLE.get(), CandleRenderer::new);
+
 
     }
 
@@ -140,11 +151,13 @@ public class Arche
     {
         // some example code to dispatch IMC to another mod
         InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BACK.getMessageBuilder().build());
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BODY.getMessageBuilder().build());
     }
 
     private void processIMC(final InterModProcessEvent event)

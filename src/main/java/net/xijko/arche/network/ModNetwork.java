@@ -48,15 +48,6 @@ public class ModNetwork {
 
         INSTANCE.registerMessage(
                 index++,
-                RestoreTableRestoreMessage.class,
-                RestoreTableRestoreMessage::encode,
-                RestoreTableRestoreMessage::decode,
-                RestoreTableRestoreMessage::handle
-        );
-
-
-        INSTANCE.registerMessage(
-                index++,
                 MuseumCatalogConsumeMessage.class,
                 MuseumCatalogConsumeMessage::encode,
                 MuseumCatalogConsumeMessage::decode,
@@ -70,6 +61,14 @@ public class ModNetwork {
                 CorpseFlowerDespawnMessage::decode,
                 CorpseFlowerDespawnMessage::handle,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+
+        INSTANCE.registerMessage(
+                index++,
+                MuseumCatalogResetMessage.class,
+                MuseumCatalogResetMessage::encode,
+                MuseumCatalogResetMessage::decode,
+                MuseumCatalogResetMessage::handle
         );
     }
 

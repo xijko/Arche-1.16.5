@@ -17,6 +17,7 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.xijko.arche.world.structures.village.MuseumStructure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,7 +75,6 @@ public class ModStructures {
 
         // Adds our piece to all village houses pool
         // Note, the resourcelocation is getting the pool files from the data folder. Not assets folder.
-        //addBuildingToPool(templatePoolRegistry, new ResourceLocation("minecraft:village/plains/houses"),"arche:structure_nbt_resourcelocation", 5);
 
         //addBuildingToPool(templatePoolRegistry, new ResourceLocation("minecraft:village/snowy/houses"),"modid:structure_nbt_resourcelocation", 5);
 
@@ -83,12 +83,10 @@ public class ModStructures {
         //addBuildingToPool(templatePoolRegistry, new ResourceLocation("minecraft:village/taiga/houses"),"modid:structure_nbt_resourcelocation", 5);
 
 
+        addBuildingToPool(new ResourceLocation("minecraft:village/desert/houses"),"arche:desert_museum_1", 40);
 
-        addBuildingToPool(new ResourceLocation("minecraft:village/desert/houses"),
-                "arche:desert_museum", 5);
+        addBuildingToPool(new ResourceLocation("minecraft:village/plains/houses"),
+                "arche:plains_museum_1", 40);
 
-    }
-
-    private void register(String rlString){
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -39,7 +40,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_SLOT;
 import static net.xijko.arche.block.MuseumCatalogBlock.MUSEUM_OWNED;
 
 public class MuseumCatalogTile extends TileEntity {
@@ -279,8 +279,6 @@ public class MuseumCatalogTile extends TileEntity {
     @Override
     public void onLoad() {
         super.onLoad();
-        findPedestals();
-        serializePedestalsNBT();
     }
 
     @Nonnull
@@ -294,7 +292,7 @@ public class MuseumCatalogTile extends TileEntity {
     }
 
     @SuppressWarnings("unchecked")
-    private void findPedestals(){
+    public void findPedestals(){
         /*BlockPos center = this.pos;
         BlockPos boxCornerA =   new BlockPos(
                         center.getX()+radius,
@@ -308,8 +306,8 @@ public class MuseumCatalogTile extends TileEntity {
                                 );
                                 *
          */
-        assert world != null;
         assert !world.isRemote();
+
         //List<TileEntity> allTEs = world.loadedTileEntityList;
         world.loadedTileEntityList.stream()
                 .filter(te -> te instanceof DisplayPedestalTile)
@@ -319,12 +317,10 @@ public class MuseumCatalogTile extends TileEntity {
                         !((DisplayPedestalBlock) te.getBlockState().getBlock()).isMuseumPaired(te.getBlockState())
                 )*/
                 .forEach(te -> {
-                    BlockState tebs = te.getBlockState();
                     BlockPos pos = te.getPos();
-                    DisplayPedestalBlock b = (DisplayPedestalBlock) tebs.getBlock();
                     BlockPos thisPos = this.pos;
-                    int i = tebs.get(MUSEUM_SLOT);;
-                    boolean proceed = tebs.get(MUSEUM_OWNED);
+                    int i = ((DisplayPedestalTile) te).museumSlot;
+                    boolean proceed = ((DisplayPedestalTile) te).museum_owned;
                     LOGGER.warn(proceed);
                     if(xArray[i]!=0 && xArray[i]!=0 && xArray[i]!=0 && proceed){
                         BlockPos existingPos = new BlockPos(xArray[i],yArray[i],zArray[i]);
@@ -341,14 +337,16 @@ public class MuseumCatalogTile extends TileEntity {
                         int yDist = thisPos.getY() - pos.getY();
                         int zDist = thisPos.getZ() - pos.getZ();
 
-                        if (xDist>16 || yDist>16 ||zDist>16){
+                        if (Math.abs(xDist) >30 || Math.abs(yDist)>30 ||Math.abs(zDist)>30){
                             proceed=false;
                             LOGGER.warn("Will not proceed! Pedestal too far: " + pos);
                         }else {
+                            ((DisplayPedestalTile) te).museum_owned = true;
                             ((DisplayPedestalTile) te).museum_paired = true;
-                            ((DisplayPedestalTile) te).museumX = xDist;
-                            ((DisplayPedestalTile) te).museumY = yDist;
-                            ((DisplayPedestalTile) te).museumZ = zDist;
+                            ((DisplayPedestalTile) te).museumX = thisPos.getX();
+                            ((DisplayPedestalTile) te).museumY = thisPos.getY();
+                            ((DisplayPedestalTile) te).museumZ = thisPos.getZ();
+                            te.markDirty();
                             LOGGER.warn("Set position in array: " + i);
                         }
                     }
@@ -359,6 +357,36 @@ public class MuseumCatalogTile extends TileEntity {
         LOGGER.warn("xArray: "+ Arrays.toString(xArray));
         LOGGER.warn("yArray: "+ Arrays.toString(yArray));
         LOGGER.warn("zArray: "+ Arrays.toString(zArray));
+    }
+
+    public void resetCatalog(World world, BlockPos pos) {
+        for (boolean c : this.artifactCompletion
+        ) {
+            c = false;
+
+        }
+        for (int i = 0; i < this.artifactCompletion.length; i++) {
+            this.artifactCompletion[i] = false;
+
+            int xPos = this.xArray[i];
+            int yPos = this.yArray[i];
+            int zPos = this.zArray[i];
+
+            //tile.write(tile.serializePedestalsNBT());
+            //LOGGER.warn(tile.serializePedestalsNBT());
+            this.markDirty();
+
+            BlockPos pedestalPos = new BlockPos(xPos, yPos, zPos);
+            TileEntity pedestalTile = this.getWorld().getTileEntity(pedestalPos);
+            if (!(pedestalTile instanceof DisplayPedestalTile)) return;
+            ((DisplayPedestalTile) pedestalTile).setItem(ItemStack.EMPTY, 0);
+            pedestalTile.markDirty();
+        }
+
+        grantReward();
+    }
+    public static void grantReward(){
+
     }
 
 }

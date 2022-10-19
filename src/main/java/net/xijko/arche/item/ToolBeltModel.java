@@ -35,7 +35,7 @@ public class ToolBeltModel<T extends LivingEntity> extends EntityModel<T> {
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         MatrixStack scaledMatrix = matrixStack;
         scaledMatrix.scale(0.9F,0.9F,0.9F);
-        scaledMatrix.translate(0,0.1,0);
+        scaledMatrix.translate(0,0,0);
         bb_main.render(scaledMatrix, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 

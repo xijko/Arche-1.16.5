@@ -25,6 +25,7 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.tileentities.ModTileEntities;
 import org.apache.logging.log4j.LogManager;
@@ -90,15 +91,36 @@ public class CorpseFlower extends CropsBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.add(0, 0, -1)).matchesBlock(Blocks.SOUL_SOIL) &&
-                state.matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(0, 0, 1)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(1, 0, -1)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(1, 0, 0)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(1, 0, 1)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(-1, 0, -1)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(-1, 0, 0)).matchesBlock(Blocks.SOUL_SOIL) &&
-                worldIn.getBlockState(pos.add(-1, 0, 1)).matchesBlock(Blocks.SOUL_SOIL);
+
+        Block validSoil = ModBlocks.CORPSE_SOIL.get();
+
+        int width = 3;
+        int height = 1;
+
+        int x;
+        int y;
+        int z;
+
+        return
+                state.matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(0, 0, -1)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(0, 0, 1)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(1, 0, -1)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(1, 0, 0)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(1, 0, 1)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(-1, 0, -1)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(-1, 0, 0)).matchesBlock(validSoil) &&
+                worldIn.getBlockState(pos.add(-1, 0, 1)).matchesBlock(validSoil)
+                &&
+                worldIn.getBlockState(pos.add(0, 1, -1)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(0, 1, 1)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(1, 1, -1)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(1, 1, 0)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(1, 1, 1)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(-1, 1, -1)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(-1, 1, 0)).matchesBlock(Blocks.AIR) &&
+                worldIn.getBlockState(pos.add(-1, 1, 1)).matchesBlock(Blocks.AIR)
+                ;
     }
 
     @Override

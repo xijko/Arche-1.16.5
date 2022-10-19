@@ -19,6 +19,11 @@
 
   "item.arche.debug": "Java Debugger",
 
+  "block.arche.cleaning_table": "Cleaning Table",
+  "block.arche.restore_table":"Restoring Table",
+  "block.arche.display_pedestal": "Display Pedestal",
+  "block.arche.museum_catalog": "Museum Board",
+
   "item.arche.amethyst": "Amethyst",
 
   "item.arche.tool_belt": "Tool Belt",
@@ -62,6 +67,9 @@
   "item.arche.scuba": "Prototype Breathing Apparatus",
   "item.arche.scuba.lore": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in orci dolor. Maecenas laoreet, nunc ut commodo pretium, eros ante molestie ante, id pharetra elit dolor vitae turpis. Integer auctor et nulla eget sollicitudin. Phasellus in neque non sapien pharetra tincidunt. Nulla porttitor nibh in justo consectetur, in consectetur dui eleifend. Duis id nunc massa. Praesent et lobortis felis. Sed eu lacus augue. Aliquam ac neque erat. Proin mi lectus, eleifend sed placerat posuere, hendrerit tincidunt libero. In non tortor sit amet odio laoreet consectetur in a nisi.\n\nDonec vitae consequat nulla. Curabitur cursus finibus odio, sit amet ornare nunc venenatis eget. Nulla pretium rhoncus dui quis interdum. Duis laoreet ac justo sed pretium. Suspendisse ac orci sed nisl iaculis finibus quis a dui. Vestibulum lacinia ante diam, nec accumsan dolor ullamcorper vitae. Cras vitae nulla rhoncus ipsum blandit tempus in at purus. In at est quam. Praesent luctus, turpis ut tincidunt tincidunt, erat massa rutrum velit, sed lobortis ante purus sed metus. Cras tellus lectus, gravida mattis iaculis at, tincidunt sed leo. Mauris molestie efficitur risus, et tristique lacus.\n\nNullam auctor porta tincidunt. Maecenas pharetra fringilla magna, rutrum sollicitudin erat efficitur et. Sed in vulputate libero. Fusce eu laoreet sapien. In tempus dapibus viverra. Suspendisse eu justo ac eros tempus volutpat. Aenean cursus pulvinar metus, ut blandit nisi imperdiet sed. Quisque pulvinar, dui et luctus auctor, risus tellus ullamcorper massa, vitae mattis dui massa vitae nisl. Donec rhoncus aliquam sem nec sodales.\n\nDonec viverra nulla ut est dictum, ac dapibus tortor laoreet. Suspendisse non fringilla lectus, eget commodo dui. Nam sit amet enim a ante malesuada fringilla eu at orci. Quisque eu enim pellentesque, posuere enim quis, molestie ligula. Quisque accumsan tincidunt est, et condimentum risus ultrices eu. Maecenas sed placerat magna, sed tristique neque. Quisque fermentum, sapien id vestibulum mattis, quam metus egestas nisl, vitae eleifend nulla magna quis ligula. Sed sit amet tellus consectetur, efficitur velit in, imperdiet nisl. Nulla gravida, dolor eu rhoncus bibendum, dolor neque eleifend velit, et accumsan massa orci id arcu. Nunc non ex aliquet, varius ex quis, blandit felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum facilisis condimentum arcu nec mattis. Etiam non dolor eget tortor fringilla fermentum sed id nunc. Integer et lacinia leo. In at volutpat metus.\n\nCras eu metus mauris. Donec ultricies malesuada sagittis. Pellentesque efficitur, libero cursus tempor interdum, neque leo efficitur justo, sed interdum neque elit eu magna. Maecenas non interdum orci, eu venenatis odio. Suspendisse ut elementum mauris, at dictum dui. Duis lorem urna, tincidunt eu sapien in, vestibulum aliquet dolor. Mauris dignissim diam sed tortor fermentum, sit amet bibendum dolor egestas. Praesent tristique, lorem quis cursus luctus, metus nulla feugiat magna, et gravida nulla tortor quis sem.",
 
+  "item.arche.montana_hat": "Montana's Hat",
+  "item.arche.montana_hat.lore": "The stylish hat of the legendary archaeologist, Montana Rick.\n\nMontana took vigilant care to never lose sight of his hat - as you place it on your head, visions of undiscovered treasures and the rush of adventure fill your mind. Its close attachment to his person must have imbued it with remnants of his love of archaeology, a love which you clearly share. You will find yourself digging at a slightly faster pace when worn.\n\n What could have behooved him to leave it behind - was it resignation, or a terrible fate? Furthermore, what are the odds that it would end up in your hands after a lifetime of adventure and discovery across the wide world?",
+
   "item.arche.mattock_head_template": "Rusty Mattock Head",
   "item.arche.mattock_head_mold_raw": "Unfired Mattock Head Mold",
   "item.arche.mattock_head_mold": "Mattock Head Mold",
@@ -73,19 +81,26 @@
   "block.arche.sand_deposit": "Sedimentary Deposit",
   "block.arche.stone_deposit": "Metamorphic Deposit",
   "block.arche.obsidian_deposit": "Igneous Deposit",
-  "block.arche.netharrack_deposit": "Infernal Deposit",
+  "block.arche.netherrack_deposit": "Infernal Deposit",
   "block.arche.endstone_deposit": "Regal Deposit",
 
-  "block.arche.corpse_flower_seed": "Corpse Flower Seed",
+  "item.arche.unlabeled_soilbag": "Empty Soil Bag",
+
+  "block.arche.corpse_flower_seed": "Corpse Flower",
+  "item.arche.corpse_flower_seed": "Corpse Flower Seed",
   "block.arche.corpse_flower": "Corpse Flower",
+  "item.arche.corpse_flower_notes": "Corpse Soil Recipe",
+  "item.arche.corpse_flower_soilbag_damaged": "Corpse Soil Bag",
+  "block.arche.corpse_soil": "Corpse Soil",
   "item.arche.corpse_flower_seed.lore": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in orci dolor. Maecenas laoreet, nunc ut commodo pretium, eros ante molestie ante, id pharetra elit dolor vitae turpis. Integer auctor et nulla eget sollicitudin. Phasellus in neque non sapien pharetra tincidunt. Nulla porttitor nibh in justo consectetur, in consectetur dui eleifend. Duis id nunc massa. Praesent et lobortis felis. Sed eu lacus augue. Aliquam ac neque erat. Proin mi lectus, eleifend sed placerat posuere, hendrerit tincidunt libero. In non tortor sit amet odio laoreet consectetur in a nisi.\n\nDonec vitae consequat nulla. Curabitur cursus finibus odio, sit amet ornare nunc venenatis eget. Nulla pretium rhoncus dui quis interdum. Duis laoreet ac justo sed pretium. Suspendisse ac orci sed nisl iaculis finibus quis a dui. Vestibulum lacinia ante diam, nec accumsan dolor ullamcorper vitae. Cras vitae nulla rhoncus ipsum blandit tempus in at purus. In at est quam. Praesent luctus, turpis ut tincidunt tincidunt, erat massa rutrum velit, sed lobortis ante purus sed metus. Cras tellus lectus, gravida mattis iaculis at, tincidunt sed leo. Mauris molestie efficitur risus, et tristique lacus.\n\nNullam auctor porta tincidunt. Maecenas pharetra fringilla magna, rutrum sollicitudin erat efficitur et. Sed in vulputate libero. Fusce eu laoreet sapien. In tempus dapibus viverra. Suspendisse eu justo ac eros tempus volutpat. Aenean cursus pulvinar metus, ut blandit nisi imperdiet sed. Quisque pulvinar, dui et luctus auctor, risus tellus ullamcorper massa, vitae mattis dui massa vitae nisl. Donec rhoncus aliquam sem nec sodales.",
 
-  "block.arche.restore_table":"Restoring Table",
   "screen.arche.restore_table": "Restoring Table",
 
   "tooltip.arche.artifact_hover": "Hold \u00A7eSHIFT\u00A7r to see components",
   "tooltip.arche.artifact_progress": "Progress: ",
 
-  "entity.minecraft.villager.arche.museum_curator":"Curator"
+  "entity.minecraft.villager.arche.museum_curator":"Curator",
+
+  "item.arche.candle_spawn_egg": "Candle Spawn Egg"
 
 }

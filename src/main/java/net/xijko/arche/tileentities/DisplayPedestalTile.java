@@ -41,9 +41,9 @@ public class DisplayPedestalTile extends TileEntity {
     public int museumY = 0;
     public int museumZ = 0;
 
-    public boolean museum_owned = false;
+    public boolean museum_owned;
     public boolean museum_completed = false;
-    public boolean museum_paired = false;
+    public boolean museum_paired;
 
     public DisplayPedestalTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -80,13 +80,22 @@ public class DisplayPedestalTile extends TileEntity {
     public void read(BlockState state, CompoundNBT nbt) {
         itemHandler.deserializeNBT(nbt.getCompound("inv"));
         deserializeMuseumSlot(nbt);
+        deserializeMuseumOwned(nbt);
+        deserializeMuseumPaired(nbt);
+        deserializeMuseumPos(nbt);
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
+        setMuseumPaired();
         compound.put("inv", itemHandler.serializeNBT());
         compound.putInt("museumslot",this.museumSlot);
+        compound.putBoolean("museumowned",this.museum_owned);
+        compound.putBoolean("museumpaired",this.museum_paired);
+        compound.putInt("museumx",this.museumX);
+        compound.putInt("museumy",this.museumY);
+        compound.putInt("museumz",this.museumZ);
         return super.write(compound);
     }
 
@@ -112,7 +121,6 @@ public class DisplayPedestalTile extends TileEntity {
         if(!handler.isPresent()){
             createHandler(this.museum_owned);
         }
-        this.checkForMuseumCatalog();
         if(this.museum_paired){
             BlockPos museumCatalogPairedPos = this.getMuseumCatalogPos();
             if(this.getWorld().getTileEntity(museumCatalogPairedPos) instanceof MuseumCatalogTile){
@@ -204,7 +212,6 @@ public class DisplayPedestalTile extends TileEntity {
     @Override
     public void onLoad() {
         super.onLoad();
-        setMuseumPaired();
         LOGGER.warn("Result of Pair: "+ this.museum_paired);
     }
 
@@ -219,25 +226,24 @@ public class DisplayPedestalTile extends TileEntity {
     }
 
     public BlockPos getMuseumCatalogPos(){
-        int deltX = this.museumX;
-        int deltY = this.museumY;
-        int deltZ = this.museumZ;
-        BlockPos catalogTestPos = this.getPos().add(
-                deltX,
-                deltY,
-                deltZ
-        );
+        int X = this.museumX;
+        int Y = this.museumY;
+        int Z = this.museumZ;
+        BlockPos catalogTestPos = new BlockPos(X,Y,Z);
         return catalogTestPos;
     }
 
     public boolean checkForMuseumCatalog(){
         assert world != null;
+        if(!this.museum_owned) return false;
         BlockState catalogBlockState = world.getBlockState(getMuseumCatalogPos());
-        return catalogBlockState.getBlock() instanceof MuseumCatalogBlock;
+        boolean foundCatalog = catalogBlockState.getBlock() instanceof MuseumCatalogBlock;
+        LOGGER.warn("Catalog Located: "+foundCatalog);
+        return foundCatalog;
     }
 
     public void setMuseumPaired(){
-        BlockPos pos = this.getPos();
+        if (this.museum_owned && !this.museum_paired)
         this.museum_paired = checkForMuseumCatalog();
     }
 
@@ -247,6 +253,20 @@ public class DisplayPedestalTile extends TileEntity {
 
     public void deserializeMuseumSlot(CompoundNBT compound){
         this.museumSlot = compound.getInt("museumslot");
+    }
+
+    public void deserializeMuseumOwned(CompoundNBT compound){
+        this.museum_owned = compound.getBoolean("museumowned");
+    }
+
+    public void deserializeMuseumPaired(CompoundNBT compound){
+        this.museum_paired = compound.getBoolean("museumpaired");
+    }
+
+    public void deserializeMuseumPos(CompoundNBT compound){
+        this.museumX = compound.getInt("museumx");
+        this.museumY = compound.getInt("museumy");
+        this.museumZ = compound.getInt("museumz");
     }
 
     public CompoundNBT serializeMuseumSlot(){

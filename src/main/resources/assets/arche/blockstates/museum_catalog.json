@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,museum_owned=true": {
+      "model": "arche:block/museum_catalog",
+      "y": 90
+    },
+    "facing=north,museum_owned=true": {
+      "model": "arche:block/museum_catalog"
+    },
+    "facing=south,museum_owned=true": {
+      "model": "arche:block/museum_catalog",
+      "y": 180
+    },
+    "facing=west,museum_owned=true": {
+      "model": "arche:block/museum_catalog",
+      "y": 270
+    },
+    "facing=east,museum_owned=false": {
+      "model": "arche:block/museum_catalog",
+      "y": 90
+    },
+    "facing=north,museum_owned=false": {
+      "model": "arche:block/museum_catalog"
+    },
+    "facing=south,museum_owned=false": {
+      "model": "arche:block/museum_catalog",
+      "y": 180
+    },
+    "facing=west,museum_owned=false": {
+      "model": "arche:block/museum_catalog",
+      "y": 270
+    }
+  }
+}

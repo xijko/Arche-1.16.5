@@ -1,9 +1,6 @@
 package net.xijko.arche.block;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,11 +10,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -35,26 +28,25 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xijko.arche.container.DisplayPedestalContainer;
-import net.xijko.arche.container.RestoreTableContainer;
 import net.xijko.arche.item.ArcheDebug;
 import net.xijko.arche.tileentities.DisplayPedestalTile;
 import net.xijko.arche.tileentities.ModTileEntities;
-import net.xijko.arche.tileentities.RestoreTableTile;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
 
 public class DisplayPedestalBlock extends BreakableBlock {
 
-    public static final BooleanProperty MUSEUM_OWNED = BooleanProperty.create("museum_owned");
-    public static final IntegerProperty MUSEUM_SLOT = IntegerProperty.create("museum_slot",0,16);
+    //public static final BooleanProperty MUSEUM_OWNED = BooleanProperty.create("museum_owned");
+    //public static final IntegerProperty MUSEUM_SLOT = IntegerProperty.create("museum_slot",0,16);
 
     public DisplayPedestalBlock(Properties p_i48440_1_) {
 
         super(p_i48440_1_.notSolid());
-        this.setDefaultState(this.stateContainer.getBaseState().with(MUSEUM_OWNED,false)
+        this.setDefaultState(this.stateContainer.getBaseState()
         );
     }
 
@@ -62,6 +54,13 @@ public class DisplayPedestalBlock extends BreakableBlock {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos,
                                              PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if(!worldIn.isRemote()) {
+
+            LOGGER.warn("Paired: "+ ((DisplayPedestalTile) Objects.requireNonNull(worldIn.getTileEntity(pos))).museum_paired);
+            LOGGER.warn("Owned: "+ ((DisplayPedestalTile) Objects.requireNonNull(worldIn.getTileEntity(pos))).museum_owned);
+            LOGGER.warn("Slot: "+ ((DisplayPedestalTile) Objects.requireNonNull(worldIn.getTileEntity(pos))).museumSlot);
+            LOGGER.warn("Catalog Block: " + ((DisplayPedestalTile) Objects.requireNonNull(worldIn.getTileEntity(pos))).getMuseumCatalogPos());
+            LOGGER.warn("Item: " + ((DisplayPedestalTile) Objects.requireNonNull(worldIn.getTileEntity(pos))).getItem());
+
             DisplayPedestalTile tileEntity = (DisplayPedestalTile) worldIn.getTileEntity(pos);
             INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
 
@@ -70,25 +69,27 @@ public class DisplayPedestalBlock extends BreakableBlock {
                     int slot = tileEntity.museumSlot;
                     slot++;
                     tileEntity.museumSlot = slot;
-                    tileEntity.museum_paired = false;
                     tileEntity.markDirty();
                     LOGGER.warn("MUSEUM_SLOT: "+tileEntity.museumSlot +" > " +slot);
-                    LOGGER.warn("MUSEUM_PAIRED = false");
                     return ActionResultType.CONSUME;
 
                 }else if(player.getHeldItemOffhand().getItem() instanceof ArcheDebug){
 
-                    worldIn.setBlockState(pos,state.with(MUSEUM_OWNED,true));
-                    tileEntity.museum_paired = false;
+                    boolean owned = tileEntity.museum_owned;
+                    if(owned){
+                        tileEntity.museum_owned=false;
+                    }else{
+                        tileEntity.museum_owned=true;
+                    }
                     tileEntity.markDirty();
                     LOGGER.warn("MUSEUM_OWNED = "+tileEntity.museum_owned);
-                    LOGGER.warn("MUSEUM_PAIRED = false");
                     return ActionResultType.CONSUME;
                 }
                 if(!player.isCrouching()) {
 
                     NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
                 }else {
+                    tileEntity.markDirty();
                     ItemStackHandler handler = tileEntity.itemHandler;
                     ItemStack playerHeldStack = player.getHeldItem(handIn);
                     ItemStack pedestalStack = handler.getStackInSlot(0);
@@ -215,14 +216,17 @@ public class DisplayPedestalBlock extends BreakableBlock {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING);
-        builder.add(MUSEUM_OWNED);
-        builder.add(MUSEUM_SLOT);
+        //builder.add(MUSEUM_OWNED);
+        //builder.add(MUSEUM_SLOT);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing()
+                //.getOpposite()
+
+        );
     }
 
 

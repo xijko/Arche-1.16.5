@@ -51,7 +51,7 @@ public class ScubaItem extends ArcheArtifactItem implements ICurioItem {
     private Object model;
 
         public ScubaItem() {
-            super(new Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP),2 // the item will appear on the Miscellaneous tab in creative
+            super(new Properties().maxStackSize(1).group(ModItemGroup.ARCHE_GROUP),2,2 // the item will appear on the Miscellaneous tab in creative
             );
         }
 
@@ -109,7 +109,7 @@ public class ScubaItem extends ArcheArtifactItem implements ICurioItem {
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         if (!livingEntity.getEntityWorld().isRemote && livingEntity.ticksExisted % 20 == 0 && livingEntity.isInWater()) {
             livingEntity
-                    .addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 20, -1, true, false));
+                    .addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 21, -1, true, false, false));
         }
     }
 

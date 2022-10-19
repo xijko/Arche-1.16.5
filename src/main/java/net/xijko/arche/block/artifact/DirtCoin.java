@@ -13,6 +13,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.world.gen.ModStructureGen;
 import org.apache.logging.log4j.LogManager;
@@ -24,14 +25,15 @@ import java.util.Map;
 
 import static net.minecraft.entity.ai.attributes.AttributeModifier.Operation.*;
 
-public class DirtCoin  extends Item implements ICurioItem {
+public class DirtCoin  extends ArcheArtifactItem implements ICurioItem {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private AttributeModifier attributemodifier0 = new AttributeModifier("dirtcoin_reset",0,MULTIPLY_TOTAL);
     private AttributeModifier attributemodifier1 = new AttributeModifier("dirtcoin_add",1,ADDITION);
 
     public DirtCoin(Properties properties) {
-        super(properties.group(ModItemGroup.ARCHE_GROUP));
+
+        super(properties.group(ModItemGroup.ARCHE_GROUP),4,0);
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.xijko.arche.item;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
-import net.minecraftforge.common.extensions.IForgeItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -10,14 +10,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.artifact.DirtCoin;
-import net.xijko.arche.block.artifact.VillageRingItem;
 import net.xijko.arche.block.crops.SoilBag;
+import net.xijko.arche.entity.ModEntityTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.system.CallbackI;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 import static net.xijko.arche.block.ModBlocks.*;
@@ -177,6 +174,7 @@ public class ModItems {
     public static final RegistryObject<Item> SCUBA_HELMET = ITEMS.register("scuba_helmet",
             () -> new Item(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
+
     //stone tier artifacts
     public static final RegistryObject<Item> SCUBA = ITEMS.register("scuba",
             ScubaItem::new);
@@ -207,12 +205,20 @@ public class ModItems {
     public static final RegistryObject<Item> CORPSE_FLOWER_NOTES = ITEMS.register("corpse_flower_notes",
             () ->  new NotesItem(new NotesItem.Properties().group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> CORPSE_FLOWER_SOILBAG = ITEMS.register("corpse_flower_soilbag",
-            () -> new SoilBag(Blocks.DIRT,9));
+            () -> new SoilBag(CORPSE_SOIL.get(),9));
     public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
             () ->  new BlockNamedItem(ModBlocks.CORPSE_FLOWER.get(), (new Item.Properties()).group(ModItemGroup.ARCHE_GROUP)));
     public static final RegistryObject<Item> CORPSE_FLOWER_SOILBAG_DAMAGED = ITEMS.register("corpse_flower_soilbag_damaged",
             () -> new ArcheArtifactBroken(ModItems.CORPSE_FLOWER_SOILBAG.get(),9,ModItems.DIRT_STRING.get(),9,Items.SOUL_SOIL, 4, Items.ZOMBIE_HEAD,4,Items.SKELETON_SKULL,1,true));
 
+
+    //montana's items
+
+    //dirt tier artifacts
+    public static final RegistryObject<Item> MONTANA_HAT = ITEMS.register("montana_hat",
+            MontanaHatItem::new);
+
+    public static final RegistryObject<Item> CANDLE_SPAWN_EGG = ITEMS.register("candle_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.CANDLE, 0xFFFFFF, 0x000000, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",

@@ -43,9 +43,6 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_OWNED;
-import static net.xijko.arche.block.DisplayPedestalBlock.MUSEUM_SLOT;
-
 public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContainer> implements INestedGuiEventHandler{
     private int tick = 0;
     private final ResourceLocation GUI = new ResourceLocation(Arche.MOD_ID,
@@ -107,7 +104,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         int rendererY = this.guiTop - 50 + this.ySize/2;
 
         IItemHandler handler = tile.itemHandler;
-        ItemStack itemStack = handler.getStackInSlot(0);
+        ItemStack itemStack = getDisplayedStack();
         IBakedModel ibakedmodel = this.getItemRenderer().getItemModelWithOverrides(itemStack, tile.getWorld(), null);
         renderArtifact(this,matrixStack,itemStack,rendererX,rendererY, ibakedmodel);
     }
@@ -137,7 +134,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         MatrixStack matrixstack = new MatrixStack();
         matrixstack.rotate(rotation);
         matrixstack.translate(0,1.6,0);
-        matrixstack.scale(6,6,6);
+        matrixstack.scale(12,12,12);
         IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         boolean flag = !bakedmodel.isSideLit();
         if (flag) {
@@ -156,15 +153,15 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
         RenderSystem.popMatrix();
     }
 
-    public ItemStack getDisplayedStack(ItemStack stackIn){
+    public ItemStack getDisplayedStack(){
         DisplayPedestalTile tile = this.tile;
-        BlockState state = tile.getBlockState();
-        BlockPos pos = tile.getPos();
         Boolean isMuseumOwned = tile.museum_owned;
         if(isMuseumOwned){
             return tile.getItem();
         }else{
-            return stackIn;
+            IItemHandler handler = tile.itemHandler;
+            ItemStack itemStackHeld = handler.getStackInSlot(0);
+            return itemStackHeld;
         }
     }
 
@@ -174,8 +171,8 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
 
         //ItemStack stack = getDisplayedStack(stackIn).copy();
 
-        ItemStack stack = this.tile.getItem();
-        LOGGER.warn(stack);
+        ItemStack stack = getDisplayedStack();
+        //LOGGER.warn(stack);
 
         if(stack.isEmpty() || stack.getItem()== Items.AIR || stack == ItemStack.EMPTY) angle=45;
         if(stack.getItem() instanceof BlockItem){
@@ -231,6 +228,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1f, 1f, 1f, 1f);
+        if (this.tile.museum_owned) return;
         this.minecraft.getTextureManager().bindTexture(GUI);
         int i = this.guiLeft;
         int j = this.guiTop;
@@ -578,7 +576,7 @@ public class DisplayPedestalScreen extends ContainerScreen<DisplayPedestalContai
     }
 
     private boolean needsScroll(){
-        if (this.lore.size()*9 >= this.height){
+        if (this.lore.size()*8 >= lorePanel.height){
             return true;
         }else{
             return false;

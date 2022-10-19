@@ -27,7 +27,7 @@ private Block soil;
         ItemStack itemstack = blockitemusecontext.getItem();
         int damage = itemstack.getDamage();
         ActionResultType result = super.tryPlace(blockitemusecontext);
-        if(!result.isSuccessOrConsume()){
+        if(!result.isSuccessOrConsume() || context.getPlayer().isCreative()){
             return result;
         }
         if(damage<this.getMaxDamage(itemstack)-1){

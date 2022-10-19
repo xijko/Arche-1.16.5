@@ -8,54 +8,48 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.MuseumCatalogBlock;
 import net.xijko.arche.container.MuseumCatalogContainer;
-import net.xijko.arche.container.RestoreTableContainer;
-import net.xijko.arche.item.ArcheArtifactBroken;
 import net.xijko.arche.item.ArcheArtifactItem;
-import net.xijko.arche.item.ArcheArtifactList;
-import net.xijko.arche.item.ModItems;
 import net.xijko.arche.network.ModNetwork;
-import net.xijko.arche.network.RestoreTableRestoreMessage;
+import net.xijko.arche.network.MuseumCatalogResetMessage;
 import net.xijko.arche.tileentities.MuseumCatalogTile;
-import net.xijko.arche.tileentities.RestoreTableTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL11;
 
 public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer> {
     private final ResourceLocation GUI = new ResourceLocation(Arche.MOD_ID,
-            "textures/gui/restore_table.png");
-    private final ResourceLocation compOverlay = new ResourceLocation(Arche.MOD_ID,
-            "textures/gui/restore_table_overlay.png");
+            "textures/gui/museum_catalog.png");
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ResourceLocation CLEANING_TABLE_TEXTURE = new ResourceLocation(Arche.MOD_ID,"textures/gui/restore_button.png");
-    private static Button restoreButton;
+    private static Button resetButton;
+    private static ITextComponent title = ITextComponent.getTextComponentOrEmpty("");
 
 
     public MuseumCatalogScreen(MuseumCatalogContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn);
-        initButton(screenContainer);
+        super(screenContainer, inv, title);
     }
 
     protected void initButton(MuseumCatalogContainer screenContainer){
-        ITextComponent title = ITextComponent.getTextComponentOrEmpty("Restore");
-
+        ITextComponent title = ITextComponent.getTextComponentOrEmpty("x");
+        resetButton = new Button(this.guiLeft+7, this.guiTop+8, 18, 18, title, (button) -> {
+            MuseumCatalogTile tile = (MuseumCatalogTile) screenContainer.tileEntity;
+            tile.resetCatalog(tile.getWorld(),tile.getPos());
+            ModNetwork.sendToServer(new MuseumCatalogResetMessage(tile.getWorld(),tile.getPos()));
+        });
+        this.addButton(resetButton);
     }
 
     @Override
@@ -88,15 +82,36 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
     public void drawArtifacts(){
         this.itemRenderer.zLevel = 1;
         int bumpDown = 18;
-        int startX = 8 + this.guiLeft;
+        int tierStartX = 8 + this.guiLeft + bumpDown;
+        int startX = 8 + this.guiLeft + bumpDown*2;
         int startY = 9 + this.guiTop;
         MuseumCatalogTile tile = (MuseumCatalogTile) this.container.tileEntity;
         //tile.serializePedestalsNBT();
         ArcheArtifactItem[] artifactItemsList = MuseumCatalogBlock.getArtifactItemList();
+
+        ItemStack archeTier0 = new ItemStack(ModBlocks.DIRT_DEPOSIT.get(),1);
+        ItemStack archeTier1 = new ItemStack(ModBlocks.STONE_DEPOSIT.get(),1);
+        ItemStack archeTier2 = new ItemStack(ModBlocks.OBSIDIAN_DEPOSIT.get(),1);
+        ItemStack archeTier3 = new ItemStack(ModBlocks.NETHERRACK_DEPOSIT.get(),1);
+        ItemStack archeTier4 = new ItemStack(ModBlocks.ENDSTONE_DEPOSIT.get(),1);
+
+        this.itemRenderer.renderItemIntoGUI(archeTier0,tierStartX,startY+bumpDown*0);
+        this.itemRenderer.renderItemIntoGUI(archeTier1,tierStartX,startY+bumpDown*1);
+        this.itemRenderer.renderItemIntoGUI(archeTier2,tierStartX,startY+bumpDown*2);
+        this.itemRenderer.renderItemIntoGUI(archeTier3,tierStartX,startY+bumpDown*3);
+        this.itemRenderer.renderItemIntoGUI(archeTier4,tierStartX,startY+bumpDown*4);
+
+        int tiers[] = new int[5];
+
         for (int i = 0; i < artifactItemsList.length; i++) {
             boolean completed = tile.artifactCompletion[i];
             ArcheArtifactItem artifact = artifactItemsList[i];
-            this.renderArtifactItemIntoGUI(completed,new ItemStack(artifact, 1),startX + bumpDown*(i%9),startY+bumpDown*Math.round(i/9));
+            if (artifact != null) {
+                int row = artifact.archeTier;
+                int col = tiers[row];
+                this.renderArtifactItemIntoGUI(completed, new ItemStack(artifact, 1), startX + bumpDown * col, startY + bumpDown * row);
+                tiers[row]++;
+            }
         }
     }
 
@@ -153,7 +168,8 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
         this.minecraft.getTextureManager().bindTexture(GUI);
         int i = this.guiLeft;
         int j = this.guiTop;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        int ySize = 184;
+        this.blit(matrixStack, i, j, 0, 0, this.xSize, ySize);
 /*
         if(container.isLightningStorm()) {
             this.blit(matrixStack, i + 82, j + 9, 176, 0, 13, 17);
@@ -162,13 +178,14 @@ public class MuseumCatalogScreen extends ContainerScreen<MuseumCatalogContainer>
 
     }
 
-
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         super.drawGuiContainerForegroundLayer(matrixStack, x, y);
         initButton(this.container);
     }
 
+    protected void drawResetButton(){
 
+    }
 
 }

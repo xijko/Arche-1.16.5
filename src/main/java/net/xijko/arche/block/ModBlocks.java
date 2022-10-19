@@ -163,6 +163,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CORPSE_FLOWER = BLOCKS.register("corpse_flower",
             () -> new CorpseFlower(AbstractBlock.Properties.from(Blocks.WHEAT))
     );
+    public static final RegistryObject<Block> CORPSE_SOIL = BLOCKS.register("corpse_soil",
+            () -> new Block(AbstractBlock.Properties.create(Material.ORGANIC).harvestLevel(1).harvestTool(ToolType.SHOVEL).setRequiresTool().hardnessAndResistance(1f))
+    );
 
     //google "generics registry object"
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
