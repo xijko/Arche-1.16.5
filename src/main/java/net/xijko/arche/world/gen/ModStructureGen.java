@@ -48,8 +48,6 @@ public class ModStructureGen {
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-        LOGGER.warn("BIOME GEN INFO HERE BOI - " + ForgeRegistries.STRUCTURE_FEATURES.getValues());
-
         event.getGeneration().getFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES).forEach(configuredFeatureSupplier -> {
             if (configuredFeatureSupplier.get().getFeature().getRegistryName() == Structure.DESERT_PYRAMID.getRegistryName()) {
                 generateStructureOre(overworldOres,

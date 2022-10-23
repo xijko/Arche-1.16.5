@@ -22,3 +22,9 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .idea/gradle.xml
 
+*.gz
+run/logs/debug.log
+run/logs/latest.log
+*.bbmodel
+.idea/workspace.xml
+.idea/workspace.xml

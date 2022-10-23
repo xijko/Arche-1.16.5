@@ -40,8 +40,13 @@ public class ModTileEntities {
                     DisplayPedestalTile::new, ModBlocks.DISPLAY_PEDESTAL.get()).build(null));
 
     public static RegistryObject<TileEntityType<MuseumCatalogTile>> MUSEUM_CATALOG_TILE =
-            TILE_ENTITIES.register("museum_datalog_tile", () -> TileEntityType.Builder.create(
+            TILE_ENTITIES.register("museum_catalog_tile", () -> TileEntityType.Builder.create(
                     MuseumCatalogTile::new, ModBlocks.DISPLAY_PEDESTAL.get()).build(null));
+
+
+    public static RegistryObject<TileEntityType<CandleLanternTile>> CANDLE_LANTERN_TILE =
+            TILE_ENTITIES.register("candle_lantern_tile", () -> TileEntityType.Builder.create(
+                    CandleLanternTile::new, ModBlocks.CANDLE_LANTERN.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);

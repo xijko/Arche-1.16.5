@@ -117,24 +117,6 @@ public class DisplayPedestalBlock extends BreakableBlock {
                         }
                     }
                     tileEntity.markDirty();
-
-                    /*if(stack.isEmpty()){
-                        if(playerHeldStack.isEmpty()){
-
-                        }
-                        handler.insertItem(0,playerHeldStack.copy(),false);
-                        playerHeldStack.shrink(1);
-                        return ActionResultType.SUCCESS;
-                    }else{
-                        ItemStack stackOut = handler.extractItem(0,1,false);
-                        if(playerHeldStack.isEmpty()){
-                            player.setHeldItem(handIn,stackOut);
-                            return ActionResultType.SUCCESS;
-                        }else{
-                            player.addItemStackToInventory(stackOut);
-                            return ActionResultType.SUCCESS;
-                        }
-                    }*/
                 }
 
             } else {

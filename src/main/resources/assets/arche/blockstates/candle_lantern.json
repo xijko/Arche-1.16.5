@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "arche:block/candle_lantern"
+    },
+    "facing=east": {
+      "model": "arche:block/candle_lantern",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "arche:block/candle_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "arche:block/candle_lantern",
+      "y": 270
+    }
+  }
+}

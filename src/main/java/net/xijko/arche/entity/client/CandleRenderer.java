@@ -23,6 +23,8 @@ public class CandleRenderer extends GeoEntityRenderer<CandleEntity> {
         return null;
     }
 
+
+
     @Override
     public RenderType getRenderType(CandleEntity animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
         return super.getRenderType(animatable, partialTicks, stack, renderTypeBuffer, vertexBuilder, packedLightIn, textureLocation);

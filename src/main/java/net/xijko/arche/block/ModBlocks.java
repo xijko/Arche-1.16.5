@@ -20,7 +20,6 @@ import net.xijko.arche.item.ModItemGroup;
 import net.xijko.arche.item.ModItems;
 import net.xijko.arche.storages.examplestorage.ExampleStorageBlock;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -159,6 +158,11 @@ public class ModBlocks {
             () -> new Block(AbstractBlock.Properties.create(Material.EARTH).harvestLevel(0).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0f))
     );*/
 
+    //artifacts
+    public static final RegistryObject<Block> CANDLE_LANTERN = BLOCKS.register("candle_lantern",
+            CandleLanternBlock::new
+    );
+
     //plants
     public static final RegistryObject<Block> CORPSE_FLOWER = BLOCKS.register("corpse_flower",
             () -> new CorpseFlower(AbstractBlock.Properties.from(Blocks.WHEAT))
@@ -166,6 +170,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> CORPSE_SOIL = BLOCKS.register("corpse_soil",
             () -> new Block(AbstractBlock.Properties.create(Material.ORGANIC).harvestLevel(1).harvestTool(ToolType.SHOVEL).setRequiresTool().hardnessAndResistance(1f))
     );
+
+    //util
+    public static final RegistryObject<Block> LIGHT_BLOCK = BLOCKS.register("light_block",
+            () -> new LightBlock(AbstractBlock.Properties.create(Material.AIR))
+    );
+
 
     //google "generics registry object"
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){

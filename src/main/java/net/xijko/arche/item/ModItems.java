@@ -1,5 +1,6 @@
 package net.xijko.arche.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -8,6 +9,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.xijko.arche.Arche;
+import net.xijko.arche.block.CandleLanternBlock;
+import net.xijko.arche.block.LightBlock;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.block.artifact.DirtCoin;
 import net.xijko.arche.block.crops.SoilBag;
@@ -212,13 +215,21 @@ public class ModItems {
             () -> new ArcheArtifactBroken(ModItems.CORPSE_FLOWER_SOILBAG.get(),9,ModItems.DIRT_STRING.get(),9,Items.SOUL_SOIL, 4, Items.ZOMBIE_HEAD,4,Items.SKELETON_SKULL,1,true));
 
 
+    //artifacts
+    public static final RegistryObject<CandleLanternItem> CANDLE_LANTERN = ITEMS.register("candle_lantern_item",
+            CandleLanternItem::new);
+
     //montana's items
 
     //dirt tier artifacts
     public static final RegistryObject<Item> MONTANA_HAT = ITEMS.register("montana_hat",
             MontanaHatItem::new);
 
+    //util
     public static final RegistryObject<Item> CANDLE_SPAWN_EGG = ITEMS.register("candle_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.CANDLE, 0xFFFFFF, 0x000000, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+
+    public static final RegistryObject<Item> LIGHT_BLOCK_ITEM = ITEMS.register("light_block",
+            () -> new BlockItem(LIGHT_BLOCK.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",

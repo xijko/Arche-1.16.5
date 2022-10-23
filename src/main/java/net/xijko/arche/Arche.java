@@ -6,6 +6,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.structure.JigsawStructure;
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.entity.CandleEntity;
 import net.xijko.arche.entity.ModEntityTypes;
+import net.xijko.arche.entity.client.CandleLanternRenderer;
 import net.xijko.arche.entity.client.CandleRenderer;
 import net.xijko.arche.item.ArcheArtifactItem;
 import net.xijko.arche.screen.DisplayPedestalScreen;
@@ -44,7 +46,9 @@ import net.xijko.arche.network.ModNetwork;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainer;
 import net.xijko.arche.storages.toolbelt.ToolBeltContainerScreen;
 import net.xijko.arche.structures.ModStructures;
+import net.xijko.arche.tileentities.CandleLanternTile;
 import net.xijko.arche.tileentities.ModTileEntities;
+import net.xijko.arche.tileentities.client.CandleLanternTileRenderer;
 import net.xijko.arche.util.ModKeybinds;
 import net.xijko.arche.util.render.DisplayPedestalTileRenderer;
 import net.xijko.arche.villagers.ModVillagers;
@@ -143,6 +147,7 @@ public class Arche
         RenderTypeLookup.setRenderLayer(ModBlocks.DISPLAY_PEDESTAL.get(), RenderType.getTranslucent());
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.DISPLAY_PEDESTAL_TILE.get(), DisplayPedestalTileRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CANDLE.get(), CandleRenderer::new);
+       ClientRegistry.bindTileEntityRenderer(ModTileEntities.CANDLE_LANTERN_TILE.get(), CandleLanternTileRenderer::new);
 
 
     }
