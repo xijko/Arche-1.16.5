@@ -1,7 +1,9 @@
-.gradle
 build/
 deps/
 run/
+gradle/
+src/*
+!src/main/
 .kra
 .log
 .log.gz
