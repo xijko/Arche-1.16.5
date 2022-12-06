@@ -5,62 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff9c82e2-373f-476c-97ad-99c9a51c4fec" name="Changes" comment="Savepoint">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/CandleEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/ModEntityTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/events/ModEventBusEvents.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaHatItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaHatModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/network/MuseumCatalogResetMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_entity.animation.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/blockstates/corpse_soil.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/blockstates/museum_catalog.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_entity.geo.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/corpse_soil.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog_ew.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog_ew.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog_ew.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/scuba_block.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/chicken.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/custom_model.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/montana_hat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/montana_hat_block.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/montana_hat_block.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/scuba_block.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/village_ring_block.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/village_ring_block.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/village_ring_block2.bbmodel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/village_ring_block2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/candle_spawn_egg.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/montana_hat.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/museum_catalog.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/scuba.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/corpse_soil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/museum_catalog.png-autosave.kra" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/entity/candle_entity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/equipment/montana_hat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/equipment/village_ring_block.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/equipment/village_ring_block2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/gui/museum_catalog.kra" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/gui/museum_catalog.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/gui/restore_table - Copy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/arche/structures/desert_museum_1.nbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/arche/structures/plains_museum_1.nbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/curios/tags/items/head.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/debug-1.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/debug-2.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/debug-3.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/debug-4.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/debug-5.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_28_2022_4_26_PM__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/WhipProjectileEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaWhipItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/WhipProjectileItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/client/MontanaWhipItemModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/client/MontanaWhipItemRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/montana_whip_item.animation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/montana_whip_item.geo.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/montana_whip_item.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/item/montana_whip_item.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/item/whip.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dirt_debris.kra" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dirt_debris.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poopdetritus.kra" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poopdetritus.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-2.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-3.log.gz" afterDir="false" />
@@ -69,63 +30,24 @@
       <change beforePath="$PROJECT_DIR$/run/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/options.txt" beforeDir="false" afterPath="$PROJECT_DIR$/run/options.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM-1/data/raids.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/DIM-1/data/raids.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM1/data/raids_end.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/DIM1/data/raids_end.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/advancements/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/advancements/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/data/raids.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/data/raids.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/level.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/level.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/level.dat_old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/region/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/region/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World/stats/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World/stats/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/usercache.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/usercache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/Arche.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/Arche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/DisplayPedestalBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/DisplayPedestalBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/ModBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/ModBlocks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/MuseumCatalogBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/MuseumCatalogBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/artifact/DirtCoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/artifact/DirtCoin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/artifact/VillageRingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/VillageRingItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/crops/CorpseFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/crops/CorpseFlower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/crops/SoilBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/crops/SoilBag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/container/DisplayPedestalContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/container/DisplayPedestalContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/container/MuseumCatalogContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/container/MuseumCatalogContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/container/MuseumCatalogIInventory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ArcheArtifactItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ArcheArtifactItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/CandleLanternBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/CandleLanternBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/CandleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/CandleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/ModEntityTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/ModEntityTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleLanternModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleLanternModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/CandleLanternItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/CandleLanternItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ModItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ModItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ScubaItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ScubaItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ScubaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ScubaModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ToolBeltItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ToolBeltItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ToolBeltModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ToolBeltModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/network/ModNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/network/ModNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/screen/DisplayPedestalScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/screen/DisplayPedestalScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/screen/MuseumCatalogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/screen/MuseumCatalogScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/structures/ModStructures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/structures/ModStructures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/DisplayPedestalTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/DisplayPedestalTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/MuseumCatalogTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/MuseumCatalogTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/world/structures/village/MuseumStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/world/structures/village/MuseumStructure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/lang/en_us.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/VoxelShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/VoxelShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/artifact_pedestal.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/artifact_pedestal.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l1.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l3.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/cleaning_table_l3.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/display_pedestal.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/display_pedestal.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/museum_catalog.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/restore_table.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/restore_table.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/tool_belt_item.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/tool_belt_item.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/tool_belt_item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/block/tool_belt_item.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/scuba.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/scuba.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/equipment/village_ring.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/village_ring.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/village_ring.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/arche/patchouli_books/field_guide/en_us/entries/2-deposits/2-obsidian.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/arche/patchouli_books/field_guide/en_us/entries/2-deposits/2-obsidian.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/arche/patchouli_books/field_guide/en_us/entries/2-deposits/4-endstone.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/arche/patchouli_books/field_guide/en_us/entries/2-deposits/4-endstone.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/arche/structures/desert_museum.nbt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/CandleLanternTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/CandleLanternTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern_n.animation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern.animation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern_w.animation.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern.geo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_empty.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_empty.geo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_item.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_item.geo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_n.geo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_w.geo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.bbmodel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/candle_lantern.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/candle_lantern.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,23 +71,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="TutorialMod2" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="TutorialMod2" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="TutorialMod2" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="TutorialMod2" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -216,23 +121,25 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/arche/blockstates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/arche/models/item" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\models\item" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\blockstates" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\models\block" />
-      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\models\item" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\data\curios\tags\items" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\models\block" />
+      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\blockstates" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\models\entity" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\geo" />
       <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\animations" />
-      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\textures\entity" />
-      <recent name="C:\Forge\TutorialMod2\src\main\resources\assets\arche\animations\candle_entity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.xijko.arche.item.client" />
+      <recent name="net.xijko.arche.tileentities" />
       <recent name="net.xijko.arche.item" />
       <recent name="net.xijko.arche.network" />
     </key>

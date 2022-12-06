@@ -3,6 +3,8 @@ package net.xijko.arche.item;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.xijko.arche.block.CandleLanternBlock;
 import net.xijko.arche.block.ModBlocks;
 import net.xijko.arche.item.client.CandleLanternItemRenderer;
@@ -32,5 +34,10 @@ public class CandleLanternItem extends BlockItem implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.manager;
+    }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        return super.onItemUse(context);
     }
 }

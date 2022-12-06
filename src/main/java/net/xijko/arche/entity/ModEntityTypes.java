@@ -1,5 +1,6 @@
 package net.xijko.arche.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +20,12 @@ public class ModEntityTypes {
                     () -> EntityType.Builder.create(CandleEntity::new, EntityClassification.CREATURE)
                             .size(0.25F,0.5F)
                             .build(new ResourceLocation(Arche.MOD_ID, "candle_entity").toString()));
+
+
+    public static final RegistryObject<EntityType<WhipProjectileEntity>> WHIP_PROJECTILE =
+            ENTITY_TYPES.register("whip_projectile_entity",
+                    () -> EntityType.Builder.create(WhipProjectileEntity::new, EntityClassification.MISC)
+                            .build(new ResourceLocation(Arche.MOD_ID, "whip_projectile_entity").toString()));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

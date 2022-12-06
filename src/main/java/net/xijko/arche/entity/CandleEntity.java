@@ -102,11 +102,11 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
         if(lanternPos.equals(new BlockPos(0, 0, 0))) return;
         if(world.getBlockState(lanternPos).getBlock() instanceof CandleLanternBlock){
             if(world.getBlockState(lanternPos).get(LIT)){
-                this.removeLightBlock();
+                this.removeStoredLightBlock();
                 this.setHealth(0);
             }
         }else{
-            this.removeLightBlock();
+            this.removeStoredLightBlock();
             this.setHealth(0);
         }
     }
@@ -142,14 +142,12 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
     }
 
     private void spawnLightBlock(){
-        if(!world.isRemote()) return;
-        String worldPrint = this.world.toString();
+        if(world.isRemote()) return;
             Vector3d pos = this.getPositionVec();
 
             int lx = this.lastLightX;
             int ly = this.lastLightY;
             int lz = this.lastLightZ;
-            BlockPos lastLight = new BlockPos(lx,ly,lz);
 
                 int nlx = MathHelper.floor(pos.getX());
                 int nly = MathHelper.floor(pos.getY());
@@ -159,13 +157,13 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
                 BlockPos nextLight = new BlockPos(nlx,nly,nlz);
 
                 if(lx*ly*lz == 0){
-                    this.lastLightX = MathHelper.floor(this.getPosX());
-                    this.lastLightY = MathHelper.floor(this.getPosY());
-                    this.lastLightZ = MathHelper.floor(this.getPosZ());
+                    this.lastLightX = MathHelper.floor(pos.getX());
+                    this.lastLightY = MathHelper.floor(pos.getY());
+                    this.lastLightZ = MathHelper.floor(pos.getZ());
                 }
 
                 if(!this.isAlive()){
-                    removeLightBlock();
+                    removeStoredLightBlock();
                     return;
                 }
 
@@ -173,11 +171,9 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
                     int d = (nlx - lx)*(nlx - lx)+(nly - ly)*(nly - ly)+(nlz - lz)*(nlz - lz);
                     if(world.getLightValue(nextLight) < 7) {
                         if(d >= 1) {
-                            //updating lighting info isn't fast :(
-                            if(ly >= 0 && ly < 256 && world.getBlockState(lastLight).getBlock().getBlock() instanceof LightBlock) {
-                                world.setBlockState(lastLight, Blocks.AIR.getDefaultState());
+                            if(ly >= 0 && ly < 256) {
+                                removeStoredLightBlock();
                             }
-                            //Set the light block at the player's feet (if possible)
                             setLightBlock = true;
                         }
                         else {
@@ -187,8 +183,9 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
                         }
                     }
 
-                    if(setLightBlock && nly >= 0 && nly < 256 && world.isAirBlock(nextLight)) {
-                        world.setBlockState(nextLight, ModBlocks.LIGHT_BLOCK.get().getDefaultState());
+                    if(setLightBlock && nly >= 0 && nly < 256) {
+                        if(world.isAirBlock(nextLight)) world.setBlockState(nextLight, ModBlocks.LIGHT_BLOCK.get().getDefaultState());
+                        if(world.isAirBlock(nextLight.add(0,1,0))) world.setBlockState(nextLight.add(0,1,0), ModBlocks.LIGHT_BLOCK.get().getDefaultState());
                         this.lastLightX = nlx;
                         this.lastLightY = nly;
                         this.lastLightZ = nlz;
@@ -206,10 +203,18 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
         return super.isInWater();
     }
 
-    private void removeLightBlock(){
+    private void removeStoredLightBlock(){
         BlockPos lastPos = new BlockPos(this.lastLightX,this.lastLightY,this.lastLightZ);
-        if(world.getBlockState(lastPos).getBlock() instanceof LightBlock) {
-            world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
+        removeLightBlock(lastPos);
+    }
+
+    private void removeLightBlock(BlockPos posBottomLight){
+        BlockPos posTopLight = posBottomLight.add(0,1,0);
+        if(world.getBlockState(posBottomLight).getBlock() instanceof LightBlock) {
+            world.setBlockState(posBottomLight, Blocks.AIR.getDefaultState());
+        }
+        if(world.getBlockState(posTopLight).getBlock() instanceof LightBlock) {
+            world.setBlockState(posTopLight, Blocks.AIR.getDefaultState());
         }
     }
 
@@ -266,8 +271,13 @@ public class CandleEntity extends TameableEntity implements IAnimatable {
     }
 
     @Override
+    protected void dropExperience() {
+        return;
+    }
+
+    @Override
     public void onDeath(DamageSource cause) {
-        removeLightBlock();
+        removeStoredLightBlock();
         closeLantern();
         super.onDeath(cause);
     }

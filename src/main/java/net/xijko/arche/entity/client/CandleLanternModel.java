@@ -33,7 +33,7 @@ public class CandleLanternModel extends AnimatedGeoModel<CandleLanternTile> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(CandleLanternTile animatable) {
-        return new ResourceLocation(Arche.MOD_ID, "animations/candle_lantern"+ getDirectionForAnimations(animatable) +".animation.json");
+        return new ResourceLocation(Arche.MOD_ID, "animations/candle_lantern.animation.json");
     }
 
     private String getDirectionForAnimations(CandleLanternTile tile){

@@ -32,6 +32,7 @@ import net.xijko.arche.entity.ModEntityTypes;
 import net.xijko.arche.entity.client.CandleLanternRenderer;
 import net.xijko.arche.entity.client.CandleRenderer;
 import net.xijko.arche.item.ArcheArtifactItem;
+import net.xijko.arche.item.client.MontanaWhipItemRenderer;
 import net.xijko.arche.screen.DisplayPedestalScreen;
 import net.xijko.arche.screen.MuseumCatalogScreen;
 import net.xijko.arche.screen.RestoreTableScreen;
@@ -66,7 +67,7 @@ public class Arche
     public static final String MOD_ID = "arche";
 
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public static ArcheArtifactItem[] ARTIFACT_ITEM_LISTS = new ArcheArtifactItem[32];
 

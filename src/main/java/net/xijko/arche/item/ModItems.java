@@ -224,12 +224,18 @@ public class ModItems {
     //dirt tier artifacts
     public static final RegistryObject<Item> MONTANA_HAT = ITEMS.register("montana_hat",
             MontanaHatItem::new);
+    public static final RegistryObject<Item> MONTANA_WHIP = ITEMS.register("montana_whip_item",
+            MontanaWhipItem::new);
 
     //util
     public static final RegistryObject<Item> CANDLE_SPAWN_EGG = ITEMS.register("candle_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityTypes.CANDLE, 0xFFFFFF, 0x000000, new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
     public static final RegistryObject<Item> LIGHT_BLOCK_ITEM = ITEMS.register("light_block",
-            () -> new BlockItem(LIGHT_BLOCK.get(), new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
+            () -> new BlockItem(LIGHT_BLOCK.get(), new Item.Properties()));
+
+
+    public static final RegistryObject<Item> WHIP_PROJECTILE_ITEM = ITEMS.register("whip_projectile_item",
+            () -> new WhipProjectileItem(new Item.Properties().group(ModItemGroup.ARCHE_GROUP)));
 
 
     /*public static final RegistryObject<Item> CORPSE_FLOWER_SEED = ITEMS.register("corpse_flower_seed",
