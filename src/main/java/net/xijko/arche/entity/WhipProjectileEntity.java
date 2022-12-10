@@ -3,6 +3,8 @@ package net.xijko.arche.entity;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,15 +21,16 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -82,6 +85,12 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     }
 
 
+    public BlockRayTraceResult getHitVector(){
+        Vector3d vector3d = this.getMotion();
+        Vector3d vector3d2 = this.getPositionVec();
+        BlockRayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vector3d2, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        return raytraceresult;
+    }
 
     @Nullable
     @Override
@@ -92,10 +101,11 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     @Override
     public void tick() {
         super.tick();
-        if(this.ticksExisted > 1 || this.ticksInGround > 1){
+        LOGGER.warn(this.getPosition());
+        if(this.ticksExisted > 1 || this.inGround){
+            impactActivation();
             this.remove();
         }
-        LOGGER.warn(this.getPosition());
 
     }
 
@@ -126,7 +136,46 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
         return 0;
     }
 
+    protected void impactActivation() {
+        if(!this.world.isRemote()){
+            PlayerEntity player = (PlayerEntity) this.getShooter();
+            Direction impactFace = this.getHitVector().getFace();
+            BlockPos position = this.getPosition();
+            //activateBlock(position, player);
+            switch(impactFace){
+                case NORTH:
+                    position.add(0,0,-1);
+                    activateBlock(position, player);
+                    break;
+                case EAST:
+                    position.add(1,0,0);
+                    activateBlock(position, player);
+                    break;
+                case SOUTH:
+                    position.add(0,0,1);
+                    activateBlock(position, player);
+                    break;
+                case WEST:
+                    position.add(-1,0,0);
+                    activateBlock(position, player);
+                    break;
+                case UP:
+                    position.add(0,1,0);
+                    activateBlock(position, player);
+                    break;
+                case DOWN:
+                    position.add(0,-1,0);
+                    activateBlock(position, player);
+                    break;
+            }
+        }
+    }
 
+    private void activateBlock(BlockPos position, PlayerEntity player){
+        BlockState state = this.world.getBlockState(position);
+        state.onBlockActivated(this.world,player,player.swingingHand,this.getHitVector());
+        LOGGER.warn("Activated " + state + " at: " + position);
+    }
 
     @Override
     public void setIsCritical(boolean critical) {}

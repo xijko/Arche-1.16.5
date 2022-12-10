@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff9c82e2-373f-476c-97ad-99c9a51c4fec" name="Changes" comment="Savepoint">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/WhipProjectileEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaWhipItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/WhipProjectileItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/client/MontanaWhipItemModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/client/MontanaWhipItemRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/montana_whip_item.animation.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/montana_whip_item.geo.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/item/montana_whip_item.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/item/montana_whip_item.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/item/whip.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dirt_debris.kra" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dirt_debris.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/poopdetritus.kra" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/poopdetritus.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-2.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-3.log.gz" afterDir="false" />
@@ -29,25 +13,9 @@
       <change beforePath="$PROJECT_DIR$/run/logs/debug-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-5.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/options.txt" beforeDir="false" afterPath="$PROJECT_DIR$/run/options.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/usercache.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/usercache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/Arche.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/Arche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/CandleLanternBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/block/CandleLanternBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/CandleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/CandleEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/ModEntityTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/ModEntityTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleLanternModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/client/CandleLanternModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/CandleLanternItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/CandleLanternItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ModItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/ModItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/CandleLanternTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/tileentities/CandleLanternTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern_n.animation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern.animation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/animations/candle_lantern_w.animation.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern.geo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_empty.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_empty.geo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_item.geo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_item.geo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_n.geo.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/geo/candle_lantern_w.geo.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/models/entity/candle_entity.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/candle_lantern.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/arche/textures/block/candle_lantern.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/WhipProjectileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/entity/WhipProjectileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaWhipItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/xijko/arche/item/MontanaWhipItem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

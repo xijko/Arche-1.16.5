@@ -40,11 +40,12 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
     private boolean isDrawing = false;
     private boolean isPriming = false;
     private boolean isAttacking = false;
+    private boolean isResetting = false;
     private WhipProjectileEntity arrow;
     public static final Predicate<ItemStack> NOTHIN = (stack) -> true;
 
     public MontanaWhipItem() {
-        super(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).setISTER(() -> MontanaWhipItemRenderer::new));
+        super(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).setISTER(() -> MontanaWhipItemRenderer::new).maxDamage(256));
     }
 
     /*
@@ -99,7 +100,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
                 if (!((double)f < 0.1D)) {
                     boolean flag1 = true;
                     createProjectile(worldIn, entityLiving,f, (int) Math.floor((double) i /7));
-                    worldIn.playSound(null,entityLiving.getPosition(),SoundEvents.ENTITY_EGG_THROW,SoundCategory.PLAYERS,3.0F,8.0F);
+                    //worldIn.playSound(null,entityLiving.getPosition(),SoundEvents.ENTITY_EGG_THROW,SoundCategory.PLAYERS,3.0F,8.0F);
                     /*
                     int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
                     if (j > 0) {
@@ -117,7 +118,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
             abstractarrowentity.setIsCritical(true);
         }
 
-        abstractarrowentity.setHitSound(SoundEvents.ITEM_CROSSBOW_HIT);
+        abstractarrowentity.setHitSound(SoundEvents.ENTITY_BEE_STING);
         abstractarrowentity.setPosition(shooter.getPosX(), shooter.getPosYEye() - (double)0.1F, shooter.getPosZ());
         abstractarrowentity.setShooter(shooter);
         //abstractarrowentity.setShotFromCrossbow(true);
@@ -176,7 +177,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 150;
+        return 100;
     }
 
     @Override
@@ -189,10 +190,15 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
         }
         if(f>=1F){
             this.isDrawing = false;
+            this.isPriming = false;
             livingEntityIn.stopActiveHand();
+            resetWhip();
         }
     }
 
+    private void resetWhip(){
+        this.isResetting = true;
+    }
 
     @Override
     public Predicate<ItemStack> getAmmoPredicate() {
@@ -201,7 +207,14 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
 
-        if(!this.isAttacking && this.isDrawing) {
+        if(this.isResetting = true){
+            event.getController().markNeedsReload();
+            event.getController().setAnimationSpeed(1);
+            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.montana_whip_item.draw"));
+            this.isResetting=false;
+            return PlayState.CONTINUE;
+        }
+        else if(!this.isAttacking && this.isDrawing) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.montana_whip_item.draw"));
             return PlayState.CONTINUE;
         }
@@ -213,7 +226,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
             this.isAttacking=false;
             return PlayState.CONTINUE;
         }
-        if(event.getController().getCurrentAnimation() == null){
+        if(event.getController().getCurrentAnimation() == null || this.isResetting){
             event.getController().markNeedsReload();
             event.getController().setAnimationSpeed(1);
             event.getController().setAnimation(new AnimationBuilder().loop("animation.montana_whip_item.idle"));
