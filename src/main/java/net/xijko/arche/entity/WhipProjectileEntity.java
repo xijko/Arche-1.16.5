@@ -2,9 +2,9 @@ package net.xijko.arche.entity;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import net.minecraft.block.BellBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.gui.overlay.DebugOverlayGui;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,16 +21,11 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.tileentity.BellTileEntity;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -39,6 +34,7 @@ import java.util.Optional;
 
 public class WhipProjectileEntity extends AbstractArrowEntity{
     public static final DataParameter<Byte> CRITICAL = EntityDataManager.createKey(WhipProjectileEntity.class, DataSerializers.BYTE);
+    public static final DataParameter<String> SHOOTER = EntityDataManager.createKey(WhipProjectileEntity.class, DataSerializers.STRING);
     public static final DataParameter<Byte> PIERCE_LEVEL = EntityDataManager.createKey(WhipProjectileEntity.class, DataSerializers.BYTE);
     public static final DataParameter<Byte> FLAGS = EntityDataManager.createKey(WhipProjectileEntity.class, DataSerializers.BYTE);
     public static final DataParameter<Integer> AIR = EntityDataManager.createKey(WhipProjectileEntity.class, DataSerializers.VARINT);
@@ -60,6 +56,7 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     private SoundEvent hitSound = this.getHitEntitySound();
     private IntOpenHashSet piercedEntities;
     private List<Entity> hitEntities;
+    public ItemStack stack;
 
 
     public WhipProjectileEntity(EntityType<? extends AbstractArrowEntity> whipProjectileEntityEntityType, World world) {
@@ -74,6 +71,7 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
         this.dataManager.register(CRITICAL, (byte)0);
         this.dataManager.register(PIERCE_LEVEL, (byte)0);
         this.dataManager.register(REACH, 0);
+        this.dataManager.register(SHOOTER, "");
     }
 
 
@@ -88,7 +86,7 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     public BlockRayTraceResult getHitVector(){
         Vector3d vector3d = this.getMotion();
         Vector3d vector3d2 = this.getPositionVec();
-        BlockRayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vector3d2, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        BlockRayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vector3d, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
         return raytraceresult;
     }
 
@@ -102,11 +100,15 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     public void tick() {
         super.tick();
         LOGGER.warn(this.getPosition());
-        if(this.ticksExisted > 1 || this.inGround){
+        if(this.ticksExisted > 2 || this.inGround){
             impactActivation();
             this.remove();
         }
 
+    }
+
+    public void setStack(ItemStack stackIn){
+        this.stack = stackIn;
     }
 
     @Override
@@ -140,41 +142,52 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
         if(!this.world.isRemote()){
             PlayerEntity player = (PlayerEntity) this.getShooter();
             Direction impactFace = this.getHitVector().getFace();
-            BlockPos position = this.getPosition();
+            BlockPos position = new BlockPos(this.getPosition());
+            assert player != null;
+            this.stack.damageItem(1, player, (livingEntity) -> {
+                player.sendBreakAnimation(Hand.MAIN_HAND);
+            });
             //activateBlock(position, player);
+            ActionResultType initialResult = activateBlock(position,player,impactFace);
+            if(initialResult.isSuccessOrConsume()){
+                LOGGER.warn("Successfully activated impact block!");
+                return;
+            }else{
+                LOGGER.warn("Impact activation was not a success or consume: "+initialResult);
+            }
             switch(impactFace){
                 case NORTH:
                     position.add(0,0,-1);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
                 case EAST:
                     position.add(1,0,0);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
                 case SOUTH:
                     position.add(0,0,1);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
                 case WEST:
                     position.add(-1,0,0);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
                 case UP:
                     position.add(0,1,0);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
                 case DOWN:
                     position.add(0,-1,0);
-                    activateBlock(position, player);
+                    activateBlock(position, player, impactFace);
                     break;
             }
         }
     }
 
-    private void activateBlock(BlockPos position, PlayerEntity player){
+    private ActionResultType activateBlock(BlockPos position, PlayerEntity player, Direction dir){
         BlockState state = this.world.getBlockState(position);
-        state.onBlockActivated(this.world,player,player.swingingHand,this.getHitVector());
-        LOGGER.warn("Activated " + state + " at: " + position);
+        LOGGER.warn("Activated " + state + " at: " + position + "from " + dir);
+        return state.onBlockActivated(this.world,player,Hand.MAIN_HAND,this.getHitVector().withPosition(position).withFace(dir));
     }
 
     @Override

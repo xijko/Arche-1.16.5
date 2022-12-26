@@ -1,17 +1,10 @@
 package net.xijko.arche.item;
 
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ICrossbowUser;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.item.*;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
@@ -20,16 +13,13 @@ import net.minecraft.world.World;
 import net.xijko.arche.entity.ModEntityTypes;
 import net.xijko.arche.entity.WhipProjectileEntity;
 import net.xijko.arche.item.client.MontanaWhipItemRenderer;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.Animation;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
@@ -48,43 +38,10 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
         super(new Item.Properties().group(ModItemGroup.ARCHE_GROUP).setISTER(() -> MontanaWhipItemRenderer::new).maxDamage(256));
     }
 
-    /*
-    @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-        boolean flag = entity instanceof ClientPlayerEntity;
-        LOGGER.warn(entity.swingProgressInt);
-        if(entity.swingProgressInt<=0 && animationStart){
-            this.animationStart=true;
-            return super.onEntitySwing(stack, entity);
-        }else{
-            this.animationStart=false;
-            return false;
-        }
-
-    }*/
-
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
-
-
-    /*
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (this.isDrawing) {
-            this.isDrawing=false;
-            this.isAttacking=true;
-            return ActionResult.resultConsume(itemstack);
-        } else if (!this.isDrawing) {
-                this.isDrawing=false;
-                this.isAttacking=false;
-            return ActionResult.resultConsume(itemstack);
-        }
-        return ActionResult.resultConsume(itemstack);
-    }
-    */
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
@@ -99,7 +56,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
                 float f = getArrowVelocity(i);
                 if (!((double)f < 0.1D)) {
                     boolean flag1 = true;
-                    createProjectile(worldIn, entityLiving,f, (int) Math.floor((double) i /7));
+                    createProjectile(worldIn, entityLiving,f, (int) Math.floor((double) i /7), stack);
                     //worldIn.playSound(null,entityLiving.getPosition(),SoundEvents.ENTITY_EGG_THROW,SoundCategory.PLAYERS,3.0F,8.0F);
                     /*
                     int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
@@ -127,7 +84,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
     }
 
 
-    public void createProjectile(World world, LivingEntity shooter, Float velocity, int reach){
+    public void createProjectile(World world, LivingEntity shooter, Float velocity, int reach, ItemStack stackIn){
 
         if (!world.isRemote) {
             WhipProjectileEntity projectileentity;
@@ -149,7 +106,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
                 projectileentity.shoot(vector3f.getX(), vector3f.getY(), vector3f.getZ(), reach, 0);
                 projectileentity.setReach(reach);
             }
-
+            projectileentity.setStack(stackIn);
             world.addEntity(projectileentity);
             LOGGER.warn("position is: "+projectileentity.getPosition());
             world.playSound((PlayerEntity)null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1);
@@ -207,14 +164,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
 
-        if(this.isResetting = true){
-            event.getController().markNeedsReload();
-            event.getController().setAnimationSpeed(1);
-            event.getController().setAnimation(new AnimationBuilder().playOnce("animation.montana_whip_item.draw"));
-            this.isResetting=false;
-            return PlayState.CONTINUE;
-        }
-        else if(!this.isAttacking && this.isDrawing) {
+        if(!this.isAttacking && this.isDrawing) {
             event.getController().setAnimation(new AnimationBuilder().playOnce("animation.montana_whip_item.draw"));
             return PlayState.CONTINUE;
         }
@@ -230,7 +180,7 @@ public class MontanaWhipItem extends BowItem implements IAnimatable {
             event.getController().markNeedsReload();
             event.getController().setAnimationSpeed(1);
             event.getController().setAnimation(new AnimationBuilder().loop("animation.montana_whip_item.idle"));
-            return PlayState.CONTINUE;
+            return PlayState.STOP;
         }
         return PlayState.CONTINUE;
     }
