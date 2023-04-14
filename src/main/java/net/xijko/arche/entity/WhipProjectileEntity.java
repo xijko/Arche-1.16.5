@@ -100,8 +100,7 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     public void tick() {
         super.tick();
         LOGGER.warn(this.getPosition());
-        if(this.ticksExisted > 2 || this.inGround){
-            impactActivation();
+        if(this.ticksExisted > 2){
             this.remove();
         }
 
@@ -138,56 +137,46 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
         return 0;
     }
 
-    protected void impactActivation() {
-        if(!this.world.isRemote()){
+    protected void impactActivation(RayTraceResult result, BlockPos blockPos, Direction face) {
             PlayerEntity player = (PlayerEntity) this.getShooter();
-            Direction impactFace = this.getHitVector().getFace();
-            BlockPos position = new BlockPos(this.getPosition());
             assert player != null;
             this.stack.damageItem(1, player, (livingEntity) -> {
                 player.sendBreakAnimation(Hand.MAIN_HAND);
             });
             //activateBlock(position, player);
-            ActionResultType initialResult = activateBlock(position,player,impactFace);
-            if(initialResult.isSuccessOrConsume()){
+            if(activateBlock(result, blockPos,player,face).isSuccessOrConsume()){
                 LOGGER.warn("Successfully activated impact block!");
                 return;
             }else{
-                LOGGER.warn("Impact activation was not a success or consume: "+initialResult);
+                LOGGER.warn("Impact activation was not a success or consume.");
+                switch(face){
+                    case NORTH:
+                        activateBlock(result, blockPos.add(0,0,-1), player, face);
+                        break;
+                    case EAST:
+                        activateBlock(result, blockPos.add(1,0,0), player, face);
+                        break;
+                    case SOUTH:
+                        activateBlock(result, blockPos.add(0,0,1), player, face);
+                        break;
+                    case WEST:
+                        activateBlock(result, blockPos.add(-1,0,0), player, face);
+                        break;
+                    case UP:
+                        activateBlock(result, blockPos.add(0,1,0), player, face);
+                        break;
+                    case DOWN:
+                        activateBlock(result, blockPos.add(0,-1,0), player, face);
+                        break;
+                }
             }
-            switch(impactFace){
-                case NORTH:
-                    position.add(0,0,-1);
-                    activateBlock(position, player, impactFace);
-                    break;
-                case EAST:
-                    position.add(1,0,0);
-                    activateBlock(position, player, impactFace);
-                    break;
-                case SOUTH:
-                    position.add(0,0,1);
-                    activateBlock(position, player, impactFace);
-                    break;
-                case WEST:
-                    position.add(-1,0,0);
-                    activateBlock(position, player, impactFace);
-                    break;
-                case UP:
-                    position.add(0,1,0);
-                    activateBlock(position, player, impactFace);
-                    break;
-                case DOWN:
-                    position.add(0,-1,0);
-                    activateBlock(position, player, impactFace);
-                    break;
-            }
+            this.remove();
         }
-    }
 
-    private ActionResultType activateBlock(BlockPos position, PlayerEntity player, Direction dir){
+    private ActionResultType activateBlock(RayTraceResult result, BlockPos position, PlayerEntity player, Direction dir){
         BlockState state = this.world.getBlockState(position);
         LOGGER.warn("Activated " + state + " at: " + position + "from " + dir);
-        return state.onBlockActivated(this.world,player,Hand.MAIN_HAND,this.getHitVector().withPosition(position).withFace(dir));
+        return state.onBlockActivated(this.world,player,Hand.MAIN_HAND,((BlockRayTraceResult) result).withPosition(position));
     }
 
     @Override
@@ -310,6 +299,18 @@ public class WhipProjectileEntity extends AbstractArrowEntity{
     public IPacket<?> createSpawnPacket() {
         Entity entity = this.getShooter();
         return new SSpawnObjectPacket(entity);
+    }
+
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (result.getType() == RayTraceResult.Type.BLOCK){
+            if (!world.isRemote()){
+                BlockPos blockPos = ((BlockRayTraceResult)result).getPos();
+                Direction face = ((BlockRayTraceResult)result).getFace();
+                impactActivation(result, blockPos, face);
+            }
+        }
+        super.onImpact(result);
     }
 
     @Override
